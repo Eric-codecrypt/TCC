@@ -24,13 +24,15 @@ class UserModel
         }
     }
 
-    public function login($username, $email, $password)
+    public function login($email, $password)
     {
-        $sql = "SELECT * FROM users WHERE username = ? AND email = ?";
+        // Primeiro busque o usuário pelo email (ou username se preferir)
+        $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$username, $email]);
+        $stmt->execute([$email]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Depois verifique se a senha corresponde com password_verify
         if ($user && password_verify($password, $user['password'])) {
             return $user;
         }

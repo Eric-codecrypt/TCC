@@ -12,8 +12,9 @@ class UserController {
         return $this->UserModel->register($username, $email, $password);
     }
 
-    public function login($username, $email, $password) {
-        return $this->UserModel->login($username, $email, $password);
+    public function login($email, $password)
+    {
+        return $this->UserModel->login($email, $password);
     }
 
     public function findById($id) {
