@@ -96,17 +96,40 @@
 
         <div class="sobre">
             <div class="sobre-img">
-                <img src="IMG/foto-sobre.png" alt="">
+                <img src="IMG/foto-sobre.png" alt="" class="imgsbr">
             </div>
 
             <div class="sobre-conten">
-                <p> Move On</p>
+                <div class="titulo">
+                    <p class="title-sobre"> Move On</p>
+                    <p class="subt-sobre"> Fitness</p>
+                </div><br><br>
+
+                <div class="texto">
+
+                    <br><br>
+                    <p>Na Move On Fitness, nossa missão é ser o seu ponto de apoio na jornada rumo à sua melhor versão.
+                        Acreditamos que a evolução é um processo contínuo e que, com o suporte certo, você pode alcançar
+                        seus objetivos. Mais que uma academia, somos um ambiente seguro e acolhedor, onde o
+                        profissionalismo de nossa equipe se une a uma estrutura de ponta para garantir que seu treino
+                        seja sempre eficiente e motivador.</p><br>
+
+                    <p> Nosso compromisso com a excelência se reflete em tudo que fazemos. Contamos com instrutores
+                        experientes, planos de treino personalizados e equipamentos de última geração, tudo para que
+                        você se sinta no controle de sua evolução. Na Move On Fitness, não é apenas sobre mover-se, é
+                        sobre evoluir, dia após dia.</p>
+                </div>
             </div>
 
         </div>
     </Main>
 
 
+    <footer>
+        <div class="logofoot">
+            
+        </div>
+    </footer>
 </body>
 
 </html>

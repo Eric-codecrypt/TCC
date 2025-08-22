@@ -200,22 +200,116 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </div>
 
 <script>
-    function togglePassword() {
+    document.addEventListener('DOMContentLoaded', function() {
         const passwordField = document.getElementById('password');
         const passwordToggle = document.querySelector('.toggle-password');
+        const emailField = document.getElementById('email');
 
-        if (passwordField.type === 'password') {
-            passwordField.type = 'text';
-            passwordToggle.textContent = '👁️‍🗨️';
-        } else {
-            passwordField.type = 'password';
-            passwordToggle.textContent = '👁️';
+        // Foco automático no campo de email
+        if (emailField) {
+            emailField.focus();
+
+            // Prevenir o ícone de olho de receber foco ao navegar com Tab
+            emailField.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab' && !e.shiftKey) {
+                    e.preventDefault();
+                    passwordField.focus();
+                }
+            });
         }
-    }
 
-    // Foco automático no campo de email
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('email').focus();
+        // Função para alternar a visibilidade da senha
+        function togglePassword() {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                passwordToggle.textContent = '◉'; // Olho fechado
+                passwordToggle.setAttribute('aria-label', 'Ocultar senha');
+                passwordToggle.classList.add('password-visible');
+            } else {
+                passwordField.type = 'password';
+                passwordToggle.textContent = '◎'; // Olho aberto
+                passwordToggle.setAttribute('aria-label', 'Mostrar senha');
+                passwordToggle.classList.remove('password-visible');
+            }
+        }
+
+        // Adicionar evento de clique ao botão de toggle
+        if (passwordToggle) {
+            passwordToggle.addEventListener('click', togglePassword);
+
+            // Também permitir toggle com Enter/Space quando o botão estiver em foco
+            passwordToggle.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    togglePassword();
+                }
+            });
+        }
+
+        // Navegação por teclado melhorada
+        if (passwordField) {
+            passwordField.addEventListener('keydown', function(e) {
+                // Tab para ir para o botão de toggle
+                if (e.key === 'Tab' && !e.shiftKey) {
+                    e.preventDefault();
+                    passwordToggle.focus();
+                }
+                // Shift+Tab para voltar para o email
+                if (e.key === 'Tab' && e.shiftKey) {
+                    e.preventDefault();
+                    emailField.focus();
+                }
+            });
+        }
+
+        passwordToggle.addEventListener('keydown', function(e) {
+            // Tab para ir para o botão de submit
+            if (e.key === 'Tab' && !e.shiftKey) {
+                e.preventDefault();
+                document.querySelector('button[type="submit"]').focus();
+            }
+            // Shift+Tab para voltar para o campo de senha
+            if (e.key === 'Tab' && e.shiftKey) {
+                e.preventDefault();
+                passwordField.focus();
+            }
+        });
+
+        // Feedback visual para foco melhorado
+        const style = document.createElement('style');
+        style.textContent = `
+            .toggle-password:focus {
+                outline: 2px solid #667eea;
+                outline-offset: 2px;
+                border-radius: 3px;
+            }
+
+            .toggle-password.password-visible {
+                color: #667eea;
+            }
+
+            .toggle-password:hover {
+                color: #333;
+                transform: scale(1.1);
+                transition: transform 0.2s ease;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Prevenir submissão do formulário ao pressionar Enter no toggle
+        passwordToggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.stopPropagation();
+            }
+        });
+
+        // Focar no campo de email se houver erro (útil após tentativa falha)
+        <?php if (!empty($error_message)): ?>
+        if (emailField) {
+            emailField.focus();
+            emailField.select();
+        }
+        <?php endif; ?>
     });
 </script>
 </body>
