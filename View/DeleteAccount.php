@@ -5,7 +5,7 @@ include_once 'C:/Turma2/xampp/htdocs/Projeto-de-vida/config.php';
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: LoginAccount.php");
     exit;
 }
 
