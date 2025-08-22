@@ -24,6 +24,7 @@ if (!isset($_SESSION['user_id'])) {
     <li><a href="UpdateAccount.php">Atualizar Conta</a></li>
     <li><a href="DeleteAccount.php">Excluir Conta</a></li>
     <li><a href="LeaveAccount.php">Sair</a></li>
+    <li><a href="Plans.php"></a></li>
 </ul>
 
 <div class="cookie-backdrop" id="cookieBackdrop">
