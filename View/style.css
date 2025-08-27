@@ -459,3 +459,205 @@ hr {
 
 
 }
+
+/* =========================
+   Plans Page (Planos) Styles
+   ========================= */
+/* Keep these selectors specific to avoid affecting other pages */
+
+/* Generic container for this page */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* Header for plans page */
+header .container {
+    padding: 40px 16px;
+    text-align: center;
+}
+header .container h1 {
+    color: #ffffff;
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+header .container p {
+    color: #d9d9d9;
+    font-size: 18px;
+}
+
+/* Plans list */
+#plans-section {
+    padding: 40px 0 24px;
+}
+#plans-section h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 24px;
+}
+.plans-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+.plan-card {
+    background: #ffffff;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+.plan-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.10);
+}
+.plan-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+.price {
+    font-size: 20px;
+    font-weight: 600;
+    color: #B20000; /* brand red */
+    margin-bottom: 12px;
+}
+.features {
+    list-style: none;
+    margin: 0 0 16px 0;
+    padding: 0;
+}
+.features li {
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.features li:last-child {
+    border-bottom: none;
+}
+
+/* Buttons */
+.btn {
+    appearance: none;
+    border: none;
+    background-color: #B20000;
+    color: #ffffff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .2s ease, transform .05s ease;
+}
+.btn:hover {
+    background-color: #8f0000;
+}
+.btn:active {
+    transform: translateY(1px);
+}
+
+/* Hide/show blocks */
+.hidden {
+    display: none !important;
+}
+
+/* Payment form */
+#payment-section {
+    padding: 32px 0 48px;
+}
+.payment-form {
+    max-width: 540px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+.payment-form h3 {
+    margin-bottom: 6px;
+}
+#plan-price.price {
+    margin-bottom: 16px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+}
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="tel"] {
+    padding: 10px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+.form-row {
+    display: flex;
+    gap: 12px;
+}
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Success section as a simple modal overlay */
+#success-section {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.success-message {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+.success-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 12px;
+    border-radius: 50%;
+    background: #e6ffed;
+    color: #1a7f37;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+}
+.success-message h2 {
+    margin-bottom: 8px;
+}
+.success-message p {
+    margin: 6px 0;
+}
+.success-message .btn {
+    margin-top: 14px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .plans-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 600px) {
+    .plans-container {
+        grid-template-columns: 1fr;
+    }
+    header .container h1 {
+        font-size: 28px;
+    }
+}
