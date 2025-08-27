@@ -58,7 +58,7 @@
             </div>
         </div>
     </section>
-
+<!-- essa section é escondida quando seleciona um plano -->
     <section id="payment-section" class="hidden">
         <h2>Pagamento</h2>
         <div class="payment-form">
@@ -92,7 +92,7 @@
             </form>
         </div>
     </section>
-
+<!-- essa section é escondida como um "modal", ao clicar em "pagar agora" ele vai aparecer -->
     <section id="success-section" class="hidden">
         <div class="success-message">
             <div class="success-icon">✓</div>
