@@ -53,7 +53,7 @@ header {
 }
 
 .nav-link:hover {
-   transition: all 0.4s;
+    transition: all 0.4s;
     color: rgb(141, 141, 141);
 }
 
@@ -148,49 +148,49 @@ li p {
 }
 
 .btn-inic {
-   
+
     text-align: center;
     display: flex;
     gap: 20px;
     justify-content: center;
 }
 
-.btn1{
+.btn1 {
     border: none;
     background-color: #B20000;
     padding: 12px;
     border-radius: 8px;
 }
 
-.btn1:hover{
+.btn1:hover {
     transition: all 0.4s;
     background-color: #af4242;
-   
+
 }
 
 
-.btn1 a{
+.btn1 a {
     color: #ffffff;
     font-size: 25px;
     font-weight: 500;
     text-decoration: none;
 }
 
-.btn2{
+.btn2 {
     border: none;
     background-color: #303030;
     padding: 12px;
     border-radius: 8px;
 }
 
-.btn2:hover{
+.btn2:hover {
     transition: all 0.4s;
     background-color: #5a5a5a;
- 
+
 }
 
 
-.btn2 a{
+.btn2 a {
     color: #ffffff;
     font-size: 25px;
     font-weight: 500;
@@ -199,7 +199,7 @@ li p {
 
 /* SOBRE */
 
-.sobre{
+.sobre {
     background-color: #000000;
     padding: 50px;
     display: flex;
@@ -207,53 +207,175 @@ li p {
 
 
 
-.sobre-img{
-    width: 45%;
+.sobre-img {
+    flex-grow: 1;
 
     text-align: center;
     align-items: center;
 }
 
-.sobre-conten{
-    width: 45%;
+.sobre-conten {
+    flex-grow: 1;
 }
 
-.titulo{
+.titulo {
     text-align: center;
     padding-top: 20px;
 }
 
 
-.title-sobre{
+.title-sobre {
     font-size: 100px;
     color: #FF0000;
     font-family: 'Road Rage';
 }
 
-.subt-sobre{
+.subt-sobre {
     font-size: 80px;
     color: #ffffff;
     font-family: 'Road Rage';
     line-height: 0.2px;
 }
 
-.texto{
- 
+.texto {
+
     width: 80%;
     text-align: left;
     margin: 0 auto;
 
 }
 
-.texto p{
+.texto p {
     color: #ffffff;
     font-size: 22px;
-    
+
 }
 
-.imgsbr{
+.imgsbr {
     width: 400px;
 }
+
+/* banner */
+
+.banner{
+    background-color: #ff000000;
+    width: 100%;
+    text-align: center;
+}
+
+.web-banner{
+    margin: 0 auto;
+    width: 1000px;
+    border-radius: 10px;
+}
+
+
+/* FOOTER */
+
+footer {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.logofoot {
+    text-align: center;
+    padding: 20px;
+}
+
+hr {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.containerinfo {
+    width: 100%;
+    color: #ffffff;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+    padding: 3rem, 3.5rem;
+}
+
+.footer-contacts h3 {
+    margin-bottom: 0.75rem;
+}
+
+
+.footer-contacts h3 {
+    font-size: 25px;
+    font-weight: 400;
+}
+
+
+.footer-social-media {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.footer-social-media .footer-link {
+    height: 2.5rem;
+    width: 2.5rem;
+    color: #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.4s;
+    margin-top: 28px;
+}
+
+.email {
+    margin-top: 28px;
+}
+
+.footer-social-media .footer-link:hover {
+    opacity: 0.8;
+
+}
+
+#instagram {
+    background-color: #ffffff;
+}
+
+#facebook {
+    background-color: #ffffff;
+}
+
+#twitter {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.footer-link {
+    text-decoration: none;
+}
+
+.footer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    list-style: none;
+}
+
+.seplist {
+    background-color: #af424200;
+    width: 30%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.footer-copyright{
+    background-color: #141414;
+    text-align: center;
+    font-size: 17px;
+    padding: 15px;
+}
+
 
 /* Responsividade */
 @media (max-width: 1016px) {
@@ -312,4 +434,28 @@ li p {
     .mobile-menu.active {
         display: block;
     }
+
+    .sobre {
+        flex-direction: column;
+    }
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 40px;
+        text-align: center;
+        padding: 3rem, 3.5rem;
+    }
+
+    .seplist{
+    background-color: #af424200;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    
+}
+
+
+
+
 }
