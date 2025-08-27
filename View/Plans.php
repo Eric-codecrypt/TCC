@@ -2,7 +2,7 @@
 <!-- AQUI VAI UM HTML PARA MOSTRAR OS PLANOS, TRABALHO PRO FRONTEND -->
 
 <!--siga as classes que eu fiz para o css pfvr, eu dividi cada coisinha então só precisa seguir -->
-
+..
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
