@@ -1,3 +1,7 @@
+  <!-- Script -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="bootstrap.js"> </script>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -133,10 +137,43 @@
     
     <br><br><br><br>
 
-    <div class="carrosel">
 
+<div id="carousel" class="carousel slide" data-ride="carousel">
 
-    </div>
+    <!--   Bullets do carrossel, se aumentar uma imagem, aumente um li e acrescento o próximo número -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel" data-slide-to="1"></li>
+        <li data-target="#carousel" data-slide-to="2"></li>
+      </ol>
+    
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="img/carrosel1.png">
+        </div>
+    
+        <div class="carousel-item">
+          <img src="img/carrosel2.png">
+        </div>
+    
+        <div class="carousel-item">
+          <img src="img/carrosel3.png">
+        </div>
+        
+    <!--   Controladores | Botões -->
+      <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only"> Previous </span>
+      </a>
+      <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only"> Next </span>
+      </a> 
+    
+      </div> <!-- Fecha elementos dentro do carrossel -->
+      
+
+    </div> <!-- Fim do carrossel -->
 
     <div class="banner">
         <a href=""> <img src="IMG/bannerad.png" alt="" class="web-banner"></a>
