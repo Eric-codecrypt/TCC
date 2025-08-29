@@ -67,13 +67,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .login-box {
-            width: 400px;
-            height: 500px;
+            max-width: 400px;
             padding: 40px;
             background-color: #6d6d6d;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             text-align: left;
+            gap:15px;
+            display: flex;
+            flex-direction: column;
         }
 
         h2 {
@@ -84,6 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         form {
             display: flex;
             flex-direction: column;
+            gap:15px;
         }
 
         input {
@@ -91,7 +94,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             border: none;
             border-radius: 5px;
             padding: 15px;
-            margin-bottom: 15px;
             color: #ffffff;
             font-size: 16px;
         }
@@ -187,10 +189,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .checkbox {
             display: flex;
             flex-direction: row;
+            align-items: center;
+            gap:0.25rem
         }
 
         .checkbox input {
             background-color: #9e0f11;
+            width:20px;
+            height:20px;
+            margin:0 !important;
         }
 
         .half {}
@@ -256,13 +263,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         </button>
                     </div>
 
+                    <div>
                     <div class="checkbox">
                         <input type="checkbox" name="remember-password" id="remember-password"
                             style="accent-color: red;">
                         <p>Lembrar minha senha</p>
                     </div>
-                    <img src="img/or.png" alt="">
+                    <img style="width: 100%;" src="img/or.png" alt="">
                     <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
+                    </div>
                     <button type="submit" class="login-btn">Login</button>
                 </form>
                 <p class="signup-text">Não tem uma conta? <a href="CreateAccount.php">cadastre-se</a></p>
