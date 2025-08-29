@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Buscar informações do plano
-        $stmt = $pdo->prepare('SELECT id, nome, valor_mensal FROM planos WHERE id = ?');
+        $stmt = $pdo->prepare('SELECT id, nome_plano, valor_mensal FROM planos WHERE id = ?');
         $stmt->execute([$planId]);
         $plan = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($pdo && $pdo->inTransaction()) {
             $pdo->rollBack();
         }
-        $response['message'] = 'Erro ao processar a assinatura. Tente novamente mais tarde.';
+        $response['message'] = 'Erro ao processar a assinatura. Tente novamente mais tarde.' . $e;
     }
 
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
