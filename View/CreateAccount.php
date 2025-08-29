@@ -206,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flex-direction: row;
         }
 
-        
+
 
         .checkbox input {
             background-color: #9e0f11;
@@ -223,56 +223,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             justify-content: center;
         }
+    </style>
+    <div class="main half">
+        <div class="login-container">
+            <div class="login-box">
+                <h1>Cadastrar</h1>
+                <h2>Bem-vindo, Crie uma conta e desfrute.</h2>
+                <form action="#" method="post">
 
-       
-    </style><div class="main half">
-    <div class="login-container">
-        <div class="login-box">
-            <h1>Cadastrar</h1>
-            <h2>Bem-vindo, Crie uma conta e desfrute.</h2>
-            <form action="#" method="post">
-                <input type="text" id="NomeCompleto" name="NomeCompleto" placeholder="Nome" required> 
-                <input type="email" id="email" name="email" placeholder="Email" required> 
-
-                <!-- Campo de senha com ícone de olho -->
-                <div style="position: relative;">
-                    <input type="password" style="width:100%" id="password" name="password" placeholder="Senha" required>
-                    <button type="button" id="togglePassword" 
-                        style="position: absolute; right: 10px; top: 50%; transform: translateY(-90%);
-                               background: none; border: none; cursor: pointer; font-size: 16px;">
-                        <i class="fa-solid fa-eye" style="font-size:20px;  color: #c5c5c5ff;"></i>
-                    </button>
-                </div>
-
-                <img src="img/or.png" alt="">
-                <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
-                <button type="submit" class="login-btn">Cadastrar</button>
-            </form>
-            <p class="signup-text"><a href="LoginAccount.php">Voltar para o login </a></p>
-        </div>
-    </div>
-    <div class="img"></div>
+                 <div style="position: relative;">
+                    <input type="text" id="NomeCompleto" style="width:100%" name="NomeCompleto" placeholder="Nome" required>
+                
+                    <i class="fa-regular fa-user" style=" font-size:20px;  color: #c5c5c5ff; position: absolute; right: 10px; top: 50%; transform: translateY(-90%);
+                               background: none; border: none; "></i>
 </div>
+                    <div style="position: relative;">
+                        <input type="email" style="width:100%" id="email" name="email" placeholder="Email" required>
+                        <i class="fa-regular fa-envelope" style=" font-size:20px;  color: #c5c5c5ff; position: absolute; right: 10px; top: 50%; transform: translateY(-90%);
+                               background: none; border: none; "></i>
+                    </div>
 
-<script>
-    const passwordInput = document.getElementById("password");
-    const togglePassword = document.getElementById("togglePassword");
-    const icon = togglePassword.querySelector("i");
+                    <!-- Campo de senha com ícone de olho -->
+                    <div style="position: relative;">
+                        <input type="password" style="width:100%" id="password" name="password" placeholder="Senha"
+                            required>
+                        <button type="button" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-90%);
+                               background: none; border: none; cursor: pointer; font-size: 16px;">
+                            <i class="fa-solid fa-eye" style="font-size:20px;  color: #c5c5c5ff;"></i>
+                        </button>
+                    </div>
 
-    togglePassword.addEventListener("click", () => {
-        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-        passwordInput.setAttribute("type", type);
+                    <img src="img/or.png" alt="">
+                    <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
+                    <button type="submit" class="login-btn">Cadastrar</button>
+                </form>
+                <p class="signup-text"><a href="LoginAccount.php">Voltar para o login </a></p>
+            </div>
+        </div>
+        <div class="img"></div>
+    </div>
 
-        // Troca o ícone
-        if (type === "password") {
-            icon.classList.remove("fa-eye-slash");
-            icon.classList.add("fa-eye");
-        } else {
-            icon.classList.remove("fa-eye");
-            icon.classList.add("fa-eye-slash");
-        }
-    });
-</script>
+    <script>
+        const passwordInput = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+        const icon = togglePassword.querySelector("i");
+
+        togglePassword.addEventListener("click", () => {
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+
+            // Troca o ícone
+            if (type === "password") {
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            } else {
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            }
+        });
+    </script>
 
 
 </body>
