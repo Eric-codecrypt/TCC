@@ -79,6 +79,9 @@
 
 
     </header>
+    <div class="redline">
+        <br>
+    </div>
     <br><br><br>
     <Main>
         <div class="inic">
@@ -107,6 +110,7 @@
 
                 <div class="texto">
 
+                
                     <br><br>
                     <p>Na Move On Fitness, nossa missão é ser o seu ponto de apoio na jornada rumo à sua melhor versão.
                         Acreditamos que a evolução é um processo contínuo e que, com o suporte certo, você pode alcançar
@@ -122,7 +126,11 @@
             </div>
 
         </div>
-    </Main>
+        <div class="redline">
+        <br>
+    </div>
+
+    
     <br><br><br><br>
 
     <div class="carrosel">
@@ -131,10 +139,10 @@
     </div>
 
     <div class="banner">
-        <a href=""> <img src="IMG/banner1.png" alt="" class="web-banner"></a>
+        <a href=""> <img src="IMG/bannerad.png" alt="" class="web-banner"></a>
 
     </div><br><br><br><br>
-
+</Main>
     <footer>
         <div class="logofoot">
             <a href="" style="fill:white">
@@ -142,7 +150,7 @@
             </a>
         </div>
 
-        <hr><br>
+        <hr><br><br><br>
 
         <div class="containerinfo">
 
@@ -186,6 +194,8 @@
 
 
             </div>
+<br><br>
+            <hr>
 
 
         </div><br><br><br>
