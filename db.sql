@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/08/2025 às 20:41
+-- Tempo de geração: 29/08/2025 às 15:20
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -76,12 +76,12 @@ INSERT INTO `exercicios` (`id`, `name`, `series`, `repetitions`, `group`, `demo`
 --
 
 CREATE TABLE `mensalidades` (
-  `ID` int(11) NOT NULL,
-  `UserID` int(11) NOT NULL,
-  `DataVencimento` date NOT NULL,
-  `ValorCobrado` decimal(10,2) NOT NULL,
-  `StatusPagamento` enum('Pendente','Pago','Atrasado') NOT NULL DEFAULT 'Pendente',
-  `DataPagamento` date DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `data_vencimento` date NOT NULL,
+  `valor_cobrado` decimal(10,2) NOT NULL,
+  `status_pagamento` enum('Pendente','Pago','Atrasado') NOT NULL DEFAULT 'Pendente',
+  `data_pagamento` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -92,15 +92,15 @@ CREATE TABLE `mensalidades` (
 
 CREATE TABLE `planos` (
   `ID` int(11) NOT NULL,
-  `NomeDoPlano` varchar(100) NOT NULL,
-  `ValorMensal` decimal(10,2) NOT NULL
+  `nome_plano` varchar(100) NOT NULL,
+  `valor_mensal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `planos`
 --
 
-INSERT INTO `planos` (`ID`, `NomeDoPlano`, `ValorMensal`) VALUES
+INSERT INTO `planos` (`ID`, `nome_plano`, `valor_mensal`) VALUES
 (1, 'Plano Musculação', 99.90),
 (2, 'Plano Crossfit', 149.90),
 (3, 'Plano Full Access', 189.90);
@@ -114,25 +114,36 @@ INSERT INTO `planos` (`ID`, `NomeDoPlano`, `ValorMensal`) VALUES
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `NomeCompleto` varchar(255) DEFAULT NULL,
+  `nome_completo` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `Telefone` varchar(20) DEFAULT NULL,
-  `DataInscricao` date DEFAULT NULL,
-  `DiaVencimento` int(11) DEFAULT NULL,
-  `PlanoID` int(11) DEFAULT NULL,
+  `celular` varchar(20) DEFAULT NULL,
+  `CPF` varchar(11) DEFAULT NULL,
+  `data_inscricao_plano` date DEFAULT NULL,
+  `dia_vencimento_plano` int(11) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `role` enum('user','admin','instrutor') DEFAULT 'user'
+  `tipo_de_user` enum('trainer','cliente','admin') CHARACTER SET utf8 COLLATE utf8_unicode_520_nopad_ci DEFAULT 'cliente',
+  `body_fat` decimal(4,2) DEFAULT NULL COMMENT 'apenas clientes',
+  `peso` decimal(5,2) DEFAULT NULL COMMENT 'apenas clientes',
+  `ficha_id` int(11) DEFAULT NULL COMMENT 'apenas clientes',
+  `anotacoes_trainer` text DEFAULT NULL COMMENT 'apenas clientes',
+  `trainer_id` int(11) DEFAULT NULL COMMENT 'apenas clientes',
+  `mensalidade_id` int(11) DEFAULT NULL COMMENT 'apenas clientes',
+  `plano_id` int(11) NOT NULL COMMENT 'apenas clientes',
+  `salario` decimal(8,2) DEFAULT NULL COMMENT 'apenas trainers',
+  `endereco` varchar(255) DEFAULT NULL COMMENT 'apenas trainers',
+  `CREF` int(11) DEFAULT NULL COMMENT 'apenas trainers'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `NomeCompleto`, `email`, `Telefone`, `DataInscricao`, `DiaVencimento`, `PlanoID`, `password`, `created_at`, `role`) VALUES
-(1, 'Nox', 'Eric de souza palma', 'ericsouzapalma123@gmail.com', NULL, NULL, NULL, NULL, '$2y$10$JiCpDEPiRZMCBl8cYTVrZOr1Fb9rxuRS8HQaXPmQqL.edciKhxPSG', '2025-08-15 17:22:33', 'admin'),
-(3, 'jon', NULL, 'jonatas@docente.br', NULL, NULL, NULL, NULL, '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin'),
-(4, 'Thiago', NULL, '2@GMAIL.COM', NULL, NULL, NULL, NULL, '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', 'user');
+INSERT INTO `users` (`id`, `username`, `nome_completo`, `email`, `celular`, `CPF`, `data_inscricao_plano`, `dia_vencimento_plano`, `password`, `created_at`, `tipo_de_user`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `trainer_id`, `mensalidade_id`, `plano_id`, `salario`, `endereco`, `CREF`) VALUES
+(0, 'admin', 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', NULL, NULL, '', '2025-08-29 11:14:05', 'admin', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0),
+(1, 'Nox', 'Eric de souza palma', 'ericsouzapalma123@gmail.com', NULL, '', NULL, NULL, '$2y$10$JiCpDEPiRZMCBl8cYTVrZOr1Fb9rxuRS8HQaXPmQqL.edciKhxPSG', '2025-08-15 17:22:33', 'admin', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0),
+(3, 'jon', '', 'jonatas@docente.br', NULL, '', NULL, NULL, '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0),
+(4, 'Thigas', '', '2@GMAIL.COM', NULL, '', NULL, NULL, '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0);
 
 --
 -- Índices para tabelas despejadas
@@ -148,8 +159,8 @@ ALTER TABLE `exercicios`
 -- Índices de tabela `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `UserID` (`UserID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `UserID` (`user_id`);
 
 --
 -- Índices de tabela `planos`
@@ -163,7 +174,7 @@ ALTER TABLE `planos`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `PlanoID` (`PlanoID`);
+  ADD UNIQUE KEY `email_2` (`email`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
@@ -179,7 +190,7 @@ ALTER TABLE `exercicios`
 -- AUTO_INCREMENT de tabela `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `planos`
@@ -191,7 +202,7 @@ ALTER TABLE `planos`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restrições para tabelas despejadas
@@ -201,13 +212,7 @@ ALTER TABLE `users`
 -- Restrições para tabelas `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  ADD CONSTRAINT `mensalidades_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`id`);
-
---
--- Restrições para tabelas `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`PlanoID`) REFERENCES `planos` (`ID`);
+  ADD CONSTRAINT `mensalidades_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

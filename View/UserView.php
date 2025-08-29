@@ -10,10 +10,10 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $Controller = new UserController($pdo);
-$userId = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
 
 // Buscar dados do usuário
-$user = $Controller->findById($userId);
+$user = $Controller->findById($user_id);
 
 if (!$user) {
     echo "Usuário não encontrado.";
@@ -33,7 +33,10 @@ if (!$user) {
     <li><strong>Usuário:</strong> <?php echo htmlspecialchars($user['username']); ?></li>
     <li><strong>E-mail:</strong> <?php echo htmlspecialchars($user['email']); ?></li>
 </ul>
-
+<!-- modal para alterar informações -->
+<h3>-informações adicionais-</h3>
+<h4>CPF:</h4><input type="text" name="cpf" value="<?php echo htmlspecialchars($user['cpf']); ?>"><br>
+<h4>Telefone:</h4><input type="text" name="phone" value="<?php echo htmlspecialchars($user['phone']); ?>"
 <a href="UpdateAccount.php">Atualizar Conta</a><br>
 <a href="DeleteAccount.php">Excluir Conta</a><br>
 <a href="Dashboard.php">Ir para o Dashboard</a><br>

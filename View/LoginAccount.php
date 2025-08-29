@@ -10,7 +10,7 @@ $email = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-
+    var_dump($_POST);
     if (empty($email) || empty($password)) {
         $error_message = "Todos os campos são obrigatórios.";
     } else {
@@ -39,42 +39,166 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Login</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+.login-box {
+    width: 400px;
+    height: 500px;
+    padding: 40px;
+    background-color:#6d6d6d;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    text-align:left;
+}
 
-        .login-container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 450px;
-            padding: 40px;
-        }
+h2 {
+    font-size: 1.1em;
 
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
+}
 
-        p {
-            color: #666;
-            text-align: center;
-            margin-bottom: 30px;
-        }
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    background-color:#838383;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-size: 16px;
+}
+select{
+    background-color:#DAD0D0;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+input::placeholder {
+    color: #383636;
+}
+
+.login-btn {
+    background-color: #9e0f11;
+    border: none;
+    padding: 15px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+    border-radius: 15px;
+}
+
+.login-btn:hover {
+    background-color: #1a65a3;
+}
+
+.fb-login-btn {
+    background-color:#e6e2e2;
+    width: 300px;
+    border: 2px 2px solid white;
+    border-radius: 30px;
+    padding: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+
+.fb-login-btn:hover {
+    background-color: #334d84;
+}
+
+.signup-text {
+    font-size: 18px;
+    color: #ffffff;
+    margin-top: 1px;
+    text-align: center;
+}
+
+.signup-text a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
+.main{
+    display: flex;
+    flex-direction: row;
+    min-width: 100vw;
+    min-height: 100vh;
+}
+.img {
+    min-width: 35vw;
+    height: 100vh;
+    background-image:  url(IMG/mulher.png);
+    background-size: cover;
+    background-position: 0% 90%;
+    background-repeat: no-repeat;
+}
+
+
+@media (max-width: 992px){
+    .img{
+        min-width: 0;
+        width: 0;
+    }
+}
+
+.checkbox{
+    display: flex;
+    flex-direction: row;
+}
+
+.checkbox input{
+    background-color: #9e0f11;
+}
+.half{
+
+}
+.goog{
+    width: 10%;
+    margin: 10px;
+}
+.goog2{
+    display: flex;
+    justify-content: center;
+}
 
         .error-message {
             background-color: #ffebee;
@@ -86,118 +210,37 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             border-left: 4px solid #c62828;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #444;
-        }
-
-        input[type="email"],
-        input[type="password"] {
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            transition: border-color 0.3s;
-        }
-
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: #667eea;
-            outline: none;
-            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
-        }
-
-        .password-container {
-            position: relative;
-        }
-
-        .toggle-password {
-            position: absolute;
-            right: 15px;
-            top: 14px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            color: #777;
-        }
-
-        button[type="submit"] {
-            background: linear-gradient(to right, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 10px;
-        }
-
-        button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 25px;
-            color: #666;
-        }
-
-        .register-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 500px) {
-            .login-container {
-                padding: 25px;
-            }
-        }
     </style>
 </head>
 <body>
-<div class="login-container">
-    <h1>Entrar no Sistema</h1>
-    <p>Faça login para acessar o painel de controle.</p>
-
-    <?php if (!empty($error_message)): ?>
+    <div class="main half">
+    <div class="img">
+    </div>
+    <div class="login-container">   
+        <div class="login-box">
+            <h1>Login</h1>
+            <h2 style="font-weight:200">Bem-vindo de volta, faça login em sua conta</h2>
+                <?php if (!empty($error_message)): ?>
         <div class="error-message">
             <?php echo htmlspecialchars($error_message); ?>
         </div>
     <?php endif; ?>
-
-    <form action="" method="POST">
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
-
-        <label for="password">Senha:</label>
-        <div class="password-container">
-            <input type="password" id="password" name="password" required>
-            <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
+            <form action="#" method="post">
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" placeholder="Email ou nome de usuário" required>
+                <input id="password" name="password" type="password" placeholder="Senha" required>
+                <div class="checkbox">
+                    <input type="checkbox" name="remember-password" id="remember-password"><p>Lembrar minha senha</p>
+                </div> 
+                <img src="img/or.png" alt="">
+                <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <p class="signup-text">Não tem uma conta? <a href="CreateAccount.php">cadastre-se</a>.</p>
+            </div>
         </div>
-
-        <button type="submit">Entrar</button>
-    </form>
-
-    <div class="register-link">
-        Não tem uma conta? <a href="CreateAccount.php">Registre-se aqui</a>.
     </div>
 </div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
