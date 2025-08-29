@@ -97,7 +97,7 @@ input::placeholder {
 }
 
 .login-btn {
-    background-color: #9e0f11;
+    background: linear-gradient(90deg,rgba(198, 72, 72, 1) 0%, rgba(150, 0, 3, 1) 100%);
     border: none;
     padding: 15px;
     color: #fff;
@@ -208,6 +208,19 @@ input::placeholder {
             border-left: 4px solid #c62828;
         }
 
+                .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #777;
+        }
+        .password-container {
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -225,7 +238,13 @@ input::placeholder {
     <?php endif; ?>
             <form action="#" method="post">
                 <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" placeholder="Email ou nome de usuário" required>
+<<<<<<< HEAD
+                
+                <div class="password-container"><input type="password" name="senha" placeholder="Senha" required>
+                <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button></div>
+=======
                 <input id="password" name="password" type="password" placeholder="Senha" required>
+>>>>>>> 129b3ff3e90712ebd612fe7768818353398e4100
                 <div class="checkbox">
                     <input type="checkbox" name="remember-password" id="remember-password" style="accent-color: red;"><p>Lembrar minha senha</p>
                 </div> 
@@ -233,7 +252,7 @@ input::placeholder {
                 <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
                 <button type="submit" class="login-btn">Login</button>
             </form>
-            <p class="signup-text">Não tem uma conta? <a href="CreateAccount.php">cadastre-se</a>.</p>
+            <p class="signup-text">Não tem uma conta? <a href="CreateAccount.php">cadastre-se</a></p>
             </div>
         </div>
     </div>

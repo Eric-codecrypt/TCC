@@ -121,7 +121,7 @@ input::placeholder {
 }
 
 .login-btn {
-    background-color: #9e0f11;
+    background: linear-gradient(90deg,rgba(198, 72, 72, 1) 0%, rgba(150, 0, 3, 1) 100%);
     border: none;
     padding: 15px;
     color: #fff;
@@ -131,10 +131,6 @@ input::placeholder {
     margin-bottom: 20px;
     transition: background-color 0.3s;
     border-radius: 15px;
-}
-
-.login-btn:hover {
-    background-color: #1a65a3;
 }
 
 .fb-login-btn {
@@ -232,7 +228,7 @@ input::placeholder {
                 <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
                 <button type="submit" class="login-btn">Cadastar</button>
             </form>
-            <p class="signup-text"><a href="LoginAccount.php">Voltar para o login </a>.</p>
+            <p class="signup-text"><a href="LoginAccount.php">Voltar para o login </a></p>
             </div>
                 </div>
         <div class="img">
