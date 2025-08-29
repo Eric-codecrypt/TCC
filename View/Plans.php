@@ -102,27 +102,69 @@ foreach ($planos as $pl) {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
-    <div class="container">
-        <h1>Academia MoveOn</h1>
-        <p>Escolha o plano ideal para você</p>
-    </div>
-</header>
+
+    <header>
+        <nav class="nav-bar">
+            <div class="logo">
+                <a href=""> <img src="IMG/logo.svg" alt="" class="logo-img"></a>
+
+            </div>
+
+            <div class="nav-list">
+                <ul>
+                    <li class="nav-item"> <a href="" class="nav-link">HOME</a></li>
+                    <li>
+                        <p>|</p>
+                    </li>
+                    <li class="nav-item"> <a href="" class="nav-link">Planos</a></li>
+                    <li>
+                        <p>|</p>
+                    </li>
+                    <li class="nav-item"> <a href="" class="nav-link">Dúvidas</a></li>
+                    <li>
+                        <p>|</p>
+                    </li>
+                    <li class="nav-item"> <a href="" class="nav-link">Treinos</a></li>
+                    <li>
+                        <p>|</p>
+                    </li>
+                    <li class="nav-item"> <a href="" class="nav-link">Pagamento</a></li>
+
+                </ul>
+            </div>
+
+            <!-- Ícone do menu hamburger (visível só no mobile) -->
+            <div class="mobile-menu-icon">
+                <button onclick="menuShow()"><i class="fa-solid fa-bars"></i></button>
+            </div>
+
+
+        </nav>
+
+        <!-- Menu mobile -->
+        <div class="mobile-menu">
+            <ul>
+                <li class="nav-item"><a href="" class="nav-link">HOME</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Planos</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Dúvidas</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Treinos</a></li>
+                <li class="nav-item"><a href="" class="nav-link">Pagamento</a></li>
+            </ul>
+        </div>
+
+
+    </header>
 
 <div class="container">
     <section id="plans-section">
         <h2>Nossos Planos</h2>
-        <div class="plans-container">
+        <div class="pla3ns-container">
             <?php if (!empty($planos)): ?>
                 <?php foreach ($planos as $pl): ?>
                     <div class="plan-card">
                         <h3><?= htmlspecialchars($pl['nome_plano']) ?></h3>
                         <div class="price">R$ <?= number_format((float)$pl['valor_mensal'], 2, ',', '.') ?>/mês</div>
-                        <ul class="features">
-                            <li>Acesso à academia</li>
-                            <li>Musculação e cardio</li>
-                            <li>Suporte básico</li>
-                        </ul>
+                        <p><?= htmlspecialchars($pl['descricao'])?></p>
                         <button class="btn" onclick="selectPlan('<?= (int)$pl['id'] ?>')">Selecionar Plano</button>
                     </div>
                 <?php endforeach; ?>
