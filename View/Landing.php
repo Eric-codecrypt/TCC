@@ -149,15 +149,15 @@
     
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="img/carrosel1.png">
+          <img src="IMG/carrosel1.png">
         </div>
     
         <div class="carousel-item">
-          <img src="img/carrosel2.png">
+          <img src="IMG/carrosel2.png">
         </div>
     
         <div class="carousel-item">
-          <img src="img/carrosel3.png">
+          <img src="IMG/carrosel3.png">
         </div>
         
     <!--   Controladores | Botões -->
