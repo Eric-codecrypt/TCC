@@ -90,14 +90,7 @@ input {
     color: #ffffff;
     font-size: 16px;
 }
-select{
-    background-color:#DAD0D0;
-    border: none;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 15px;
-    font-size: 16px;
-}
+
 
 input::placeholder {
     color: #383636;
@@ -172,6 +165,11 @@ input::placeholder {
     background-repeat: no-repeat;
 }
 
+input::placeholder {
+  color: white;
+}
+
+
 
 @media (max-width: 992px){
     .img{
@@ -229,7 +227,7 @@ input::placeholder {
                 <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" placeholder="Email ou nome de usuário" required>
                 <input id="password" name="password" type="password" placeholder="Senha" required>
                 <div class="checkbox">
-                    <input type="checkbox" name="remember-password" id="remember-password"><p>Lembrar minha senha</p>
+                    <input type="checkbox" name="remember-password" id="remember-password" style="accent-color: red;"><p>Lembrar minha senha</p>
                 </div> 
                 <img src="img/or.png" alt="">
                 <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>

@@ -56,6 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+
+input::placeholder {
+    color: #383636;
+}
+
 body {
     display: flex;
     align-items: center;
@@ -112,7 +117,7 @@ select{
 }
 
 input::placeholder {
-    color: #383636;
+    color: #ffffffff;
 }
 
 .login-btn {
