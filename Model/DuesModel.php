@@ -13,15 +13,15 @@ class DuesModel {
     public function getAllDues() {
         // A consulta SQL une as tabelas para pegar o nome do usuário
         $query = 'SELECT 
-                    m.ID,
-                    u.NomeCompleto,
-                    m.DataVencimento,
-                    m.ValorCobrado,
-                    m.StatusPagamento,
+                    m.id,
+                    u.nome_completo,
+                    m.data_vencimento,
+                    m.valor_cobrado,
+                    m.status_pagamento,
                     m.DataPagamento
                   FROM ' . $this->table . ' m
                   JOIN users u ON m.UserID = u.id
-                  ORDER BY m.DataVencimento DESC';
+                  ORDER BY m.data_vencimento DESC';
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -33,15 +33,15 @@ class DuesModel {
     public function getOverdueDues() {
         // CURDATE() é uma função do SQL que retorna a data atual
         $query = 'SELECT 
-                    m.ID,
-                    u.NomeCompleto,
-                    m.DataVencimento,
-                    m.ValorCobrado,
-                    m.StatusPagamento
+                    m.id,
+                    u.nome_completo,
+                    m.data_vencimento,
+                    m.valor_cobrado,
+                    m.status_pagamento
                   FROM ' . $this->table . ' m
                   JOIN users u ON m.UserID = u.id
-                  WHERE m.StatusPagamento = "Pendente" AND m.DataVencimento < CURDATE()
-                  ORDER BY m.DataVencimento ASC';
+                  WHERE m.status_pagamento = "Pendente" AND m.data_vencimento < CURDATE()
+                  ORDER BY m.data_vencimento ASC';
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -53,10 +53,10 @@ class DuesModel {
     public function markAsPaid($duesId) {
         $query = 'UPDATE ' . $this->table . '
                   SET
-                    StatusPagamento = "Pago",
+                    status_pagamento = "Pago",
                     DataPagamento = CURDATE()
                   WHERE
-                    ID = :duesId';
+                    id = :duesId';
 
         $stmt = $this->conn->prepare($query);
 

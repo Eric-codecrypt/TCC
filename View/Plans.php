@@ -6,7 +6,7 @@ $pdo = include __DIR__ . '/../Config.php';
 $planos = [];
 try {
     if ($pdo) {
-        $stmt = $pdo->query("SELECT ID, NomeDoPlano, ValorMensal FROM planos ORDER BY ValorMensal ASC, ID ASC");
+        $stmt = $pdo->query("SELECT id, nome_plano, valor_mensal FROM planos ORDER BY valor_mensal ASC, id ASC");
         $planos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 } catch (Throwable $e) {
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Buscar informações do plano
-        $stmt = $pdo->prepare('SELECT ID, NomeDoPlano, ValorMensal FROM planos WHERE ID = ?');
+        $stmt = $pdo->prepare('SELECT id, nome_plano, valor_mensal FROM planos WHERE id = ?');
         $stmt->execute([$planId]);
         $plan = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -50,15 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->beginTransaction();
 
         // Atualiza o plano do usuário
-        $stmtUp = $pdo->prepare('UPDATE users SET PlanoID = ? WHERE id = ?');
+        $stmtUp = $pdo->prepare('UPDATE users SET plano_id = ? WHERE id = ?');
         $stmtUp->execute([$planId, $userId]);
 
         // Calcula a data de vencimento (em 30 dias)
         $dueDate = (new DateTime('now'))->modify('+30 days')->format('Y-m-d');
 
         // Cria a mensalidade pendente
-        $stmtIns = $pdo->prepare("INSERT INTO mensalidades (UserID, DataVencimento, ValorCobrado, StatusPagamento, DataPagamento) VALUES (?, ?, ?, 'Pendente', NULL)");
-        $stmtIns->execute([$userId, $dueDate, $plan['ValorMensal']]);
+        $stmtIns = $pdo->prepare("INSERT INTO mensalidades (UserID, data_vencimento, valor_cobrado, status_pagamento, DataPagamento) VALUES (?, ?, ?, 'Pendente', NULL)");
+        $stmtIns->execute([$userId, $dueDate, $plan['valor_mensal']]);
 
         $pdo->commit();
 
@@ -66,15 +66,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $transactionId = 'TX' . strtoupper(substr(bin2hex(random_bytes(5)), 0, 10));
         $response = [
             'success' => true,
-            'planName' => $plan['NomeDoPlano'],
-            'price' => 'R$ ' . number_format((float)$plan['ValorMensal'], 2, ',', '.'),
+            'planName' => $plan['nome_plano'],
+            'price' => 'R$ ' . number_format((float)$plan['valor_mensal'], 2, ',', '.'),
             'transactionId' => $transactionId,
         ];
     } catch (Throwable $e) {
         if ($pdo && $pdo->inTransaction()) {
             $pdo->rollBack();
         }
-        $response['message'] = 'Erro ao processar a assinatura. Tente novamente mais tarde.';
+        $response['message'] = 'Erro ao processar a assinatura. Tente novamente mais tarde.' . $e;
     }
 
     echo json_encode($response, JSON_UNESCAPED_UNICODE);
@@ -84,9 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Prepara estrutura para o JS
 $plansJs = [];
 foreach ($planos as $pl) {
-    $id = (string)$pl['ID'];
-    $name = $pl['NomeDoPlano'];
-    $priceStr = 'R$ ' . number_format((float)$pl['ValorMensal'], 2, ',', '.') . '/mês';
+    $id = (string)$pl['id'];
+    $name = $pl['nome_plano'];
+    $priceStr = 'R$ ' . number_format((float)$pl['valor_mensal'], 2, ',', '.') . '/mês';
     $plansJs[$id] = [
         'name' => $name,
         'price' => $priceStr,
@@ -116,14 +116,14 @@ foreach ($planos as $pl) {
             <?php if (!empty($planos)): ?>
                 <?php foreach ($planos as $pl): ?>
                     <div class="plan-card">
-                        <h3><?= htmlspecialchars($pl['NomeDoPlano']) ?></h3>
-                        <div class="price">R$ <?= number_format((float)$pl['ValorMensal'], 2, ',', '.') ?>/mês</div>
+                        <h3><?= htmlspecialchars($pl['nome_plano']) ?></h3>
+                        <div class="price">R$ <?= number_format((float)$pl['valor_mensal'], 2, ',', '.') ?>/mês</div>
                         <ul class="features">
                             <li>Acesso à academia</li>
                             <li>Musculação e cardio</li>
                             <li>Suporte básico</li>
                         </ul>
-                        <button class="btn" onclick="selectPlan('<?= (int)$pl['ID'] ?>')">Selecionar Plano</button>
+                        <button class="btn" onclick="selectPlan('<?= (int)$pl['id'] ?>')">Selecionar Plano</button>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -177,7 +177,7 @@ foreach ($planos as $pl) {
             <div class="success-icon">✓</div>
             <h2>Pagamento Realizado com Sucesso!</h2>
             <p>Obrigado por assinar o <span id="success-plan-name"></span>.</p>
-            <p>ID da Transação: <span id="transaction-id"></span></p>
+            <p>id da Transação: <span id="transaction-id"></span></p>
             <button class="btn" onclick="window.location.reload()">Voltar ao Início</button>
         </div>
     </section>

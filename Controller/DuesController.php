@@ -32,7 +32,7 @@ class DuesController {
 
     /**
      * Ação para marcar uma mensalidade como paga.
-     * Recebe o ID, repassa para o Model e lida com o redirecionamento.
+     * Recebe o id, repassa para o Model e lida com o redirecionamento.
      */
     public function pay($duesId) {
         // A lógica de negócio (redirecionamento) permanece no controller
