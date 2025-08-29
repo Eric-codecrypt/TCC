@@ -15,7 +15,7 @@ if (isset($_GET['action'])) {
 
     // Se a ação for 'pay', chama o método pay do controller
     if ($action === 'pay' && isset($_GET['id'])) {
-        $duesId = intval($_GET['id']); // Converte o ID para um inteiro por segurança
+        $duesId = intval($_GET['id']); // Converte o id para um inteiro por segurança
         $controller->pay($duesId);
     }
 }
@@ -183,7 +183,7 @@ if (isset($_GET['status'])) {
         <table class="dues-table">
             <thead>
             <tr>
-                <th>ID</th>
+                <th>id</th>
                 <th>Aluno</th>
                 <th>Vencimento</th>
                 <th>Valor (R$)</th>
@@ -198,15 +198,15 @@ if (isset($_GET['status'])) {
                 </tr>
             <?php else: ?>
                 <?php foreach ($mensalidades as $mensalidade): ?>
-                    <tr class="status-<?= strtolower(htmlspecialchars($mensalidade['StatusPagamento'])) ?>">
-                        <td><?= htmlspecialchars($mensalidade['ID']) ?></td>
-                        <td><?= htmlspecialchars($mensalidade['NomeCompleto']) ?></td>
-                        <td><?= date('d/m/Y', strtotime($mensalidade['DataVencimento'])) ?></td>
-                        <td><?= number_format($mensalidade['ValorCobrado'], 2, ',', '.') ?></td>
-                        <td><?= htmlspecialchars($mensalidade['StatusPagamento']) ?></td>
+                    <tr class="status-<?= strtolower(htmlspecialchars($mensalidade['status_pagamento'])) ?>">
+                        <td><?= htmlspecialchars($mensalidade['id']) ?></td>
+                        <td><?= htmlspecialchars($mensalidade['nome']) ?></td>
+                        <td><?= date('d/m/Y', strtotime($mensalidade['data_vencimento'])) ?></td>
+                        <td><?= number_format($mensalidade['valor_cobrado'], 2, ',', '.') ?></td>
+                        <td><?= htmlspecialchars($mensalidade['status_pagamento']) ?></td>
                         <td>
-                            <?php if ($mensalidade['StatusPagamento'] !== 'Pago'): ?>
-                                <a href="DuesView.php?action=pay&id=<?= $mensalidade['ID'] ?>"
+                            <?php if ($mensalidade['status_pagamento'] !== 'Pago'): ?>
+                                <a href="DuesView.php?action=pay&id=<?= $mensalidade['id'] ?>"
                                    class="action-button"
                                    onclick="return confirm('Tem certeza que deseja marcar esta mensalidade como PAGA?')">
                                     Marcar como Pago

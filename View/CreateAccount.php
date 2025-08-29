@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: LoginAccount.php?success=1"); // Redireciona após sucesso
                 exit;
             } else {
-                $errors[] = "Erro ao registrar o usuário. O e-mail pode já estar cadastrado.";
+                $errors[] = "Erro ao registrar o usuário. O e-mail ou usuário pode já estar cadastrados.";
             }
         } catch (Exception $e) {
             $errors[] = "Erro inesperado: " . $e->getMessage();
