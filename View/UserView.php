@@ -10,10 +10,10 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $Controller = new UserController($pdo);
-$userId = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
 
 // Buscar dados do usuário
-$user = $Controller->findById($userId);
+$user = $Controller->findById($user_id);
 
 if (!$user) {
     echo "Usuário não encontrado.";

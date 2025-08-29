@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        $userId = (int)$_SESSION['user_id'];
+        $user_id = (int)$_SESSION['user_id'];
         $planId = isset($_POST['plan_id']) ? (int)$_POST['plan_id'] : 0;
 
         if ($planId <= 0) {
@@ -51,14 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Atualiza o plano do usuário
         $stmtUp = $pdo->prepare('UPDATE users SET plano_id = ? WHERE id = ?');
-        $stmtUp->execute([$planId, $userId]);
+        $stmtUp->execute([$planId, $user_id]);
 
         // Calcula a data de vencimento (em 30 dias)
         $dueDate = (new DateTime('now'))->modify('+30 days')->format('Y-m-d');
 
         // Cria a mensalidade pendente
-        $stmtIns = $pdo->prepare("INSERT INTO mensalidades (UserID, data_vencimento, valor_cobrado, status_pagamento, DataPagamento) VALUES (?, ?, ?, 'Pendente', NULL)");
-        $stmtIns->execute([$userId, $dueDate, $plan['valor_mensal']]);
+        $stmtIns = $pdo->prepare("INSERT INTO mensalidades (user_id, data_vencimento, valor_cobrado, status_pagamento, data_pagamento) VALUES (?, ?, ?, 'Pendente', NULL)");
+        $stmtIns->execute([$user_id, $dueDate, $plan['valor_mensal']]);
 
         $pdo->commit();
 
@@ -99,7 +99,7 @@ foreach ($planos as $pl) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academia MoveOn - Planos e Pagamento</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header>
@@ -230,7 +230,7 @@ foreach ($planos as $pl) {
                 alert(data.message || 'Não foi possível processar a assinatura.');
                 return;
             }
-
+            console.log(document.getElementById('transaction-id'));
             // Atualizar a seção de sucesso com dados do servidor
             document.getElementById('success-plan-name').textContent = data.planName;
             document.getElementById('transaction-id').textContent = data.transactionId;
@@ -239,7 +239,7 @@ foreach ($planos as $pl) {
             document.getElementById('payment-section').classList.add('hidden');
             document.getElementById('success-section').classList.remove('hidden');
         } catch (err) {
-            alert('Erro de rede. Tente novamente.');
+            alert(err);
         }
     });
 </script>

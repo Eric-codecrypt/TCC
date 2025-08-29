@@ -20,7 +20,7 @@ class DuesModel {
                     m.status_pagamento,
                     m.DataPagamento
                   FROM ' . $this->table . ' m
-                  JOIN users u ON m.UserID = u.id
+                  JOIN users u ON m.user_id = u.id
                   ORDER BY m.data_vencimento DESC';
 
         $stmt = $this->conn->prepare($query);
@@ -39,7 +39,7 @@ class DuesModel {
                     m.valor_cobrado,
                     m.status_pagamento
                   FROM ' . $this->table . ' m
-                  JOIN users u ON m.UserID = u.id
+                  JOIN users u ON m.user_id = u.id
                   WHERE m.status_pagamento = "Pendente" AND m.data_vencimento < CURDATE()
                   ORDER BY m.data_vencimento ASC';
 

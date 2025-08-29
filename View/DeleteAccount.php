@@ -10,17 +10,17 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $Controller = new UserController($pdo);
-$userId = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
     // Buscar dados do usuário no banco
-    $user = $Controller->findById($userId); // Esse método precisa existir no seu UserController
+    $user = $Controller->findById($user_id); // Esse método precisa existir no seu UserController
 
     if ($user && password_verify($password, $user['password'])) {
-        $deleted = $Controller->delete($userId);
+        $deleted = $Controller->delete($user_id);
         if ($deleted) {
             session_destroy();
             header("Location: index.php?msg=account_deleted");

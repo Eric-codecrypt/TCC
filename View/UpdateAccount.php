@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $Controller = new UserController($pdo);
-$userId = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'];
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             // Atualizar usuário
             $hashedPassword = !empty($password) ? password_hash($password, PASSWORD_DEFAULT) : null;
-            $updated = $Controller->update($userId, $username, $email, $hashedPassword);
+            $updated = $Controller->update($user_id, $username, $email, $hashedPassword);
 
             if ($updated) {
                 $message = "Dados atualizados com sucesso!";
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$user = $Controller->findById($userId); // Buscando dados do usuário atual para exibição
+$user = $Controller->findById($user_id); // Buscando dados do usuário atual para exibição
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
