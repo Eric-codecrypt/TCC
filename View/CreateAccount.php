@@ -180,7 +180,7 @@ input::placeholder {
     height: 100vh;
     background-image:  url(IMG/homi.png);
     background-size: cover;
-    background-position: 0% 90%;
+    background-position: 50% 0%;
     background-repeat: no-repeat;
 }
 
