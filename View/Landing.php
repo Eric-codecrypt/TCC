@@ -174,6 +174,7 @@
       
 
     </div> <!-- Fim do carrossel -->
+    <br><br><br><br>
 
     <div class="banner">
         <a href=""> <img src="IMG/bannerad.png" alt="" class="web-banner"></a>
