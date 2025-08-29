@@ -10,7 +10,7 @@ $email = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-
+    var_dump($_POST);
     if (empty($email) || empty($password)) {
         $error_message = "Todos os campos são obrigatórios.";
     } else {
@@ -219,7 +219,7 @@ input::placeholder {
     <div class="login-container">   
         <div class="login-box">
             <h1>Login</h1>
-            <h2>Bem-vindo de volta, faça login em sua conta</h2>
+            <h2 style="font-weight:200">Bem-vindo de volta, faça login em sua conta</h2>
                 <?php if (!empty($error_message)): ?>
         <div class="error-message">
             <?php echo htmlspecialchars($error_message); ?>
@@ -227,9 +227,9 @@ input::placeholder {
     <?php endif; ?>
             <form action="#" method="post">
                 <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" placeholder="Email ou nome de usuário" required>
-                <input type="password" name="senha" placeholder="Senha" required>
+                <input id="password" name="password" type="password" placeholder="Senha" required>
                 <div class="checkbox">
-                    <input type="checkbox"><p>Lembrar minha senha</p>
+                    <input type="checkbox" name="remember-password" id="remember-password"><p>Lembrar minha senha</p>
                 </div> 
                 <img src="img/or.png" alt="">
                 <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
