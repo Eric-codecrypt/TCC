@@ -27,8 +27,9 @@
     <header>
         <nav class="nav-bar">
             <div class="logo">
-                <a href=""> <img src="IMG/logo.svg" alt="" class="logo-img"></a>
-
+                <a href=""> 
+                    <?php include __DIR__."/IMG/Move-On-Logo-square.svg";?>
+                </a>    
             </div>
 
             <div class="nav-list">

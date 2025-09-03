@@ -26,6 +26,9 @@ header {
     display: flex;
     align-items: center;
 }
+.logo a svg{
+    fill:white;
+}
 
 .logo-img {
     width: 120px;
