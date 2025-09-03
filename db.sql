@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29/08/2025 às 15:20
+-- Tempo de geração: 29/08/2025 às 18:35
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -93,17 +93,18 @@ CREATE TABLE `mensalidades` (
 CREATE TABLE `planos` (
   `ID` int(11) NOT NULL,
   `nome_plano` varchar(100) NOT NULL,
-  `valor_mensal` decimal(10,2) NOT NULL
+  `valor_mensal` decimal(10,2) NOT NULL,
+  `descricao` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Despejando dados para a tabela `planos`
 --
 
-INSERT INTO `planos` (`ID`, `nome_plano`, `valor_mensal`) VALUES
-(1, 'Plano Musculação', 99.90),
-(2, 'Plano Crossfit', 149.90),
-(3, 'Plano Full Access', 189.90);
+INSERT INTO `planos` (`ID`, `nome_plano`, `valor_mensal`, `descricao`) VALUES
+(1, 'Plano Essencial', 59.90, 'Ideal para quem está começando. Inclui acesso livre à academia em horário reduzido (das 6h às 17h), com utilização de equipamentos básicos e vestiários. Não possui plano de treino personalizado, mas garante todo o suporte inicial da equipe para adaptação ao ambiente e desenvolvimento da rotina de treinos.'),
+(2, 'Plano Plus', 89.90, 'Perfeito para quem busca mais flexibilidade. Acesso ilimitado em qualquer horário de funcionamento, utilização de todos os equipamentos, acompanhamento inicial com instrutor e um plano de treino personalizado. Inclui vestiários completos e participação em aulas coletivas selecionadas.'),
+(3, 'Plano Premium', 129.90, 'A escolha ideal para quem quer o máximo de resultados. Acesso total à academia em qualquer horário, treinos personalizados atualizados mensalmente, acompanhamento próximo dos instrutores e prioridade em aulas coletivas. Também inclui área exclusiva de musculação e funcional, além de benefícios extras como descontos em suplementos e eventos da academia.');
 
 -- --------------------------------------------------------
 
