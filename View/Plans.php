@@ -161,13 +161,20 @@ foreach ($planos as $pl) {
         <div class="pla3ns-container">
             <?php if (!empty($planos)): ?>
                 <?php foreach ($planos as $pl): ?>
-                    <div class="plan-card">
+                    <div class="plan-card" onclick="selectPlan('<?= (int)$pl['id'] ?>')">
                         <h3><?= htmlspecialchars($pl['nome_plano']) ?></h3>
-                        <p><?= htmlspecialchars($pl['descricao'])?></p>
-                        <div class="pricedesconto">R$ <?= number_format((float)$pl['valor_plano_antes_desconto'], 2, ',', '.') ?>/mês</div>
-                        <div class="price">R$ <?= number_format((float)$pl['valor_mensal'], 2, ',', '.') ?>/mês</div>
-
-                        <button class="btn" onclick="selectPlan('<?= (int)$pl['id'] ?>')">Selecionar Plano</button>
+                        <div class="subcard">
+                            <p><?= htmlspecialchars($pl['descricao'])?></p>
+                            <img src="IMG/exercicios/thumb/abdutora.png" alt="">
+                        </div>
+                        <div>
+                            <div class="pricedesconto">R$ <?= number_format((float)$pl['valor_plano_antes_desconto'], 2, ',', '.') ?>/mês</div>
+                            <div class="price">R$ <?= number_format((float)$pl['valor_mensal'], 2, ',', '.') ?>/mês</div>
+                        </div>
+                        <p class="adesao">
+                            12 meses de fidelidade <br>
+                            Adesão de R$ <?=number_format((float)$pl['valor_adesao'], 2, ',', '.')?>
+                        </p>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
