@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29/08/2025 às 18:35
+-- Tempo de geração: 03/09/2025 às 13:00
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -91,9 +91,11 @@ CREATE TABLE `mensalidades` (
 --
 
 CREATE TABLE `planos` (
-  `ID` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `nome_plano` varchar(100) NOT NULL,
   `valor_mensal` decimal(10,2) NOT NULL,
+  `valor_plano_antes_desconto` decimal(5,2) NOT NULL,
+  `valor_adesao` decimal(5,2) NOT NULL,
   `descricao` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -101,10 +103,10 @@ CREATE TABLE `planos` (
 -- Despejando dados para a tabela `planos`
 --
 
-INSERT INTO `planos` (`ID`, `nome_plano`, `valor_mensal`, `descricao`) VALUES
-(1, 'Plano Essencial', 59.90, 'Ideal para quem está começando. Inclui acesso livre à academia em horário reduzido (das 6h às 17h), com utilização de equipamentos básicos e vestiários. Não possui plano de treino personalizado, mas garante todo o suporte inicial da equipe para adaptação ao ambiente e desenvolvimento da rotina de treinos.'),
-(2, 'Plano Plus', 89.90, 'Perfeito para quem busca mais flexibilidade. Acesso ilimitado em qualquer horário de funcionamento, utilização de todos os equipamentos, acompanhamento inicial com instrutor e um plano de treino personalizado. Inclui vestiários completos e participação em aulas coletivas selecionadas.'),
-(3, 'Plano Premium', 129.90, 'A escolha ideal para quem quer o máximo de resultados. Acesso total à academia em qualquer horário, treinos personalizados atualizados mensalmente, acompanhamento próximo dos instrutores e prioridade em aulas coletivas. Também inclui área exclusiva de musculação e funcional, além de benefícios extras como descontos em suplementos e eventos da academia.');
+INSERT INTO `planos` (`id`, `nome_plano`, `valor_mensal`, `valor_plano_antes_desconto`, `valor_adesao`, `descricao`) VALUES
+(1, 'Plano Essencial', 59.90, 79.00, 29.90, 'Ideal para quem está começando. Inclui acesso livre à academia em horário reduzido (das 6h às 17h), com utilização de equipamentos básicos e vestiários. Não possui plano de treino personalizado, mas garante todo o suporte inicial da equipe para adaptação ao ambiente e desenvolvimento da rotina de treinos.'),
+(2, 'Plano Plus', 89.90, 99.00, 49.90, 'Perfeito para quem busca mais flexibilidade. Acesso ilimitado em qualquer horário de funcionamento, utilização de todos os equipamentos, acompanhamento inicial com instrutor e um plano de treino personalizado. Inclui vestiários completos e participação em aulas coletivas selecionadas.'),
+(3, 'Plano Premium', 129.90, 149.00, 69.90, 'A escolha ideal para quem quer o máximo de resultados. Acesso total à academia em qualquer horário, treinos personalizados atualizados mensalmente, acompanhamento próximo dos instrutores e prioridade em aulas coletivas. Também inclui área exclusiva de musculação e funcional, além de benefícios extras como descontos em suplementos e eventos da academia.');
 
 -- --------------------------------------------------------
 
@@ -167,7 +169,7 @@ ALTER TABLE `mensalidades`
 -- Índices de tabela `planos`
 --
 ALTER TABLE `planos`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `users`
@@ -197,7 +199,7 @@ ALTER TABLE `mensalidades`
 -- AUTO_INCREMENT de tabela `planos`
 --
 ALTER TABLE `planos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `users`
