@@ -6,7 +6,7 @@ $pdo = include __DIR__ . '/../Config.php';
 $planos = [];
 try {
     if ($pdo) {
-        $stmt = $pdo->query("SELECT id, nome_plano, valor_mensal FROM planos ORDER BY valor_mensal ASC, id ASC");
+        $stmt = $pdo->query("SELECT * FROM planos ORDER BY valor_mensal ASC, id ASC");
         $planos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 } catch (Throwable $e) {
@@ -163,8 +163,10 @@ foreach ($planos as $pl) {
                 <?php foreach ($planos as $pl): ?>
                     <div class="plan-card">
                         <h3><?= htmlspecialchars($pl['nome_plano']) ?></h3>
-                        <div class="price">R$ <?= number_format((float)$pl['valor_mensal'], 2, ',', '.') ?>/mês</div>
                         <p><?= htmlspecialchars($pl['descricao'])?></p>
+                        <div class="pricedesconto">R$ <?= number_format((float)$pl['valor_plano_antes_desconto'], 2, ',', '.') ?>/mês</div>
+                        <div class="price">R$ <?= number_format((float)$pl['valor_mensal'], 2, ',', '.') ?>/mês</div>
+
                         <button class="btn" onclick="selectPlan('<?= (int)$pl['id'] ?>')">Selecionar Plano</button>
                     </div>
                 <?php endforeach; ?>
