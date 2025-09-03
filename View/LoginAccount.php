@@ -258,14 +258,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <input type="email" id="email" name="email" style="width:100%" value="<?php echo htmlspecialchars($email); ?>"
                         placeholder="Email ou nome de usuário" required>
                     
-                    <i class="fa-regular fa-user" style=" font-size:20px;  color: #c5c5c5ff; position: absolute; right: 10px; top: 50%; transform: translateY(-90%);
+                    <i class="fa-regular fa-user" style=" font-size:20px;  color: #c5c5c5ff; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
                                background: none; border: none; "></i>
                     </div>
 
 
                     <div class="password-container"> <input type="password" style="width:100%" id="password"
                             name="password" placeholder="Senha" required>
-                        <button type="button" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-90%);
+                        <button type="button" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
                                background: none; border: none; cursor: pointer; font-size: 16px;">
                             <i class="fa-solid fa-eye" style="font-size:20px;  color: #c5c5c5ff;"></i>
                         </button>

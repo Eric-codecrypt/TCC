@@ -112,7 +112,7 @@ li p {
     width: 70%;
     margin: 0 auto;
     height: 700px;
-    background-image: url("IMG/foto-inic.png");
+    background-image: url("../IMG/foto-inic.png");
     /* caminho da imagem */
     background-size: cover;
     /* cobrir toda a área */

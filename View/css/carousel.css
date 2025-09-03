@@ -1,7 +1,7 @@
   #carousel,
   .carousel,
   .slide {
-    width: 100vw;
+    width: 90vw;
     height: 100vh;
     position: relative;
     margin: 0 auto;
