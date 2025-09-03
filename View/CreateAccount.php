@@ -85,14 +85,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .login-box {
-            width: 400px;
-            height: 500px;
+            max-width: 400px;
             padding: 40px;
             background-color: #6d6d6d;
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             text-align: left;
+            gap:15px;
+            display: flex;
+            flex-direction: column;
         }
+
 
         h2 {
             font-size: 1.1em;
@@ -228,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-container">
             <div class="login-box">
                 <h1>Cadastrar</h1>
-                <h2>Bem-vindo, Crie uma conta e desfrute.</h2>
+                <h2 style="font-weight:300">Bem-vindo, Crie uma conta e desfrute.</h2>
                 <form action="#" method="post">
 
                  <div style="position: relative;">
