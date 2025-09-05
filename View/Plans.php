@@ -100,6 +100,8 @@ foreach ($planos as $pl) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academia MoveOn - Planos e Pagamento</title>
     <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" type="text/css" href="font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
 <body>
 
@@ -234,6 +236,70 @@ foreach ($planos as $pl) {
     </section>
 </div>
 
+    <footer>
+        <div class="logofoot">
+            <a href="" style="fill:white">
+                <?php include __DIR__ . "\IMG\Move-On-Logo-vert.svg"; ?>
+            </a>
+        </div>
+
+        <hr><br><br><br>
+
+        <div class="containerinfo">
+
+            <div class="footer-content">
+
+                <div class="footer-cont">
+                    <h3>Fale Conosco</h3>
+                    <p class="email">moveonfitness@senai.com.br</p>
+                </div>
+
+                <div class="footer-contacts">
+                    <h3>Nossas redes sociais</h3>
+
+                    <div class="footer-social-media">
+                        <a href="" class="footer-link" id="instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="" class="footer-link" id="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="" class="footer-link" id="twitter"><i class="fa-brands fa-x-twitter"></i></a>
+
+                    </div>
+
+
+
+                </div>
+
+                <ul class="footer-list">
+                    <div class="seplist">
+                        <li>
+                            <h3>Stakeholders</h3>
+                        </li><br><br>
+
+                        <li>Filipe Mendes</li>
+                        <li>Angelo Ostroski</li>
+                        <li>Octávio Gomes</li>
+                        <li>Eric Palma</li>
+                        <li>Thiago Gabriel</li>
+                        <li>Ana Luisa Ribeiro</li>
+                        <li>Vinícius Rodrigues</li>
+                        <li>Higor Santos </li>
+                    </div>
+                </ul>
+
+
+            </div>
+<br><br>
+            <hr>
+
+
+        </div><br><br><br>
+        <div class="footer-copyright">
+            <p>&#169 2025 Projeto final, Sistema de Gestão de Academia.
+                Todos os Direitos Reservados</p>
+        </div>
+
+
+    </footer>
+
 <script>
     // Dados dos planos vindos do banco
     const plans = <?= json_encode($plansJs, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ?>;
@@ -294,5 +360,7 @@ foreach ($planos as $pl) {
         }
     });
 </script>
+
+
 </body>
 </html>
