@@ -83,6 +83,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Prepara estrutura para o JS
 $plansJs = [];
+$imgs =[
+    "",
+    "bronze.png",
+    "ouro.png",
+    "diamond.png"
+];
 foreach ($planos as $pl) {
     $id = (string)$pl['id'];
     $name = $pl['nome_plano'];
@@ -168,7 +174,7 @@ foreach ($planos as $pl) {
                         <h3><?= htmlspecialchars($pl['nome_plano']) ?></h3>
                         <div class="subcard">
                             <p><?= htmlspecialchars($pl['descricao'])?></p>
-                            <img src="IMG/exercicios/thumb/abdutora.png" alt="">
+                            <img src="IMG/<?=$imgs[$pl["id"]]?>" alt="">
                         </div>
                         <div>
                             <div class="pricedesconto">R$ <?= number_format((float)$pl['valor_plano_antes_desconto'], 2, ',', '.') ?>/mês</div>
