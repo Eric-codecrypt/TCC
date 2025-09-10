@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03/09/2025 às 13:00
+-- Tempo de geração: 10/09/2025 às 13:26
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -116,7 +116,6 @@ INSERT INTO `planos` (`id`, `nome_plano`, `valor_mensal`, `valor_plano_antes_des
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `username` varchar(50) NOT NULL,
   `nome_completo` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `celular` varchar(20) DEFAULT NULL,
@@ -142,11 +141,11 @@ CREATE TABLE `users` (
 -- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `nome_completo`, `email`, `celular`, `CPF`, `data_inscricao_plano`, `dia_vencimento_plano`, `password`, `created_at`, `tipo_de_user`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `trainer_id`, `mensalidade_id`, `plano_id`, `salario`, `endereco`, `CREF`) VALUES
-(0, 'admin', 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', NULL, NULL, '', '2025-08-29 11:14:05', 'admin', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0),
-(1, 'Nox', 'Eric de souza palma', 'ericsouzapalma123@gmail.com', NULL, '', NULL, NULL, '$2y$10$JiCpDEPiRZMCBl8cYTVrZOr1Fb9rxuRS8HQaXPmQqL.edciKhxPSG', '2025-08-15 17:22:33', 'admin', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0),
-(3, 'jon', '', 'jonatas@docente.br', NULL, '', NULL, NULL, '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0),
-(4, 'Thigas', '', '2@GMAIL.COM', NULL, '', NULL, NULL, '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0);
+INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `data_inscricao_plano`, `dia_vencimento_plano`, `password`, `created_at`, `tipo_de_user`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `trainer_id`, `mensalidade_id`, `plano_id`, `salario`, `endereco`, `CREF`) VALUES
+(0, 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', NULL, NULL, '', '2025-08-29 11:14:05', 'admin', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0),
+(1, 'Eric de souza palma', 'ericsouzapalma123@gmail.com', NULL, '', NULL, NULL, '$2y$10$JiCpDEPiRZMCBl8cYTVrZOr1Fb9rxuRS8HQaXPmQqL.edciKhxPSG', '2025-08-15 17:22:33', 'admin', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0),
+(3, '', 'jonatas@docente.br', NULL, '', NULL, NULL, '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0),
+(4, '', '2@GMAIL.COM', NULL, '', NULL, NULL, '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', 0.00, 0.00, 0, '', 0, 0, 0, 0.00, '', 0);
 
 --
 -- Índices para tabelas despejadas

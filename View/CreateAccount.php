@@ -5,38 +5,40 @@ include_once '../Config.php';
 $Controller = new UserController($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
+    $nome_completo = trim($_POST['nome_completo']);
     $password = trim($_POST['password']);
     $email = trim($_POST['email']);
 
     $errors = [];
 
     // Validações
-    if (empty($username)) {
-        $errors[] = "O nome de usuário é obrigatório.";
+    if (empty($nome_completo)) {
+        array_push($errors, "O nome de usuário é obrigatório.");
     }
 
     if (empty($password) || strlen($password) < 6) {
-        $errors[] = "A senha é obrigatória e deve ter pelo menos 6 caracteres.";
+        array_push($errors, "A senha é obrigatória e deve ter pelo menos 6 caracteres.");
     }
 
     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Você deve fornecer um e-mail válido.";
-    }
+        array_push($errors, "Você deve fornecer um e-mail válido.");
 
+    }
+    
     if (empty($errors)) {
         try {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT); // Hash da senha
-            $registered = $Controller->register($username, $email, $hashedPassword);
+            $registered = $Controller->register($nome_completo, $email, $hashedPassword);
+
 
             if ($registered) {
                 header("Location: LoginAccount.php?success=1"); // Redireciona após sucesso
                 exit;
             } else {
-                $errors[] = "Erro ao registrar o usuário. O e-mail ou usuário pode já estar cadastrados.";
+                array_push($errors, "Erro ao registrar o usuário. O e-mail ou usuário pode já estar cadastrados.");
             }
         } catch (Exception $e) {
-            $errors[] = "Erro inesperado: " . $e->getMessage();
+            array_push($errors, "Erro inesperado: " . $e->getMessage());
         }
     }
 }
@@ -131,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         .login-btn {
-            background: linear-gradient(90deg, rgba(198, 72, 72, 1) 0%, rgba(150, 0, 3, 1) 100%);
+            background: linear-gradient(45deg, rgba(198, 72, 72, 1) 0%, rgba(150, 0, 3, 1) 100%);
             border: none;
             padding: 15px;
             color: #fff;
@@ -235,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <form action="#" method="post">
 
                  <div style="position: relative;">
-                    <input type="text" id="NomeCompleto" style="width:100%" name="NomeCompleto" placeholder="Nome" required>
+                    <input type="text" id="nome_completo" style="width:100%" name="nome_completo" placeholder="Nome" required>
                 
                     <i class="fa-regular fa-user" style=" font-size:20px;  color: #c5c5c5ff; position: absolute; right: 10px; top: 50%; transform: translateY(-90%);
                                background: none; border: none; "></i>
@@ -255,7 +257,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="fa-solid fa-eye" style="font-size:20px;  color: #c5c5c5ff;"></i>
                         </button>
                     </div>
-
+                    <?php if(isset($errors)):?>
+                        <?php foreach($errors as $er):?>
+                            <p><?=$er?></p>       
+                        <?php endforeach;?>
+                    <?php endif;?>
                     <img src="img/or.png" alt="">
                     <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
                     <button type="submit" class="login-btn">Cadastrar</button>
