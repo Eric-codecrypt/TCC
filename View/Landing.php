@@ -93,8 +93,8 @@
         <div class="inic">
             <div class="content">
                 <p class="subtitle">Não pare.</p>
-                <p class="title">Move on</p><br>
-            </div><br><br><br>
+                <p class="title">Move on</p><br><br><br><br>
+            </div><br><br><br><br>
             <div class="btn-inic">
 
 
@@ -179,7 +179,7 @@
     <br><br><br><br>
 
     <div class="banner">
-        <a href=""> <img src="IMG/bannerad.png" alt="" class="web-banner"></a>
+        <a href=""> <img src="IMG/bannermove.jpg" alt="" class="web-banner"></a>
 
     </div><br><br><br><br>
 </Main>
