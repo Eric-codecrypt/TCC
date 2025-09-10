@@ -111,58 +111,7 @@ foreach ($planos as $pl) {
 </head>
 <body>
 
-    <header>
-        <nav class="nav-bar">
-            <div class="logo">
-                <a href=""> 
-                    <?php include __DIR__."/IMG/Move-On-Logo-square.svg";?>
-                </a>    
-            </div>
-
-            <div class="nav-list">
-                <ul>
-                    <li class="nav-item"> <a href="" class="nav-link">HOME</a></li>
-                    <li>
-                        <p>|</p>
-                    </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Planos</a></li>
-                    <li>
-                        <p>|</p>
-                    </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Dúvidas</a></li>
-                    <li>
-                        <p>|</p>
-                    </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Treinos</a></li>
-                    <li>
-                        <p>|</p>
-                    </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Pagamento</a></li>
-
-                </ul>
-            </div>
-
-            <!-- Ícone do menu hamburger (visível só no mobile) -->
-            <div class="mobile-menu-icon">
-                <button onclick="menuShow()"><i class="fa-solid fa-bars"></i></button>
-            </div>
-
-
-        </nav>
-
-        <!-- Menu mobile -->
-        <div class="mobile-menu">
-            <ul>
-                <li class="nav-item"><a href="" class="nav-link">HOME</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Planos</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Dúvidas</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Treinos</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Pagamento</a></li>
-            </ul>
-        </div>
-
-
-    </header>
+    <?php include __DIR__."/header.php";?>    
 
 <div class="container">
     <section id="plans-section">

@@ -8,8 +8,8 @@ class UserController {
         $this->UserModel = new UserModel($pdo);
     }
 
-    function register($username, $email, $password) {
-        return $this->UserModel->register($username, $email, $password);
+    function register($nome_completo, $email, $password) {
+        return $this->UserModel->register($nome_completo, $email, $password);
     }
 
     public function login($email, $password)

@@ -8,16 +8,16 @@ class UserModel
         $this->pdo = $pdo;
     }
 
-    function register($username, $email, $password)
+    function register($nome_completo, $email, $password)
     {
-        $sql = "SELECT * FROM users WHERE username = ? OR email = ?";
+        $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$username, $email]);
+        $stmt->execute([$email]);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (empty($results)) {
-            $sql = "INSERT INTO users(username, email, password) VALUES (?, ?, ?)";
+            $sql = "INSERT INTO users(nome_completo, email, password) VALUES (?, ?, ?)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute([$username, $email, $password]);
+            $stmt->execute([$nome_completo, $email, $password]);
             return true;
         } else {
             return false;
@@ -26,7 +26,7 @@ class UserModel
 
     public function login($email, $password)
     {
-        // Primeiro busque o usuário pelo email (ou username se preferir)
+        // Primeiro busque o usuário pelo email (ou nome_completo se preferir)
         $sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$email]);
@@ -48,10 +48,10 @@ class UserModel
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $username, $email, $hashedPassword = null)
+    public function update($id, $nome_completo, $email, $hashedPassword = null)
     {
-        $sql = "UPDATE users SET username = ?, email = ?";
-        $params = [$username, $email];
+        $sql = "UPDATE users SET nome_$nome_completo = ?, email = ?";
+        $params = [$nome_completo, $email];
 
         if ($hashedPassword) {
             $sql .= ", password = ?";

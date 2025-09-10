@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
 
         .login-btn {
-            background: linear-gradient(90deg, rgba(198, 72, 72, 1) 0%, rgba(150, 0, 3, 1) 100%);
+            background: linear-gradient(135deg, rgba(198, 72, 72, 1) 0%, rgba(150, 0, 3, 1) 100%);
             border: none;
             padding: 15px;
             color: #fff;
