@@ -2,7 +2,7 @@
 // Inclui o Model correspondente
 require_once __DIR__.'/../Model/DuesModel.php';
 
-class DuesController {
+class MensalidadeController {
     // Propriedade para armazenar a instância do Model
     private $duesModel;
 

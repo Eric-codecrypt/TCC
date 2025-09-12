@@ -1,6 +1,6 @@
 <?php
 
-class DuesModel {
+class MensalidadeModel {
     private $conn; // Armazena a conexão com o banco de dados
     private $table = 'Mensalidades';
 
