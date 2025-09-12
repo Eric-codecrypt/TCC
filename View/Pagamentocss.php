@@ -61,6 +61,13 @@
         /* ----- CONTEÚDO PRINCIPAL ----- */
         .content {
             display: none;
+        }
+
+        .content.active-content {
+            display: block;
+        }
+
+        .content-thing {
             background: #fff;
             padding: 25px;
             border-radius: 10px;
@@ -69,9 +76,7 @@
             width: 500px;
         }
 
-        .content.active-content {
-            display: block;
-        }
+        .content-thing .full {}
 
         .contaiconten {
             display: flex;
@@ -81,6 +86,10 @@
 
         .imagecnfg {
             width: 50px;
+        }
+
+        .imagecnfg2 {
+            width: 72px;
         }
 
         .flexcon {
@@ -101,13 +110,14 @@
             font-size: 13px;
         }
 
-        .prec p {
+        .prec2 {
             font-weight: 700;
+            font-size: 20px;
         }
 
         hr {
             border: none;
-            height: 1.5px;
+            height: 1px;
             background-color: #680e0eff;
         }
 
@@ -139,6 +149,51 @@
         .details.show {
             display: block;
         }
+
+
+        .infor2 {
+            text-align: center;
+        }
+
+        .infor2 h3 {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .prec2 {
+            font-weight: 700;
+            font-size: 25px;
+        }
+
+        .prec {
+            font-weight: 700;
+        }
+
+        .sobrepg {
+            text-align: left;
+        }
+
+        .sobreflex {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .topic {
+            text-align: left;
+        }
+
+        .topicansw {
+            text-align: right;
+        }
+
+        .topicansw p {
+            font-weight: 700;
+        }
+
+        .textimgsb {
+            text-align: left;
+        }
+
 
         @keyframes fadeIn {
             from {
@@ -172,74 +227,204 @@
     </div>
 
     <div class="contaiconten">
-        <!-- Conteúdo Em aberto -->
+        <!-- Conteúdo a pagar -->
         <div id="open-content" class="content active-content">
-            <div class="flexcon">
-                <div class="image">
-                    <img src="IMG/warning.png" alt="" class="imagecnfg">
-                </div>
-                <div class="infor">
-                    <h3>Mensalidade em aberto</h3><br>
-                    <p>Vencimento: 20/03/2025</p>
-                    <p>Código: 22222</p>
-                </div>
-                <div class="prec">
-                    <p>R$59,90</p>
-                </div>
-            </div><br>
+            <!-- HTML do pagamento fechado -->
+            <div class="content-thing" id="closedopen1">
+                <div class="flexcon">
+                    <div class="image">
+                        <img src="IMG/warning.png" alt="" class="imagecnfg">
+                    </div>
+                    <div class="infor">
+                        <h3>Mensalidade em aberto</h3><br>
+                        <p>Vencimento: 20/03/2025</p>
+                        <p>Código: 22222</p>
+                    </div>
+                    <div class="prec">
+                        <p>R$59,90</p>
+                    </div>
+                </div><br>
 
-            <hr class="line"><br>
+                <hr class="line"><br>
 
-            <button class="dropbtn" onclick="toggleDetails('open-details')">
-                <i class="fa-solid fa-caret-down"></i>
-                <p>Realizar pagamento</p>
-            </button>
+                <button class="dropbtn" onclick="toggleDetails('open1')">
+                    <i class="fa-solid fa-caret-down"></i>
+                    <p>Realizar pagamento</p>
+                </button>
+            </div>
+            <!-- HTML do pagamento aberto -->
+            <div class="content-thing full" id="fullopen1" style="display:none">
+                <div class="contentfull">
+                    <button class="dropbtn" onclick="toggleDetails('open1')">
+                        <i class="fa-solid fa-caret-up" style="font-size:2em; height:0;"></i>
+                    </button>
+                    <div class="image">
+                        <img src="IMG/warning.png" alt="" class="imagecnfg2">
+                    </div>
+                    <div class="infor2">
+                        <h3>Valor a pagar</h3>
+                    </div>
+                    <div class="prec2">
+                        <p>R$59,90</p>
+                    </div><br>
 
-            <div id="open-details" class="details">
-                <h3>Valor a pagar R$59,90</h3>
-                <p>Data de vencimento: Terça, 20/03/2025</p>
-                <p>Horário: 23h59</p>
-                <p>Qr Code para pagamento:</p>
-                <img src="IMG/qrcode.png" alt="QR Code">
+                    <div class="sobrepg">
+                        <h4>Sobre o pagamento</h4><br>
+                        <div class="sobreflex">
+
+                            <div class="topic">
+                                <p>Data do vencimento</p>
+                                <p>Horário</p>
+                            </div>
+
+                            <div class="topicansw">
+                                <p>Terça, 20/03/2025</p>
+                                <p>23:59h</p>
+                            </div>
+
+                        </div>
+                    </div><br>
+
+                    <hr class="line"><br>
+
+                    <div class="sobrepg">
+                        <h4>Quem Recebera</h4><br>
+                        <div class="sobreflex">
+
+                            <div class="topic">
+                                <p>Nome</p>
+
+                            </div>
+
+                            <div class="topicansw">
+                                <p>Move on Fitness cia</p>
+
+                            </div>
+
+                        </div>
+                    </div><br>
+                    <hr class="line"><br>
+
+                    <div class="sobrepgimg">
+                        <div class="textimgsb">
+                            <h4>Quem Recebera</h4><br>
+                        </div>
+                        <div class="imgsb">
+                            <img src="IMG/qrcode.png" alt="">
+                        </div>
+                    </div>
+
+                </div><br>
+
+
             </div>
         </div>
-
         <!-- Conteúdo Pagos -->
         <div id="paid-content" class="content">
-            <div class="flexcon">
+            <!-- HTML do pagamento fehchado -->
+            <div id="closedpaid1" style="none" class="content-thing">
+                <div class="flexcon">
+                    <div class="image">
+                        <img src="IMG/check.png" alt="" class="imagecnfg">
+                    </div>
+                    <div class="infor">
+                        <h3>Mensalidade paga</h3><br>
+                        <p>Pagamento: 20/03/2025</p>
+                        <p>Código: 2222</p>
+                    </div>
+                    <div class="prec">
+                        <p>R$59,90</p>
+                    </div>
+                </div><br>
+
+                <hr class="line"><br>
+
+                <button class="dropbtn" onclick="toggleDetails('paid1')">
+                    <i class="fa-solid fa-caret-down"></i>
+                    <p>Visualizar detalhes</p>
+                </button>
+            </div>
+            <!-- HTML do pagamento aberto -->
+            <div id="fullpaid1" style="display:none;" class="content-thing full">
+                <button class="dropbtn" onclick="toggleDetails('paid1')">
+                    <i class="fa-solid fa-caret-up" style="font-size:2em; height:0;"></i>
+                </button>
                 <div class="image">
                     <img src="IMG/check.png" alt="" class="imagecnfg">
                 </div>
-                <div class="infor">
-                    <h3>Mensalidade paga</h3><br>
-                    <p>Pagamento: 20/03/2025</p>
-                    <p>Código: 2222</p>
+                <div class="infor2">
+                    <h3>Valor pago</h3>
                 </div>
-                <div class="prec">
+                <div class="prec2">
                     <p>R$59,90</p>
                 </div>
-            </div><br>
+                <br>
 
-            <hr class="line"><br>
 
-            <button class="dropbtn" onclick="toggleDetails('paid-details')">
-                <i class="fa-solid fa-caret-down"></i>
-                <p>Visualizar detalhes</p>
-            </button>
+                <div class="sobrepg">
+                    <h4>Sobre o pagamento</h4><br>
+                    <div class="sobreflex">
 
-            <div id="paid-details" class="details">
-                <h3>Valor pago R$59,90</h3>
-                <p>Data do pagamento: Terça, 20/03/2025</p>
-                <p>Horário: 15h32</p>
-                <p>Quem recebeu: Move on Fitness Cia</p>
-                <p>Quem pagou: Filipe Mendes</p>
+                        <div class="topic">
+                            <p>Data do vencimento</p>
+                            <p>Horário</p>
+                        </div>
+
+                        <div class="topicansw">
+                            <p>Terça, 20/03/2025</p>
+                            <p>15:32h</p>
+                        </div>
+
+                    </div>
+                </div><br>
+
+                <hr class="line"><br>
+
+                <div class="sobrepg">
+                    <h4>Quem Recebera</h4><br>
+                    <div class="sobreflex">
+
+                        <div class="topic">
+                            <p>Nome</p>
+
+                        </div>
+
+                        <div class="topicansw">
+                            <p>Move on Fitness cia</p>
+
+                        </div>
+
+                    </div>
+                </div><br>
+
+                <hr class="line"><br>
+
+                <div class="sobrepg">
+                    <h4>Quem Pagou</h4><br>
+                    <div class="sobreflex">
+
+                        <div class="topic">
+                            <p>Nome</p>
+
+                        </div>
+
+                        <div class="topicansw">
+                            <p>Filipe Mendes </p>
+
+                        </div>
+
+                    </div>
+                </div><br>
+
+                <hr class="line"><br>
+
             </div>
         </div>
     </div>
 
     <br><br><br><br>
 
-    <?php include __DIR__ . "/footer.php"; ?> <br><br><br>
+    <?php include __DIR__ . "/footer.php"; ?>
 
 
     <script>
@@ -271,15 +456,17 @@
             }
         });
 
-        function toggleDetails(id) {
-            const allDetails = document.querySelectorAll('.details');
-            allDetails.forEach(detail => {
-                if (detail.id === id) {
-                    detail.classList.toggle('show');
-                } else {
-                    detail.classList.remove('show');
-                }
-            });
+        function toggleDetails(name) {
+            const closed = document.getElementById("closed" + name)
+            const full = document.getElementById("full" + name)
+
+            if (closed.style.display == "none") {
+                closed.style.display = ""
+                full.style.display = "none"
+            } else {
+                closed.style.display = "none"
+                full.style.display = ""
+            }
         }
     </script>
 </body>
