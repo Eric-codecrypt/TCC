@@ -200,7 +200,7 @@ if (isset($_GET['status'])) {
                 <?php foreach ($mensalidades as $mensalidade): ?>
                     <tr class="status-<?= strtolower(htmlspecialchars($mensalidade['status_pagamento'])) ?>">
                         <td><?= htmlspecialchars($mensalidade['id']) ?></td>
-                        <td><?= htmlspecialchars($mensalidade['nome']) ?></td>
+                        <td><?= htmlspecialchars($mensalidade['nome_completo']) ?></td>
                         <td><?= date('d/m/Y', strtotime($mensalidade['data_vencimento'])) ?></td>
                         <td><?= number_format($mensalidade['valor_cobrado'], 2, ',', '.') ?></td>
                         <td><?= htmlspecialchars($mensalidade['status_pagamento']) ?></td>

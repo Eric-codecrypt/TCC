@@ -8,11 +8,11 @@
 
             <div class="nav-list">
                 <ul>
-                    <li class="nav-item"> <a href="" class="nav-link">HOME</a></li>
+                    <li class="nav-item"> <a href="landing.php" class="nav-link">HOME</a></li>
                     <li>
                         <p>|</p>
                     </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Planos</a></li>
+                    <li class="nav-item"> <a href="plans.php" class="nav-link">Planos</a></li>
                     <li>
                         <p>|</p>
                     </li>
@@ -28,12 +28,14 @@
 
                 </ul>
             </div>
-
-            <div class="landing-button">
-                <button class="login-button"><a href="LoginAccount.php"> Log in</a></button>
-                <button class="sign-button"><a href="CreateAccount.php"> Sign up</a></button>
-            </div>
-
+            <?php if(!isset($_SESSION['user_id'])):?>
+                <div class="landing-button">
+                    <button class="login-button"><a href="LoginAccount.php"> Log in</a></button>
+                    <button class="sign-button"><a href="CreateAccount.php"> Sign up</a></button>
+                </div>
+            <?php else:?>
+                <p style="color:white"> (PLACEHOLDER) tá logado</p>
+            <?php endif;?>
             <!-- Ícone do menu hamburger (visível só no mobile) -->
             <div class="mobile-menu-icon">
                 <button onclick="menuShow()"><i class="fa-solid fa-bars"></i></button>
@@ -45,20 +47,17 @@
         <!-- Menu mobile -->
         <div class="mobile-menu">
             <ul>
-                <li class="nav-item"><a href="" class="nav-link">HOME</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Planos</a></li>
+                <li class="nav-item"><a href="landing.php" class="nav-link">HOME</a></li>
+                <li class="nav-item"><a href="plans.php" class="nav-link">Planos</a></li>
                 <li class="nav-item"><a href="" class="nav-link">Dúvidas</a></li>
                 <li class="nav-item"><a href="" class="nav-link">Treinos</a></li>
                 <li class="nav-item"><a href="" class="nav-link">Pagamento</a></li>
             </ul>
-            <?php if (!isset($_SESSION['user_id'])):?>
-            <div class="mobile-login">
-                <button class="login-button"><a href="">Log in</a></button>
-                <button class="sign-button"><a href="">Sign up</a></button>
-            </div>
-            <?php else:?>
-
-            <?php endif;?>
+            
+                <div class="mobile-login">
+                    <button class="login-button"><a href="">Log in</a></button>
+                    <button class="sign-button"><a href="">Sign up</a></button>
+                </div>
         </div>
 
 
