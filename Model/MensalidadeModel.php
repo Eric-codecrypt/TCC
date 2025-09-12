@@ -10,7 +10,7 @@ class MensalidadeModel {
     }
 
     // Método para buscar todas as mensalidades (pendentes e pagas)
-    public function getAllDues() {
+    public function getAllMensalidade() {
         // A consulta SQL une as tabelas para pegar o nome do usuário
         $query = 'SELECT 
                     m.id,
@@ -18,7 +18,7 @@ class MensalidadeModel {
                     m.data_vencimento,
                     m.valor_cobrado,
                     m.status_pagamento,
-                    m.DataPagamento
+                    m.data_pagamento
                   FROM ' . $this->table . ' m
                   JOIN users u ON m.user_id = u.id
                   ORDER BY m.data_vencimento DESC';
@@ -30,7 +30,7 @@ class MensalidadeModel {
     }
 
     // Método para buscar apenas as mensalidades atrasadas
-    public function getOverdueDues() {
+    public function getOverdueMensalidade() {
         // CURDATE() é uma função do SQL que retorna a data atual
         $query = 'SELECT 
                     m.id,
@@ -50,19 +50,19 @@ class MensalidadeModel {
     }
 
     // Método para marcar uma mensalidade como paga
-    public function markAsPaid($duesId) {
+    public function markAsPaid($MensalidadeId) {
         $query = 'UPDATE ' . $this->table . '
                   SET
                     status_pagamento = "Pago",
-                    DataPagamento = CURDATE()
+                    data_pagamento = CURDATE()
                   WHERE
-                    id = :duesId';
+                    id = :MensalidadeId';
 
         $stmt = $this->conn->prepare($query);
 
         // Limpa e vincula o parâmetro para segurança (evita SQL Injection)
-        $duesId = htmlspecialchars(strip_tags($duesId));
-        $stmt->bindParam(':duesId', $duesId);
+        $MensalidadeId = htmlspecialchars(strip_tags($MensalidadeId));
+        $stmt->bindParam(':MensalidadeId', $MensalidadeId);
 
         // Executa e retorna true se bem-sucedido, false caso contrário
         if ($stmt->execute()) {

@@ -1,17 +1,17 @@
 <?php
 // Inclui o Model correspondente
-require_once __DIR__.'/../Model/DuesModel.php';
+require_once __DIR__.'/../Model/MensalidadeModel.php';
 
 class MensalidadeController {
     // Propriedade para armazenar a instância do Model
-    private $duesModel;
+    private $MensalidadeModel;
 
     /**
      * O construtor recebe a conexão PDO já pronta (Injeção de Dependência)
-     * e a utiliza para criar o DuesModel.
+     * e a utiliza para criar o MensalidadeModel.
      */
     public function __construct($pdo) {
-        $this->duesModel = new DuesModel($pdo);
+        $this->MensalidadeModel = new MensalidadeModel($pdo);
     }
 
     /**
@@ -19,7 +19,7 @@ class MensalidadeController {
      * Simplesmente repassa a chamada para o Model.
      */
     public function listAll() {
-        return $this->duesModel->getAllDues();
+        return $this->MensalidadeModel->getAllMensalidade();
     }
 
     /**
@@ -27,22 +27,22 @@ class MensalidadeController {
      * Repassa a chamada para o Model.
      */
     public function listOverdue() {
-        return $this->duesModel->getOverdueDues();
+        return $this->MensalidadeModel->getOverdueMensalidade();
     }
 
     /**
      * Ação para marcar uma mensalidade como paga.
      * Recebe o id, repassa para o Model e lida com o redirecionamento.
      */
-    public function pay($duesId) {
+    public function pay($MensalidadeId) {
         // A lógica de negócio (redirecionamento) permanece no controller
-        $success = $this->duesModel->markAsPaid($duesId);
+        $success = $this->MensalidadeModel->markAsPaid($MensalidadeId);
 
         if ($success) {
-            header('Location: ../views/DuesView.php?status=paid_success');
+            header('Location: ../views/MensalidadeView.php?status=paid_success');
             exit();
         } else {
-            header('Location: ../views/DuesView.php?status=paid_error');
+            header('Location: ../views/MensalidadeView.php?status=paid_error');
             exit();
         }
     }
