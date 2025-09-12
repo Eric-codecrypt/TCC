@@ -24,6 +24,9 @@ class UserController {
     public function update($id, $username, $email, $password = null) {
         return $this->UserModel->update($id, $username, $email, $password); // Reutilizar método do modelo
     }
+    public function updatePersonalInfo($id,$cpf,$cell,$info){
+        return $this->UserModel->updatePersonalInfo($id,$cpf,$cell, $info); // Reutilizar método do modelo
+    }
 
     public function delete($id) {
         return $this->UserModel->delete($id); // Reutilizar método do modelo

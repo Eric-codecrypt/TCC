@@ -50,7 +50,7 @@ class UserModel
 
     public function update($id, $nome_completo, $email, $hashedPassword = null)
     {
-        $sql = "UPDATE users SET nome_$nome_completo = ?, email = ?";
+        $sql = "UPDATE users SET nome_completo = ?, email = ?";
         $params = [$nome_completo, $email];
 
         if ($hashedPassword) {
@@ -60,6 +60,13 @@ class UserModel
 
         $sql .= " WHERE id = ?";
         $params[] = $id;
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($params);
+    }
+    public function updatePersonalInfo($id,$cpf,$cell,$info){
+        $sql = "UPDATE users SET cpf = ?, celular = ?, info_treinamento = ? WHERE id = ?";
+        $params = [$cpf, $cell, $info, $id];
 
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($params);
