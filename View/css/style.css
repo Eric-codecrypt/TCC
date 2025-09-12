@@ -515,7 +515,9 @@ header .container p {
 
 .pla3ns-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
     align-items: center;
 }
@@ -531,7 +533,7 @@ header .container p {
     flex-direction: column;
     gap: 1rem;
     cursor: pointer;
-    max-width: 600px;
+    width: 600px;
 }
 
 .plan-card:hover {

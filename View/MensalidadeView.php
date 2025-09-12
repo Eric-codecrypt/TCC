@@ -3,10 +3,10 @@
 $pdo = include __DIR__ . '/../Config.php';
 
 // Inclui o controller, que é o cérebro da nossa aplicação
-require_once __DIR__ . '/../Controller/DuesController.php';
+require_once __DIR__ . '\..\Controller\MensalidadeController.php';
 
 // Cria uma instância do controller com a conexão PDO
-$controller = new DuesController($pdo);
+$controller = new MensalidadeController($pdo);
 
 // --- LÓGICA DE PROCESSAMENTO DE AÇÕES ---
 // Verifica se uma ação foi enviada via URL (ex: ?action=pay&id=5)
@@ -15,8 +15,8 @@ if (isset($_GET['action'])) {
 
     // Se a ação for 'pay', chama o método pay do controller
     if ($action === 'pay' && isset($_GET['id'])) {
-        $duesId = intval($_GET['id']); // Converte o id para um inteiro por segurança
-        $controller->pay($duesId);
+        $mensalidadeId = intval($_GET['id']); // Converte o id para um inteiro por segurança
+        $controller->pay($mensalidadeId);
     }
 }
 
@@ -120,19 +120,19 @@ if (isset($_GET['status'])) {
         }
 
         /* Tabela de Dados */
-        .dues-table {
+        .mensalidade-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
 
-        .dues-table th, .dues-table td {
+        .mensalidade-table th, .mensalidade-table td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #e0e0e0;
         }
 
-        .dues-table thead {
+        .mensalidade-table thead {
             background-color: #f2f2f2;
             font-size: 14px;
             text-transform: uppercase;
@@ -172,15 +172,15 @@ if (isset($_GET['status'])) {
     <header>
         <h1><?= htmlspecialchars($tituloDaPagina) ?></h1>
         <nav>
-            <a href="DuesView.php?filter=all">Ver Todas</a>
-            <a href="DuesView.php?filter=overdue">Ver Apenas Atrasadas</a>
+            <a href="mensalidadeView.php?filter=all">Ver Todas</a>
+            <a href="mensalidadeView.php?filter=overdue">Ver Apenas Atrasadas</a>
         </nav>
     </header>
 
     <main>
         <?= $statusMessage ?>
 
-        <table class="dues-table">
+        <table class="mensalidade-table">
             <thead>
             <tr>
                 <th>id</th>
@@ -200,13 +200,13 @@ if (isset($_GET['status'])) {
                 <?php foreach ($mensalidades as $mensalidade): ?>
                     <tr class="status-<?= strtolower(htmlspecialchars($mensalidade['status_pagamento'])) ?>">
                         <td><?= htmlspecialchars($mensalidade['id']) ?></td>
-                        <td><?= htmlspecialchars($mensalidade['nome']) ?></td>
+                        <td><?= htmlspecialchars($mensalidade['nome_completo']) ?></td>
                         <td><?= date('d/m/Y', strtotime($mensalidade['data_vencimento'])) ?></td>
                         <td><?= number_format($mensalidade['valor_cobrado'], 2, ',', '.') ?></td>
                         <td><?= htmlspecialchars($mensalidade['status_pagamento']) ?></td>
                         <td>
                             <?php if ($mensalidade['status_pagamento'] !== 'Pago'): ?>
-                                <a href="DuesView.php?action=pay&id=<?= $mensalidade['id'] ?>"
+                                <a href="mensalidadeView.php?action=pay&id=<?= $mensalidade['id'] ?>"
                                    class="action-button"
                                    onclick="return confirm('Tem certeza que deseja marcar esta mensalidade como PAGA?')">
                                     Marcar como Pago

@@ -4,15 +4,14 @@ require_once __DIR__ . '/../Config.php';
 require_once __DIR__ . '/../Controller/UserController.php';
 
 $Controller = new UserController($pdo);
-$error_message = "";
+$errors = [];
 $email = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-    var_dump($_POST);
     if (empty($email) || empty($password)) {
-        $error_message = "Todos os campos são obrigatórios.";
+        array_push($errors, "Todos os campos são obrigatórios.");
     } else {
         // CORREÇÃO: Agora passando apenas email e password
         $user = $Controller->login($email, $password);
@@ -26,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             header("Location: Dashboard.php");
             exit;
         } else {
-            $error_message = "E-mail ou senha incorretos.";
+            array_push($errors, "E-mail ou senha incorretos.");
         }
     }
 }
@@ -270,6 +269,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <i class="fa-solid fa-eye" style="font-size:20px;  color: #c5c5c5ff;"></i>
                         </button>
                     </div>
+                    <?php if(isset($errors)):?>
+                        <?php foreach($errors as $er):?>
+                            <p><?=$er?></p>       
+                        <?php endforeach;?>
+                    <?php endif;?>
 
                     <div>
                     <div class="checkbox">
