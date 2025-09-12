@@ -287,9 +287,11 @@ footer {
     padding: 20px;
 }
 
-hr {
+footer hr {
     width: 70%;
     margin: 0 auto;
+
+    background-color: white;
 }
 
 .containerinfo {
@@ -380,7 +382,13 @@ hr {
     font-size: 17px;
     padding: 15px;
 }
+/* PAGAMENTOS CSS */
 
+.pagamentoconten{
+    background-color: #1a7f37;
+    width: 50%;
+    margin: 0 auto;
+}
 
 /* Responsividade */
 @media (max-width: 1016px) {
