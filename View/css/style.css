@@ -751,10 +751,16 @@ header .container p {
     border:1px solid black;
     border-radius: 100%;
     cursor: pointer;
+    transition: background-size .5s cubic-bezier(0.19, 1, 0.22, 1),
+                border .5s cubic-bezier(0.19, 1, 0.22, 1);
+    background-size: 0% 0%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: radial-gradient(#FF0000 0%, #FF0000 50%, transparent  60%);
 }
 .treino-personalizado input[type='radio']:checked{
-    background-image: radial-gradient(#FF0000 0%, #FF0000 50%, transparent  60%);
     border:1px solid #FF0000;
+    background-size: 100% 100%;
 }
 .treino-personalizado input[type='checkbox']{
     width: 20px;

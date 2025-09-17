@@ -94,34 +94,34 @@ if(!empty($_POST)){
 
         <div class="input-container">
             <label for="nome"><p>Nome:</p></label>
-            <input type="text" id="nome" name="nome" required>
+            <input type="text" id="nome" name="nome" required style="width:300px">
         </div>
         
         <div class="input-container">
             <label for="cell"><p>Celular:</p></label>
-            <input type="tel" id="cell" name="cell" required>
+            <input type="tel" id="cell" name="cell" required style="width:200px">
         </div>
         
         <div class="input-container">
             <label for="cpf"><p>CPF:</p></label>
-            <input type="name" id="cpf" name="cpf" required>
+            <input type="name" id="cpf" name="cpf" required style="width:200px">
         </div>
 
         <div class="input-container">
             <label for="idade"><p>Idade:</p></label>
-            <input type="number" id="idade" name="idade" required>
+            <input type="number" id="idade" name="idade" required style="width:50px">
             <p>anos</p>
         </div>
 
         <div class="input-container">
             <label for="altura"><p>Altura:</p></label>
-            <input type="number" id="altura" name="altura" step="0.01" required>
+            <input type="number" id="altura" name="altura" step="0.01" required style="width:100px">
             <p>metros</p>
         </div>
 
         <div class="input-container">
             <label for="peso"><p>Peso:</p></label>
-            <input type="number" id="peso" name="peso" step="0.01" min="0" required>
+            <input type="number" id="peso" name="peso" step="0.01" min="0" required style="width:75px">
             <p>kg</p>
         </div>
 
