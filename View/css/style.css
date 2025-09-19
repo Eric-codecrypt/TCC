@@ -195,7 +195,7 @@ li p {
 }
 
 
-.btn2 a {
+a .btn1, a .btn2{
     color: #ffffff;
     font-size: 35px;
     font-weight: 500;

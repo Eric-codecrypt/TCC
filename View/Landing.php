@@ -35,8 +35,8 @@
             <div class="btn-inic">
 
 
-                <button class="btn1"><a href="Plans.php">Conheça nossos planos</a></button><br>
-                <button class="btn2"><a href="">Reserve sua aula experimental</a></button>
+                <a href="Plans.php"><button class="btn1">Conheça nossos planos</button></a><br>
+                <a href=""><button class="btn2">Reserve sua aula experimental</button></a>
             </div>
         </div><br><br>
 
