@@ -503,11 +503,11 @@ header .container p {
 }
 
 /* Plans list */
-#plans-section {
+#plans-sect {
     padding: 40px 0 24px;
 }
 
-#plans-section h2 {
+#plans-sect h2 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 24px;
@@ -673,15 +673,21 @@ header .container p {
     flex: 1;
 }
 
+.no-scroll{
+    overflow: hidden;
+}
+
 /* Success section as a simple modal overlay */
-#success-section {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+#warning-sect, #success-sect{
+    background-color: #0000006d;
+    width: 100vw;
+    height: 100vh;
+    position:fixed;
+    top: 0;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
 }
 
 .success-message {

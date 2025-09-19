@@ -114,12 +114,12 @@ foreach ($planos as $pl) {
     <?php include __DIR__."/header.php";?>    
 
 <div class="container">
-    <section id="plans-section">
+    <section id="plans-sect">
         <h2>Nossos Planos</h2>
         <div class="pla3ns-container">
             <?php if (!empty($planos)): ?>
                 <?php foreach ($planos as $pl): ?>
-                    <div class="plan-card" onclick="selectPlan('<?= (int)$pl['id'] ?>')">
+                    <div class="plan-card" onclick="selectPlan('<?= (int)$pl['id'] ?>')" id="plan<?=$pl['id']?>">
                         <h3><?= htmlspecialchars($pl['nome_plano']) ?></h3>
                         <div class="subcard">
                             <p><?= htmlspecialchars($pl['descricao'])?></p>
@@ -147,49 +147,29 @@ foreach ($planos as $pl) {
         </div>
     </section>
     <!-- essa section é escondida quando seleciona um plano -->
-    <section id="payment-section" class="hidden">
-        <h2>Pagamento</h2>
-        <div class="payment-form">
-            <h3 id="selected-plan-title">Plano Selecionado: <span id="plan-name"></span></h3>
-            <p id="plan-price" class="price"></p>
+    <section id="warning-sect" class="hidden">
+        <div class="success-message">
+            <h2>Você tem certeza?</h2>
+            <p>Tem certeza que quer assinar este plano? <br>
+            se você clicar em sim, voce pode paga-lo a partir da sua página de usuário (você pode cancelar o plano depois)</p>
 
-            <form id="payment-form">
-                <div class="form-group">
-                    <label for="card-number">Número do Cartão</label>
-                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="card-name">Nome no Cartão</label>
-                    <input type="text" id="card-name" placeholder="João Silva" required>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="card-expiry">Validade</label>
-                        <input type="text" id="card-expiry" placeholder="MM/AA" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="card-cvv">CVV</label>
-                        <input type="text" id="card-cvv" placeholder="123" required>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn">Pagar Agora</button>
-            </form>
+            <button class="btn" onclick="confirmAssinar()">Assinar plano</button>
+            <button class="btn" onclick="cancelAssinar()">Não assinar</button>
         </div>
     </section>
     <!-- essa section é escondida como um "modal", ao clicar em "pagar agora" ele vai aparecer -->
-    <section id="success-section" class="hidden">
+    <section id="success-sect" class="hidden">
         <div class="success-message">
             <div class="success-icon">✓</div>
             <h2>Pagamento Realizado com Sucesso!</h2>
             <p>Obrigado por assinar o <span id="success-plan-name"></span>.</p>
-            <p>id da Transação: <span id="transaction-id"></span></p>
-            <button class="btn" onclick="window.location.reload()">Voltar ao Início</button>
+            <p>Para pagar o plano, volte para a página de usuário e vá para a página de mensalidades</p>
+            <button class="btn" onclick=" window.location.replace('dashboard.php')"">Voltar para a página de usuário</button>
         </div>
     </section>
+    <form action="#" id="hidden-form" class="hidden">
+        <input type="hidden" name="plan" value="0" id="inputhiddenplan">
+    </form>
 </div>
 
     <?php include __DIR__."/footer.php";?>
@@ -209,50 +189,28 @@ foreach ($planos as $pl) {
             return;
         }
 
-        // Atualizar a seção de pagamento com as informações do plano
-        document.getElementById('plan-name').textContent = plans[selectedPlan].name;
-        document.getElementById('plan-price').textContent = plans[selectedPlan].price;
+        document.getElementById('inputhiddenplan').value = planId;
 
-        // Mostrar a seção de pagamento e esconder a seção de planos
-        document.getElementById('plans-section').classList.add('hidden');
-        document.getElementById('payment-section').classList.remove('hidden');
+        document.getElementById('warning-sect').classList.remove('hidden');
+        document.getElementsByTagName('body')[0].classList.add('no-scroll');
     }
 
+    function cancelAssinar(){
+        document.getElementById('warning-sect').classList.add('hidden');
+        document.getElementsByTagName('body')[0].classList.remove('no-scroll');
+    }
+
+    function confirmAssinar(){
+
+        document.getElementById('warning-sect').classList.add('hidden');
+        document.getElementById('success-sect').classList.remove('hidden');
+        
+        var id = document.getElementById('inputhiddenplan').value;
+
+        var name = document.getElementById('plan'+id).children[0].innerHTML;
+        document.getElementById('success-plan-name').innerHTML = name;
+    }
     // Manipular o envio do formulário de pagamento
-    document.getElementById('payment-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
-        if (!selectedPlan || !plans[selectedPlan]) {
-            alert('Selecione um plano válido.');
-            return;
-        }
-
-        const formData = new URLSearchParams();
-        formData.append('plan_id', selectedPlan);
-
-        try {
-            const res = await fetch(window.location.href, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formData.toString()
-            });
-            const data = await res.json();
-            if (!data.success) {
-                alert(data.message || 'Não foi possível processar a assinatura.');
-                return;
-            }
-            console.log(document.getElementById('transaction-id'));
-            // Atualizar a seção de sucesso com dados do servidor
-            document.getElementById('success-plan-name').textContent = data.planName;
-            document.getElementById('transaction-id').textContent = data.transactionId;
-
-            // Mostrar a seção de sucesso e esconder a seção de pagamento
-            document.getElementById('payment-section').classList.add('hidden');
-            document.getElementById('success-section').classList.remove('hidden');
-        } catch (err) {
-            alert(err);
-        }
-    });
 </script>
 
 
