@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             border-radius: 10px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
             text-align: left;
-            gap:15px;
+            gap: 15px;
             display: flex;
             flex-direction: column;
         }
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         form {
             display: flex;
             flex-direction: column;
-            gap:15px;
+            gap: 15px;
         }
 
         input {
@@ -189,14 +189,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap:0.25rem
+            gap: 0.25rem
         }
 
         .checkbox input {
             background-color: #9e0f11;
-            width:20px;
-            height:20px;
-            margin:0 !important;
+            width: 20px;
+            height: 20px;
+            margin: 0 !important;
         }
 
         .half {}
@@ -253,11 +253,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
                 <form action="#" method="post">
 
-                <div style="position: relative;">
-                    <input type="email" id="email" name="email" style="width:100%" value="<?php echo htmlspecialchars($email); ?>"
-                        placeholder="Email ou nome de usuário" required>
-                    
-                    <i class="fa-regular fa-user" style=" font-size:20px;  color: #c5c5c5ff; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+                    <div style="position: relative;">
+                        <input type="email" id="email" name="email" style="width:100%"
+                            value="<?php echo htmlspecialchars($email); ?>" placeholder="Email ou nome de usuário"
+                            required>
+
+                        <i class="fa-regular fa-user" style=" font-size:20px;  color: #c5c5c5ff; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
                                background: none; border: none; "></i>
                     </div>
 
@@ -269,20 +270,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <i class="fa-solid fa-eye" style="font-size:20px;  color: #c5c5c5ff;"></i>
                         </button>
                     </div>
-                    <?php if(isset($errors)):?>
-                        <?php foreach($errors as $er):?>
-                            <p><?=$er?></p>       
-                        <?php endforeach;?>
-                    <?php endif;?>
+                    <?php if (isset($errors)): ?>
+                        <?php foreach ($errors as $er): ?>
+                            <p><?= $er ?></p>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
 
                     <div>
-                    <div class="checkbox">
-                        <input type="checkbox" name="remember-password" id="remember-password"
-                            style="accent-color: red;">
-                        <p>Lembrar minha senha</p>
-                    </div>
-                    <img style="width: 100%;" src="img/or.png" alt="">
-                    <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
+                        <div class="checkbox">
+                            <input type="checkbox" name="remember-password" id="remember-password"
+                                style="accent-color: red;">
+                            <p>Lembrar minha senha</p>
+                        </div>
+                        <img style="width: 100%;" src="img/or.png" alt="">
+                        <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
                     </div>
                     <button type="submit" class="login-btn">Login</button>
                 </form>
