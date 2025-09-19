@@ -40,6 +40,7 @@ if (!$user) {
 <a href="UpdateAccount.php">Atualizar Conta</a><br>
 <a href="DeleteAccount.php">Excluir Conta</a><br>
 <a href="Dashboard.php">Ir para o Dashboard</a><br>
+<a href="MensalidadeView.php">Mensalidades</a>
 <a href="LeaveAccount.php">Sair</a>
 </body>
 </html>

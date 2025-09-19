@@ -1,7 +1,8 @@
 <?php
 session_start();
 // Conexão com o banco de dados
-$pdo = include __DIR__ . '/../Config.php';
+include __DIR__ . '/../Config.php';
+include __DIR__ . '/../MensalidadeController.php';
 
 $planos = [];
 try {
@@ -14,89 +15,17 @@ try {
     $planos = [];
 }
 
-// Handler para assinatura de plano (AJAX)
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    header('Content-Type: application/json; charset=utf-8');
-    $response = ['success' => false, 'message' => ''];
-
-    try {
-        if (!isset($_SESSION['user_id'])) {
-            $response['message'] = 'Você precisa estar logado para assinar um plano.';
-            echo json_encode($response, JSON_UNESCAPED_UNICODE);
-            exit;
-        }
-
-        $user_id = (int)$_SESSION['user_id'];
-        $planId = isset($_POST['plan_id']) ? (int)$_POST['plan_id'] : 0;
-
-        if ($planId <= 0) {
-            $response['message'] = 'Plano inválido.';
-            echo json_encode($response, JSON_UNESCAPED_UNICODE);
-            exit;
-        }
-
-        // Buscar informações do plano
-        $stmt = $pdo->prepare('SELECT id, nome_plano, valor_mensal FROM planos WHERE id = ?');
-        $stmt->execute([$planId]);
-        $plan = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if (!$plan) {
-            $response['message'] = 'Plano não encontrado.';
-            echo json_encode($response, JSON_UNESCAPED_UNICODE);
-            exit;
-        }
-
-        // Transação: atualizar plano do usuário e criar uma mensalidade pendente
-        $pdo->beginTransaction();
-
-        // Atualiza o plano do usuário
-        $stmtUp = $pdo->prepare('UPDATE users SET plano_id = ? WHERE id = ?');
-        $stmtUp->execute([$planId, $user_id]);
-
-        // Calcula a data de vencimento (em 30 dias)
-        $dueDate = (new DateTime('now'))->modify('+30 days')->format('Y-m-d');
-
-        // Cria a mensalidade pendente
-        $stmtIns = $pdo->prepare("INSERT INTO mensalidades (user_id, data_vencimento, valor_cobrado, status_pagamento, data_pagamento) VALUES (?, ?, ?, 'Pendente', NULL)");
-        $stmtIns->execute([$user_id, $dueDate, $plan['valor_mensal']]);
-
-        $pdo->commit();
-
-        // Resposta de sucesso
-        $transactionId = 'TX' . strtoupper(substr(bin2hex(random_bytes(5)), 0, 10));
-        $response = [
-            'success' => true,
-            'planName' => $plan['nome_plano'],
-            'price' => 'R$ ' . number_format((float)$plan['valor_mensal'], 2, ',', '.'),
-            'transactionId' => $transactionId,
-        ];
-    } catch (Throwable $e) {
-        if ($pdo && $pdo->inTransaction()) {
-            $pdo->rollBack();
-        }
-        $response['message'] = 'Erro ao processar a assinatura. Tente novamente mais tarde.' . $e;
-    }
-
-    echo json_encode($response, JSON_UNESCAPED_UNICODE);
-    exit;
-}
-
 // Prepara estrutura para o JS
-$plansJs = [];
 $imgs =[
     "",
     "bronze.png",
     "ouro.png",
     "diamond.png"
 ];
-foreach ($planos as $pl) {
-    $id = (string)$pl['id'];
-    $name = $pl['nome_plano'];
-    $priceStr = 'R$ ' . number_format((float)$pl['valor_mensal'], 2, ',', '.') . '/mês';
-    $plansJs[$id] = [
-        'name' => $name,
-        'price' => $priceStr,
-    ];
+
+if(isset($_POST['plan_id'])){
+    var_dump($_POST);
+    
 }
 ?>
 <!DOCTYPE html>
@@ -164,30 +93,19 @@ foreach ($planos as $pl) {
             <h2>Pagamento Realizado com Sucesso!</h2>
             <p>Obrigado por assinar o <span id="success-plan-name"></span>.</p>
             <p>Para pagar o plano, volte para a página de usuário e vá para a página de mensalidades</p>
-            <button class="btn" onclick=" window.location.replace('dashboard.php')"">Voltar para a página de usuário</button>
+            <button class="btn" onclick="document.getElementById('hidden-form').submit()">Voltar para a página de usuário</button>
         </div>
     </section>
-    <form action="#" id="hidden-form" class="hidden">
-        <input type="hidden" name="plan" value="0" id="inputhiddenplan">
+    <form action="#" id="hidden-form" class="hidden" method="post">
+        <input type="hidden" name="plan_id" value="0" id="inputhiddenplan">
     </form>
 </div>
 
     <?php include __DIR__."/footer.php";?>
 
 <script>
-    // Dados dos planos vindos do banco
-    const plans = <?= json_encode($plansJs, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES) ?>;
-
-    let selectedPlan = null;
-
     // Função para selecionar um plano
     function selectPlan(planId) {
-        selectedPlan = String(planId);
-
-        if (!plans[selectedPlan]) {
-            alert('Plano inválido ou indisponível.');
-            return;
-        }
 
         document.getElementById('inputhiddenplan').value = planId;
 

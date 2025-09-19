@@ -46,4 +46,12 @@ class MensalidadeController {
             exit();
         }
     }
+
+    public function newMensalidade(){
+        // Data atual
+        $dataAtual = new DateTime();
+        // Adicionar 1 mês
+        $dataAtual->modify('+1 month');
+        
+    }
 }
