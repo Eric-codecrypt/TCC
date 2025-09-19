@@ -195,7 +195,7 @@ li p {
 }
 
 
-.btn2 a {
+a .btn1, a .btn2{
     color: #ffffff;
     font-size: 35px;
     font-weight: 500;
@@ -503,11 +503,11 @@ header .container p {
 }
 
 /* Plans list */
-#plans-section {
+#plans-sect {
     padding: 40px 0 24px;
 }
 
-#plans-section h2 {
+#plans-sect h2 {
     text-align: center;
     font-size: 28px;
     margin-bottom: 24px;
@@ -673,15 +673,21 @@ header .container p {
     flex: 1;
 }
 
+.no-scroll{
+    overflow: hidden;
+}
+
 /* Success section as a simple modal overlay */
-#success-section {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+#warning-sect, #success-sect{
+    background-color: #0000006d;
+    width: 100vw;
+    height: 100vh;
+    position:fixed;
+    top: 0;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
 }
 
 .success-message {
@@ -751,10 +757,16 @@ header .container p {
     border:1px solid black;
     border-radius: 100%;
     cursor: pointer;
+    transition: background-size .5s cubic-bezier(0.19, 1, 0.22, 1),
+                border .5s cubic-bezier(0.19, 1, 0.22, 1);
+    background-size: 0% 0%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: radial-gradient(#FF0000 0%, #FF0000 50%, transparent  60%);
 }
 .treino-personalizado input[type='radio']:checked{
-    background-image: radial-gradient(#FF0000 0%, #FF0000 50%, transparent  60%);
     border:1px solid #FF0000;
+    background-size: 100% 100%;
 }
 .treino-personalizado input[type='checkbox']{
     width: 20px;
