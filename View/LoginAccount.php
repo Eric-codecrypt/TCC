@@ -7,6 +7,7 @@ $Controller = new UserController($pdo);
 $errors = [];
 $email = "";
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
@@ -19,10 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($user && isset($user['id'])) {
             // Informações do usuário encontradas e senha verificada
             $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['role'] = $user['role'];
+
+            if(isset($_POST['remember_password'])){
+                setcookie('user_id', $user['id'], time()+60*60*24*7);
+            }
 
             header("Location: Dashboard.php");
+
             exit;
         } else {
             array_push($errors, "E-mail ou senha incorretos.");
@@ -277,9 +281,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     <div>
                     <div class="checkbox">
-                        <input type="checkbox" name="remember-password" id="remember-password"
+                        <input type="checkbox" name="remember_password" id="remember_password"
                             style="accent-color: red;">
-                        <p>Lembrar minha senha</p>
+                        <p>Lembrar meu login</p>
                     </div>
                     <img style="width: 100%;" src="img/or.png" alt="">
                     <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>

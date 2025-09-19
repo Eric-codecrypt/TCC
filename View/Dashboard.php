@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: LoginAccount.php");
     exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
