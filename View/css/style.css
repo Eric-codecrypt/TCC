@@ -391,7 +391,16 @@ footer hr {
 }
 
 /* Responsividade */
-@media (max-width: 1016px) {
+@media (max-width: 1116px) {
+
+    .btn-inic {
+
+    text-align: center;
+    display: flex;
+    gap: 20px;
+    padding: 50px;
+    justify-content: center;
+}
 
     .nav-list,
     .landing-button {
