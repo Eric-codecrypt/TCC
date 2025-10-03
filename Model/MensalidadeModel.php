@@ -9,6 +9,12 @@ class MensalidadeModel {
         $this->conn = $db;
     }
 
+    public function createMensalidade($user_id, $data_vencimento, $valor_cobrado){
+        $sql = "INSERT INTO mensalidades(user_id, data_vencimento, valor_cobrado) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$user_id, $data_vencimento, $valor_cobrado]);
+    }
+
     // Método para buscar todas as mensalidades (pendentes e pagas)
     public function getAllMensalidade() {
         // A consulta SQL une as tabelas para pegar o nome do usuário
@@ -69,5 +75,27 @@ class MensalidadeModel {
             return true;
         }
         return false;
+    }
+    public function updateDate($id, $data){
+        $query = "UPDATE Mensalidades SET data_vencimento = ?, status_pagamento = 'Atrasado' WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$data, $id]);
+    }
+
+    public function markAsUnpaid($id){
+        $query = "UPDATE Mensalidades SET status_pagamento = 'Pendente' WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
+    }
+    public function markAsPaidRaw($id) {
+        $query = "UPDATE Mensalidades SET status_pagamento = 'Pago' WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
+    }
+
+    public function markAsLate($id){
+        $query = "UPDATE Mensalidades SET status_pagamento = 'Atrasado' WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
     }
 }

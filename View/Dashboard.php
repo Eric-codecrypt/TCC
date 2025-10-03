@@ -1,4 +1,11 @@
 <?php
+include_once __DIR__.'\..\Controller\MensalidadeController.php';
+include_once __DIR__.'\..\Config.php';
+
+$Controller = new MensalidadeController($pdo);
+
+$Controller->updateAllMensalidades();
+
 session_start();
 
 // Verificar se o usuário está autenticado
