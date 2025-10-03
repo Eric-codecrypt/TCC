@@ -1,8 +1,9 @@
 <?php
 session_start();
 // Conexão com o banco de dados
-include __DIR__ . '/../Config.php';
-include __DIR__ . '/../MensalidadeController.php';
+include __DIR__ . '\..\Config.php';
+include __DIR__ . '\..\Controller\MensalidadeController.php';
+include __DIR__ . '\..\Controller\UserController.php';
 
 $planos = [];
 try {
@@ -24,8 +25,19 @@ $imgs =[
 ];
 
 if(isset($_POST['plan_id'])){
-    var_dump($_POST);
-    
+    $sql = "SELECT * FROM planos WHERE id = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$_POST['plan_id']]);
+    $plano = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $mensalidadeController = new MensalidadeController($pdo);
+
+    $id_mensalidade = $mensalidadeController->newMensalidade($_SESSION['user_id'], $plano['valor_mensal']);
+
+    $userController = new UserController($pdo);
+    $userController->updatePlanoInfo($_SESSION['user_id'],$plano['id'],$id_mensalidade);
+
+    header('Location: dashboard.php');
 }
 ?>
 <!DOCTYPE html>

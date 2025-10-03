@@ -54,6 +54,8 @@ class MensalidadeController {
         $data_vencimento->modify('+1 month');
 
         $this->MensalidadeModel->createMensalidade($id_user,$data_vencimento->format("Y-m-d"),$valor_cobrado);
+        
+        return $this->listAll()[0]['id'];
     }
 
     public function updateMensalidadeDate($id){

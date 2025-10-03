@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03/10/2025 às 12:28
+-- Tempo de geração: 03/10/2025 às 14:51
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -89,7 +89,8 @@ CREATE TABLE `mensalidades` (
 --
 
 INSERT INTO `mensalidades` (`id`, `user_id`, `data_vencimento`, `valor_cobrado`, `status_pagamento`, `data_pagamento`) VALUES
-(5, 0, '2025-11-01', 190.00, 'Pendente', '2025-08-10');
+(5, 0, '2025-11-01', 190.00, 'Pendente', '2025-08-10'),
+(6, 6, '2025-11-03', 129.90, 'Pendente', NULL);
 
 -- --------------------------------------------------------
 
@@ -150,11 +151,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `data_inscricao_plano`, `dia_vencimento_plano`, `password`, `created_at`, `tipo_de_user`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `info_treinamento`, `trainer_id`, `mensalidade_id`, `plano_id`, `salario`, `endereco`, `CREF`) VALUES
-(0, 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-29 11:14:05', 'admin', 0.00, 0.00, 0, '', NULL, 0, 0, 0, 0.00, '', 0),
-(1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'trainer', 0.00, 0.00, 0, '', NULL, 0, 0, 0, 0.00, '', 0),
-(3, '', 'jonatas@docente.br', NULL, '', NULL, NULL, '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', 0.00, 0.00, 0, '', NULL, 0, 0, 0, 0.00, '', 0),
-(4, '', '2@GMAIL.COM', NULL, '', NULL, NULL, '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', 0.00, 0.00, 0, '', NULL, 0, 0, 0, 0.00, '', 0),
-(6, 'Thiago', 'Thiago@gmail.com', '189910210120', '1029129192', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', NULL, NULL, 2, NULL, NULL, NULL);
+(0, 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-29 11:14:05', 'admin', 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
+(1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'trainer', 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
+(3, '', 'jonatas@docente.br', NULL, '', NULL, NULL, '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
+(4, '', '2@GMAIL.COM', NULL, '', NULL, NULL, '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
+(6, 'Thiago', 'Thiago@gmail.com', '189910210120', '1029129192', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', NULL, 6, 3, NULL, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -185,7 +186,9 @@ ALTER TABLE `planos`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `email_2` (`email`);
+  ADD UNIQUE KEY `email_2` (`email`),
+  ADD KEY `users_ibfk_1` (`mensalidade_id`),
+  ADD KEY `users_ibfk_2` (`plano_id`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
@@ -201,7 +204,7 @@ ALTER TABLE `exercicios`
 -- AUTO_INCREMENT de tabela `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `planos`
@@ -224,6 +227,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `mensalidades`
   ADD CONSTRAINT `mensalidades_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Restrições para tabelas `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`mensalidade_id`) REFERENCES `mensalidades` (`id`),
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`plano_id`) REFERENCES `planos` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

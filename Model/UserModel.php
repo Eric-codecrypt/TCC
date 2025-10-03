@@ -71,6 +71,13 @@ class UserModel
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($params);
     }
+    public function updatePlanoInfo($id,$plan_id, $mensalidade_id){
+        $sql = "UPDATE users SET plano_id = ?, mensalidade_id = ? WHERE id = ?";
+        $params = [$plan_id, $mensalidade_id, $id];
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($params);
+    }
 
     public function delete($id)
     {
