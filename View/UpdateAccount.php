@@ -65,7 +65,7 @@ $user = $Controller->findById($user_id); // Buscando dados do usuário atual par
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: sans-serif;
         }
 
         body {
@@ -76,7 +76,7 @@ $user = $Controller->findById($user_id); // Buscando dados do usuário atual par
             background-color: #000000;
             color: #ffffff;
             overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
+            font-family: sans-serif;
             min-height: 100vh;
         }
 

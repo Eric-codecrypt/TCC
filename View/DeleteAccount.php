@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: sans-serif;
         }
 
         body {
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             background-color: #000000;
             color: #ffffff;
             overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
+            font-family: sans-serif;
             min-height: 100vh;
         }
 
