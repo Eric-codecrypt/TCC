@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19/09/2025 às 13:05
+-- Tempo de geração: 03/10/2025 às 12:28
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -89,7 +89,7 @@ CREATE TABLE `mensalidades` (
 --
 
 INSERT INTO `mensalidades` (`id`, `user_id`, `data_vencimento`, `valor_cobrado`, `status_pagamento`, `data_pagamento`) VALUES
-(1, 6, '2025-10-12', 59.90, 'Pendente', NULL);
+(5, 0, '2025-11-01', 190.00, 'Pendente', '2025-08-10');
 
 -- --------------------------------------------------------
 
@@ -154,7 +154,7 @@ INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `data_ins
 (1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'trainer', 0.00, 0.00, 0, '', NULL, 0, 0, 0, 0.00, '', 0),
 (3, '', 'jonatas@docente.br', NULL, '', NULL, NULL, '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', 0.00, 0.00, 0, '', NULL, 0, 0, 0, 0.00, '', 0),
 (4, '', '2@GMAIL.COM', NULL, '', NULL, NULL, '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', 0.00, 0.00, 0, '', NULL, 0, 0, 0, 0.00, '', 0),
-(6, 'Thiago', 'Thiago@gmail.com', '189910210120', '1029129192', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', NULL, NULL, 1, NULL, NULL, NULL);
+(6, 'Thiago', 'Thiago@gmail.com', '189910210120', '1029129192', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', NULL, NULL, 2, NULL, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -201,7 +201,7 @@ ALTER TABLE `exercicios`
 -- AUTO_INCREMENT de tabela `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `planos`
