@@ -1,13 +1,11 @@
   #carousel,
   .carousel,
   .slide {
-    width: 90vw;
-    height: 100vh;
+    width: 95vw;
     position: relative;
     margin: 0 auto;
     margin-top: 2%;
-        display: flex
-;
+    display: flex;
     justify-content: center;
   }
   
@@ -26,8 +24,7 @@
   
   .carousel-inner {
     position: relative;
-    width: 80%;
-    height: 100vh;
+    width: 100%;
     overflow: hidden;
   }
   
