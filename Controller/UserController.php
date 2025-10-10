@@ -34,4 +34,21 @@ class UserController {
     public function delete($id) {
         return $this->UserModel->delete($id); // Reutilizar método do modelo
     }
+
+    public function getFotoPerfil($nome_arquivo_fotoperfil, $DIR_view){
+        if(!isset($nome_arquivo_fotoperfil)){
+            return '../PFPpadrao.png';
+        }else{
+            if(!file_exists($DIR_view."/IMG/pfps/$nome_arquivo_fotoperfil")){
+                return '../PFPpadrao.png';    
+            }
+        }
+        return $nome_arquivo_fotoperfil;
+    }
+    public function listarContaPorEmail($email) {
+        return $this->UserModel->listarContaPorEmail($email);
+    }
+    public function updateFotoPerfil($id_user,$nome_arquivo_fotoperfil){
+        return $this->UserModel->updateFotoPerfil($id_user,$nome_arquivo_fotoperfil);
+    }
 }

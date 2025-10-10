@@ -85,4 +85,20 @@ class UserModel
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute([$id]);
     }
+    public function listarContaPorEmail($email) {
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$email]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        if (empty($result)){
+            return [];
+        }else{
+            return $result[0];
+        }
+    }
+    public function updateFotoPerfil($id_user,$nome_arquivo_fotoperfil){
+        $sql = "UPDATE users SET nome_arquivo_fotoperfil = ? WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$nome_arquivo_fotoperfil,$id_user]);
+    }
 }

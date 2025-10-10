@@ -1,8 +1,10 @@
 <?php
+
 if(!isset($_SESSION['user_id']) && isset($_COOKIE['user_id'])){
     $_SESSION['user_id'] = $_COOKIE['user_id'];
     header("LOcation: ". __FILE__);
 }
+
 ?>
 <header>
         <nav class="nav-bar">
@@ -40,7 +42,7 @@ if(!isset($_SESSION['user_id']) && isset($_COOKIE['user_id'])){
                     <button class="sign-button"><a href="CreateAccount.php"> Sign up</a></button>
                 </div>
             <?php else:?>
-                <p style="color:white"> (PLACEHOLDER) tá logado</p>
+                <a href='UserView.php' style="color:white"> (PLACEHOLDER) tá logado</a>
             <?php endif;?>
             <!-- Ícone do menu hamburger (visível só no mobile) -->
             <div class="mobile-menu-icon">
