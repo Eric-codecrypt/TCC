@@ -91,7 +91,7 @@
           <img src="IMG/carrosel1.png">
         </div>
     
-        <div class="carousel-item">
+        <div class="carousel-item top-pos">
           <img src="IMG/carrosel2.png">
         </div>
     
