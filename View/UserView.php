@@ -5,7 +5,7 @@ include_once '../Config.php';
 
 // Verificar se o usuário está autenticado
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: LoginAccount.php");
     exit;
 }
 

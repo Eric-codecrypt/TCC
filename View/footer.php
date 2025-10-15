@@ -1,11 +1,12 @@
 <footer>
+    <div class="footer-sect">
         <div class="logofoot">
-            <a href="" style="fill:white">
-                <?php include __DIR__ . "\IMG\Move-On-Logo-vert.svg"; ?>
-            </a>
+            <div class="logo square">
+
+            </div>
         </div>
 
-        <hr><br><br><br>
+        <hr>
 
         <div class="containerinfo">
 
@@ -59,5 +60,5 @@
                 Todos os Direitos Reservados</p>
         </div>
 
-
+    </div>
     </footer>

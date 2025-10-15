@@ -8,11 +8,8 @@ if(!isset($_SESSION['user_id']) && isset($_COOKIE['user_id'])){
 ?>
 <header>
         <nav class="nav-bar">
-            <div class="logo">
-                <a href=""> 
-                    <?php include __DIR__."/IMG/Move-On-Logo-square.svg";?>
-                </a>    
-            </div>
+            <a class="logo" href="landing.php">
+            </a>
 
             <div class="nav-list">
                 <ul>
@@ -36,19 +33,28 @@ if(!isset($_SESSION['user_id']) && isset($_COOKIE['user_id'])){
 
                 </ul>
             </div>
-            <?php if(!isset($_SESSION['user_id'])):?>
-                <div class="landing-button">
-                    <button class="login-button"><a href="LoginAccount.php"> Log in</a></button>
-                    <button class="sign-button"><a href="CreateAccount.php"> Sign up</a></button>
+            <div class="pfp-hamb">
+                <?php if(!isset($_SESSION['user_id'])):?>
+                    <div class="landing-button">
+                        <button class="login-button"><a href="LoginAccount.php"> Log in</a></button>
+                        <button class="sign-button"><a href="CreateAccount.php"> Sign up</a></button>
+                    </div>
+                <?php else:?>
+                    <?php if(isset($nome_arquivo_fotoperfil)):?>
+                        <a class="pfp mini" href="usuario.php">
+                            <img src="IMG/pfps/<?=$nome_arquivo_fotoperfil?>">
+                        </a>
+                    <?php else:?>
+                        <a class="pfp mini" href="usuario.php">
+                            <img src="IMG/PFPpadrao.png">
+                        </a>
+                    <?php endif;?>
+                <?php endif;?>
+                        <!-- Ícone do menu hamburger (visível só no mobile) -->
+                <div class="mobile-menu-icon">
+                    <button onclick="menuShow()"><i class="fa-solid fa-bars"></i></button>
                 </div>
-            <?php else:?>
-                <a href='UserView.php' style="color:white"> (PLACEHOLDER) tá logado</a>
-            <?php endif;?>
-            <!-- Ícone do menu hamburger (visível só no mobile) -->
-            <div class="mobile-menu-icon">
-                <button onclick="menuShow()"><i class="fa-solid fa-bars"></i></button>
             </div>
-
 
         </nav>
 
