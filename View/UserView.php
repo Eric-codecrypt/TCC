@@ -42,15 +42,19 @@ $nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotope
 <body>
     <?php include __DIR__ . "/header.php"; ?>
     <div>
-        <form class="pfp" method="POST" action="../user-actions/process_edit_pfp.php" enctype="multipart/form-data">
-            <?php if (isset($user)): ?>
-                <img src="IMG/pfps/<?= $nome_arquivo_fotoperfil ?>">
-            <?php endif; ?>
-            <label for="foto_perfil">
-                <img src="IMG/mudarFotoPerfil.png" alt="">
-            </label>
-            <input type="file" name="foto_perfil" id="foto_perfil" onchange="this.form.submit()">
-        </form>
+        <section class="user-sect">
+            <div>
+                <form class="pfp" method="POST" action="../user-actions/process_edit_pfp.php" enctype="multipart/form-data">
+                    <?php if (isset($user)): ?>
+                        <img src="IMG/pfps/<?= $nome_arquivo_fotoperfil ?>">
+                    <?php endif; ?>
+                    <label for="foto_perfil">
+                        <img src="IMG/mudarFotoPerfil.png" alt="">
+                    </label>
+                    <input type="file" name="foto_perfil" id="foto_perfil" onchange="this.form.submit()">
+                </form>
+            </div>
+        </section>
     </div>
     <?php include __DIR__ . "/footer.php"; ?>
 </body>

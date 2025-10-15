@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03/10/2025 às 14:51
+-- Tempo de geração: 15/10/2025 às 19:46
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -128,11 +128,10 @@ CREATE TABLE `users` (
   `email` varchar(100) NOT NULL,
   `celular` varchar(20) DEFAULT NULL,
   `CPF` varchar(11) DEFAULT NULL,
-  `data_inscricao_plano` date DEFAULT NULL,
-  `dia_vencimento_plano` int(11) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `tipo_de_user` enum('trainer','cliente','admin') CHARACTER SET utf8 COLLATE utf8_unicode_520_nopad_ci DEFAULT 'cliente',
+  `nome_arquivo_fotoperfil` varchar(255) DEFAULT NULL,
   `body_fat` decimal(4,2) DEFAULT NULL COMMENT 'apenas clientes',
   `peso` decimal(5,2) DEFAULT NULL COMMENT 'apenas clientes',
   `ficha_id` int(11) DEFAULT NULL COMMENT 'apenas clientes',
@@ -150,12 +149,12 @@ CREATE TABLE `users` (
 -- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `data_inscricao_plano`, `dia_vencimento_plano`, `password`, `created_at`, `tipo_de_user`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `info_treinamento`, `trainer_id`, `mensalidade_id`, `plano_id`, `salario`, `endereco`, `CREF`) VALUES
-(0, 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-29 11:14:05', 'admin', 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
-(1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'trainer', 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
-(3, '', 'jonatas@docente.br', NULL, '', NULL, NULL, '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
-(4, '', '2@GMAIL.COM', NULL, '', NULL, NULL, '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
-(6, 'Thiago', 'Thiago@gmail.com', '189910210120', '1029129192', NULL, NULL, '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', NULL, 6, 3, NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `password`, `created_at`, `tipo_de_user`, `nome_arquivo_fotoperfil`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `info_treinamento`, `trainer_id`, `mensalidade_id`, `plano_id`, `salario`, `endereco`, `CREF`) VALUES
+(0, 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-29 11:14:05', 'admin', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
+(1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'trainer', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
+(3, '', 'jonatas@docente.br', NULL, '', '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
+(4, '', '2@GMAIL.COM', NULL, '', '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
+(6, 'Thiago', 'Thiago@gmail.com', '189910210120', '1029129192', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', '6.png', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', NULL, 6, 3, NULL, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas

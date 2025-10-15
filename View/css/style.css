@@ -1063,3 +1063,9 @@ header .container p {
 .pfp:hover label{
     opacity: 0.5;
 }
+section.user-sect{
+    max-width: 910px;
+    display: flex;
+    margin: auto;
+    padding: 10px;
+}
