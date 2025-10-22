@@ -1041,9 +1041,13 @@ header .container p {
     aspect-ratio: 1/1;
     overflow: hidden;
     display: flex;
-    align-content: center;
     justify-content: center;
     border-radius: 100%;
+}
+.pfp.sticky{
+    width: unset;
+    height: 100%;
+    aspect-ratio: 1/1;
 }
 .mini.pfp{
     width: 75px;
@@ -1067,5 +1071,17 @@ section.user-sect{
     max-width: 910px;
     display: flex;
     margin: auto;
-    padding: 10px;
+    padding: 30px 10px;
+}
+.info-text{
+    font-size: 1.5em;
+}
+.info-text h3{
+    font-size: 1.75em;
+}
+.info-text-small{
+    font-size: 1em !important;
+}
+.info-text-small h3{
+    font-size: 1.25em !important;
 }
