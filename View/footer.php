@@ -1,7 +1,7 @@
 <footer>
     <div class="footer-sect">
         <div class="logofoot">
-            <div class="logo square">
+            <div class="logo square" style="width:150px; height:150px; margin: auto;">
 
             </div>
         </div>
@@ -54,7 +54,7 @@
             <hr>
 
 
-        </div><br><br><br>
+        </div><br><br><br>  
         <div class="footer-copyright">
             <p>&#169 2025 Projeto final, Sistema de Gestão de Academia.
                 Todos os Direitos Reservados</p>

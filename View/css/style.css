@@ -5,7 +5,6 @@
     margin: 0;
     font-family: 'Roboto';
 }
-
 body {
     background-color: rgb(255, 255, 255);
     font-family: 'Roboto';
@@ -1029,6 +1028,96 @@ header .container p {
     }
 }
 
+/* página de treinos */
+
+.dias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.dia {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.dia img {
+  width: 50%;
+}
+
+.dia:hover {
+  transform: scale(1.1);
+}
+
+.segunda, .quarta, .sexta {
+  background: #e60000;
+}
+
+.terca, .quinta, .sabado, .domingo {
+  background: #111;
+}
+
+/* Modal */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 1000;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background: #fff;
+  margin: auto;
+  padding: 20px;
+  border-radius: 15px;
+  width: 60%;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content img {
+  width: 250px;
+  margin: 15px 0;
+}
+
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+
+.serie {
+  color: red;
+  font-weight: bold;
+}
+
 
 /* página do usuario */
 
@@ -1044,10 +1133,9 @@ header .container p {
     justify-content: center;
     border-radius: 100%;
 }
-.pfp.sticky{
-    width: unset;
-    height: 100%;
-    aspect-ratio: 1/1;
+.pfp.user-view{
+    width: 200px;
+    height: 200px;
 }
 .mini.pfp{
     width: 75px;
@@ -1084,4 +1172,47 @@ section.user-sect{
 }
 .info-text-small h3{
     font-size: 1.25em !important;
+}
+.dia.user-view{
+    height: 100px;
+    flex-grow: 1;
+    min-width: 260px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding:0 40px;
+    justify-content: start;
+}
+.dia.user-view i{
+    font-size: 3em;
+}
+.dia.user-view img{
+    width: 56px;
+    height: 56px;
+}
+.dia.user-view:hover {
+  transform: scale(1.05);
+}
+p.weight-low{
+    font-weight: 400;
+}
+.dia.nohover:hover{
+    transform: scale(1);
+    cursor: unset;
+}
+@media (max-width:660px){
+    .segunda, .quarta, .quinta {
+    background: #111;
+    }
+
+    .terca, .sexta, .domingo {
+    background: #e60000;
+    }
+}
+@font-face {
+    font-family: "Font Awesome 7 Pro";
+    font-style: normal;
+    font-weight: 300;
+    font-display: block;
+    src: url(/fa-light-300.woff2)
 }

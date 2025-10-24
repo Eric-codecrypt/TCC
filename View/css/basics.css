@@ -7,6 +7,9 @@
     flex-direction: column;
     gap:inherit;
 }
+.wrap{
+    flex-wrap: wrap;
+}
 .gap5{
     gap: 5px;
 }
@@ -21,6 +24,9 @@
 }
 .nopadding{
     padding: 0 !important;
+}
+.padding30{
+    padding:30px;
 }
 .justify-start{
     justify-content: start;
@@ -42,6 +48,9 @@
 }
 .textalign-center{
     text-align: center;
+}
+.textalign-left{
+    text-align: left;
 }
 .overflow-h{
     overflow: hidden;
@@ -88,6 +97,9 @@
 .height-500{
     min-height: 500px;
 }
+.height-unset{
+    height: unset;
+}
 .maxheight-600{
     max-height: 600px;
 }
@@ -132,4 +144,21 @@
 }
 .grow-200{
     flex-grow: 2.00;
+}
+@media (max-width:760px){
+    .flex-wrap-at-760{
+        flex-wrap: wrap;
+    }
+    .flex-wrap-at-760 #lottie-animation{
+        align-self: center;
+    }
+    .flex-column-at-760{
+        flex-direction: column !important;
+        justify-content: center;
+    }
+}
+@media (max-width:1000px){
+    .flex-wrap-at-1000{
+        flex-wrap: wrap;
+    }
 }
