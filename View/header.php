@@ -29,7 +29,7 @@ if(!isset($_SESSION['user_id']) && isset($_COOKIE['user_id'])){
                     <li>
                         <p>|</p>
                     </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Pagamento</a></li>
+                    <li class="nav-item"> <a href="Pagamento.php" class="nav-link">Pagamento</a></li>
 
                 </ul>
             </div>
@@ -41,11 +41,11 @@ if(!isset($_SESSION['user_id']) && isset($_COOKIE['user_id'])){
                     </div>
                 <?php else:?>
                     <?php if(isset($nome_arquivo_fotoperfil)):?>
-                        <a class="pfp mini" href="usuario.php">
+                        <a class="pfp mini" href="UserView.php">
                             <img src="IMG/pfps/<?=$nome_arquivo_fotoperfil?>">
                         </a>
                     <?php else:?>
-                        <a class="pfp mini" href="usuario.php">
+                        <a class="pfp mini" href="UserView.php">
                             <img src="IMG/PFPpadrao.png">
                         </a>
                     <?php endif;?>
@@ -65,7 +65,7 @@ if(!isset($_SESSION['user_id']) && isset($_COOKIE['user_id'])){
                 <li class="nav-item"><a href="plans.php" class="nav-link">Planos</a></li>
                 <li class="nav-item"><a href="" class="nav-link">Dúvidas</a></li>
                 <li class="nav-item"><a href="" class="nav-link">Treinos</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Pagamento</a></li>
+                <li class="nav-item"><a href="Pagamento.php" class="nav-link">Pagamento</a></li>
             </ul>
             
                 <div class="mobile-login">

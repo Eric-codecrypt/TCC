@@ -39,6 +39,16 @@ if(isset($_POST['plan_id'])){
 
     header('Location: dashboard.php');
 }
+
+
+  if($_SESSION['user_id']){    
+    $Controller = new UserController($pdo);
+    $user_id = $_SESSION['user_id'];
+
+    // Buscar dados do usuário
+    $user = $Controller->findById($user_id);
+    $nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotoperfil'], __DIR__);
+  }
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

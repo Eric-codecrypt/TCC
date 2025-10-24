@@ -85,20 +85,20 @@ $cell = substr($user['celular'],0,$cellddd) . "-" . substr($user['celular'],$cel
             </div>
             <div class="flex-column">
                 <div class="flex-row wrap">
-                    <div class="dia segunda user-view">
+                    <a class="dia segunda user-view" href="UpdateAccount.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Atualizar conta</p>
-                    </div>
-                    <div class="dia terca user-view">
+                    </a>
+                    <a class="dia terca user-view" href="plans.php">
                         <img src="IMG/biceps.png" alt=""><p>Planos</p>
-                    </div>
+                    </a>
                 </div>
                 <div class="flex-row wrap">
-                    <div class="dia quinta user-view">
-                        <i class="fa-solid fa-delete-left"></i><p>Atualizar conta</p>
-                    </div>
-                    <div class="dia sexta user-view">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i><p>Atualizar conta</p>
-                    </div>
+                    <a class="dia quinta user-view" href="DeleteAccount.php">
+                        <i class="fa-solid fa-delete-left"></i><p>Excluir conta</p>
+                    </a>
+                    <a class="dia sexta user-view" href="LeaveAccount.php">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i><p>Sair da conta</p>
+                    </a>
                 </div>
                 <div class="width-100po flex-row">
                 <?php if($user['info_treinamento'] != NULL):?>

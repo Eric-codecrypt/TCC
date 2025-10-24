@@ -1,9 +1,22 @@
   <!-- Script -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="bootstrap.js"> </script>
-<?php if (session_status() === PHP_SESSION_NONE) {
-                session_start();
-            }?>
+<?php 
+  
+  if (session_status() === PHP_SESSION_NONE){
+    session_start();
+  }
+
+  include_once '../Controller/UserController.php';
+  include_once '../Config.php';
+  if($_SESSION['user_id']){    
+    $Controller = new UserController($pdo);
+    $user_id = $_SESSION['user_id'];
+
+    // Buscar dados do usuário
+    $user = $Controller->findById($user_id);
+    $nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotoperfil'], __DIR__);
+  }?>
 <!DOCTYPE html>
 <html lang="pt-br">
 

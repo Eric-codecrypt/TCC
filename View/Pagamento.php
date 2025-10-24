@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+<?php 
+  
+  if (session_status() === PHP_SESSION_NONE){
+    session_start();
+  }
 
+  include_once '../Controller/UserController.php';
+  include_once '../Config.php';
+  if($_SESSION['user_id']){    
+    $Controller = new UserController($pdo);
+    $user_id = $_SESSION['user_id'];
+
+    // Buscar dados do usuário
+    $user = $Controller->findById($user_id);
+    $nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotoperfil'], __DIR__);
+  }?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
