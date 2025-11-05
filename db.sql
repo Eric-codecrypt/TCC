@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 15/10/2025 às 19:46
+-- Tempo de geração: 05/11/2025 às 11:46
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -154,7 +154,7 @@ INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `password
 (1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'trainer', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
 (3, '', 'jonatas@docente.br', NULL, '', '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
 (4, '', '2@GMAIL.COM', NULL, '', '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
-(6, 'Thiago', 'Thiago@gmail.com', '189910210120', '1029129192', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', '6.png', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', NULL, 6, 3, NULL, NULL, NULL);
+(6, 'Thiago Oliveira', 'Thiago@gmail.com', '18991021012', '44444444444', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', '6.png', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', NULL, 6, 3, NULL, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -186,8 +186,8 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `email_2` (`email`),
-  ADD KEY `users_ibfk_1` (`mensalidade_id`),
-  ADD KEY `users_ibfk_2` (`plano_id`);
+  ADD KEY `plano_id` (`plano_id`),
+  ADD KEY `mensalidade_id` (`mensalidade_id`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
@@ -231,8 +231,8 @@ ALTER TABLE `mensalidades`
 -- Restrições para tabelas `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`mensalidade_id`) REFERENCES `mensalidades` (`id`),
-  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`plano_id`) REFERENCES `planos` (`id`);
+  ADD CONSTRAINT `mensalidade_id` FOREIGN KEY (`mensalidade_id`) REFERENCES `mensalidades` (`id`),
+  ADD CONSTRAINT `plano_id` FOREIGN KEY (`plano_id`) REFERENCES `planos` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
