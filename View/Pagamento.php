@@ -8,7 +8,7 @@
 
   include_once '../Controller/UserController.php';
   include_once '../Config.php';
-  if($_SESSION['user_id']){    
+  if(isset($_SESSION['user_id']) && $_SESSION['user_id']){
     $Controller = new UserController($pdo);
     $user_id = $_SESSION['user_id'];
 

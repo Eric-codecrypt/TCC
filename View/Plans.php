@@ -41,7 +41,7 @@ if(isset($_POST['plan_id'])){
 }
 
 
-  if($_SESSION['user_id']){    
+  if(isset($_SESSION['user_id']) && $_SESSION['user_id']){   
     $Controller = new UserController($pdo);
     $user_id = $_SESSION['user_id'];
 
