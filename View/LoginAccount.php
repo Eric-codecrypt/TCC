@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
 
-            header("Location: Dashboard.php");
+            header("Location: userView.php");
             exit;
         } else {
             array_push($errors, "E-mail ou senha incorretos.");

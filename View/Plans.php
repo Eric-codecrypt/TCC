@@ -37,7 +37,7 @@ if(isset($_POST['plan_id'])){
     $userController = new UserController($pdo);
     $userController->updatePlanoInfo($_SESSION['user_id'],$plano['id'],$id_mensalidade);
 
-    header('Location: dashboard.php');
+    header('Location: userview.php');
 }
 
 
