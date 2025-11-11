@@ -56,8 +56,8 @@
             </div>
 
             <div class="landing-button">
-                <button class="login-button"><a href=""> Log in</a></button>
-                <button class="sign-button"><a href=""> Sign up</a></button>
+                <button class="login-button"><a href="LoginAccount.php"> Log in</a></button>
+                <button class="sign-button"><a href="CreateAccount.php"> Sign up</a></button>
             </div>
 
             <!-- Ícone do menu hamburger (visível só no mobile) -->
