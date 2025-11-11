@@ -1053,6 +1053,10 @@ header .container p {
   cursor: pointer;
   transition: transform 0.2s;
 }
+button.dia{
+    border: none;
+}
+
 
 .dia img {
   width: 50%;
@@ -1154,7 +1158,7 @@ header .container p {
 .pfp:hover label{
     opacity: 0.5;
 }
-section.user-sect{
+section.user-sect, form.user-sect{
     max-width: 910px;
     display: flex;
     margin: auto;
@@ -1165,6 +1169,23 @@ section.user-sect{
 }
 .info-text h3{
     font-size: 1.75em;
+}
+.info-text input{
+    font-size: 1.75em;
+    appearance: none;
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid black;
+    font-weight: 600;
+    max-width: 90vw;
+}
+.info-text-small input{
+    font-size: 1.25em !important;
+    width: 200px;
+}
+.info-text-small input[name='email']{
+    font-size: 1.25em !important;
+    width: 460px;
 }
 .info-text-small{
     font-size: 1em !important;
@@ -1208,11 +1229,4 @@ p.weight-low{
     .terca, .sexta, .domingo {
     background: #e60000;
     }
-}
-@font-face {
-    font-family: "Font Awesome 7 Pro";
-    font-style: normal;
-    font-weight: 300;
-    font-display: block;
-    src: url(/fa-light-300.woff2)
 }

@@ -34,7 +34,7 @@ $cell = substr($user['celular'],0,$cellddd) . "-" . substr($user['celular'],$cel
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($primeiro_nome); ?> - Move On Fitness</title>
+    <title>Editar Perfil de <?php echo htmlspecialchars($primeiro_nome); ?> - Move On Fitness </title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/basics.css">
     <link rel="stylesheet" type="text/css" href="font-awesome/css/all.min.css" />
@@ -43,9 +43,12 @@ $cell = substr($user['celular'],0,$cellddd) . "-" . substr($user['celular'],$cel
 
 <body>
     <?php include __DIR__ . "/header.php"; ?>
-        <section class="user-sect flex-column gap30">
-            <div class="flex-row gap10 flex-row flex-wrap-at-760 justify-center">
-                <!-- <form class="pfp user-view" method="POST" action="../user-actions/process_edit_pfp.php" enctype="multipart/form-data">
+        <form class="user-sect flex-column gap30" form method="POST" action="../user-actions/process_edit_pfp.php" enctype="multipart/form-data">
+            <?php if(isset($_COOKIE['edit_perfil_error_code'])):?>    
+                <h1><?=$_COOKIE['edit_perfil_error_code']?></h1>
+            <?php endif;?>
+            <div class="flex-row gap10 flex-row flex-wrap-at-900 justify-center">
+                <div class="pfp user-view">
                         <?php if (isset($user)): ?>
                             <img src="IMG/pfps/<?= $nome_arquivo_fotoperfil ?>">
                         <?php endif; ?>
@@ -53,70 +56,41 @@ $cell = substr($user['celular'],0,$cellddd) . "-" . substr($user['celular'],$cel
                             <img src="IMG/mudarFotoPerfil.png" alt="">
                         </label>
                         <input type="file" name="foto_perfil" id="foto_perfil" onchange="this.form.submit()">
-                </form> -->
-                <div class="pfp user-view" >
-                        <?php if (isset($user)): ?>
-                            <img src="IMG/pfps/<?= $nome_arquivo_fotoperfil ?>">
-                        <?php endif; ?>
                 </div>
                 <div class="grow-100">
                     <div class="height-100po info-text flex-column gap10">
                         <div>
                             <p>Nome:</p>
-                            <h3><?=$nome_completo?></h3>
+                            <input type="text" name="nome_completo" value="<?=$nome_completo?>">
                         </div>
                         <div class="flex-row justify-between gap30 info-text-small wrap">
-                            <?php if($user['CPF'] != null OR $user['CPF'] != ''):?>
-                                <div>
-                                    <p>CPF:</p>
-                                    <h3><?=$user['CPF']?></h3>
-                                </div>
-                            <?php endif;?>
+                            <div>
+                                <p>CPF:</p>
+                                <input type="text" name="CPF" value="<?=$user['CPF']?>">
+                            </div>
                             <div>
                                 <p>Email:</p>
-                                <h3><?=$user['email']?></h3>
+                                <input type="text" name="email" value="<?=$user['email']?>">
                             </div>
                         </div>
                         <div class="flex-row justify-between gap30 info-text-small">
-                            <?php if($user['celular'] != null OR $user['celular'] != ''):?>
                                 <div>
                                     <p>Celular:</p>
-                                    <h3><?=$cell?></h3>
+                                    <input type="text" name="celular" value="<?=$user['celular']?>">
                                 </div>
-                            <?php endif;?>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="flex-column">
-                <div class="flex-row wrap">
-                    <a class="dia segunda user-view" href="EditUser.php">
-                        <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Atualizar conta</p>
-                    </a>
+            <div class="flex-row wrap">
+                    <button class="dia segunda user-view" type="submit">
+                        <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Confirmar atualizações</p>
+                    </button>
                     <a class="dia terca user-view" href="plans.php">
-                        <img src="IMG/biceps.png" alt=""><p>Planos</p>
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i><p>Voltar para a página de usuário</p>
                     </a>
-                </div>
-                <div class="flex-row wrap">
-                    <a class="dia quinta user-view" href="DeleteAccount.php">
-                        <i class="fa-solid fa-delete-left"></i><p>Excluir conta</p>
-                    </a>
-                    <a class="dia sexta user-view" href="LeaveAccount.php">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i><p>Sair da conta</p>
-                    </a>
-                </div>
-                <div class="width-100po flex-row">
-                <?php if($user['info_treinamento'] != NULL):?>
-                    <div class="dia sabado nohover grow-100 flex-column height-unset padding30 align-start">
-                        <h1 class="width-100po">Informações do Formulário</h1>
-                        <p class="textalign-left weight-low">
-                            <?=$user['info_treinamento'];?>
-                        </p>
-                    </div>
-                <?php endif;?>
-                </div>
             </div>
-        </section>
+        </form>
     <?php include __DIR__ . "/footer.php"; ?>
 </body>
 

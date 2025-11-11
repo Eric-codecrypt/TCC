@@ -149,6 +149,9 @@
     .flex-wrap-at-760{
         flex-wrap: wrap;
     }
+    .flex-wrap-at-760.info-text-small{
+        gap:10px;
+    }
     .flex-wrap-at-760 #lottie-animation{
         align-self: center;
     }
@@ -159,6 +162,11 @@
 }
 @media (max-width:1000px){
     .flex-wrap-at-1000{
+        flex-wrap: wrap;
+    }
+}
+@media (max-width:900px){
+    .flex-wrap-at-900{
         flex-wrap: wrap;
     }
 }
