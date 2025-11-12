@@ -104,10 +104,15 @@ if(isset($user['mensalidade_id'])){
                             <?php endif;?>
                         </div>
                         <div class="flex-row justify-between gap30 info-text-small">
-                            <?php if($plano_id != null OR $plano_id != ''):?>
+                            <?php if($user['tipo_de_user'] == 'cliente' && ($plano_id != null OR $plano_id != '')):?>
                                 <div>
                                     <p>Plano:</p>
                                     <h3><?=$plano['nome_plano']?> (<?=$status_plano?>)</h3>
+                                </div>
+                            <?php elseif($user['tipo_de_user'] == 'admin' OR $user['tipo_de_user'] == 'trainer'):?>
+                                <div>
+                                    <p>Nível de Acesso:</p>
+                                    <h3><?=$user['tipo_de_user']?></h3>
                                 </div>
                             <?php endif;?>
                         </div>
@@ -119,13 +124,20 @@ if(isset($user['mensalidade_id'])){
                     <a class="dia segunda user-view" href="EditUser.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Atualizar conta</p>
                     </a>
-                    <?php if($plano_id != null OR $plano_id != ''):?>
+                    <?php if($user['tipo_de_user'] == 'cliente'):?>
+                        <?php if($plano_id != null OR $plano_id != ''):?>
+                            <a class="dia terca user-view" href="Pagamento.php">
+                                <img src="IMG/biceps.png" alt=""><p>Pagamento e Configurações do Plano</p>
+                            </a>
+                        <?php else:?>
+                            <a class="dia terca user-view" href="plans.php">
+                                <img src="IMG/biceps.png" alt=""><p>Planos</p>
+                            </a>
+                        <?php endif;?>
+                    <?php endif;?>
+                    <?php if($user['tipo_de_user'] == 'admin'):?>
                         <a class="dia terca user-view" href="Pagamento.php">
-                            <img src="IMG/biceps.png" alt=""><p>Pagamento e Configurações do Plano</p>
-                        </a>
-                    <?php else:?>
-                        <a class="dia terca user-view" href="plans.php">
-                            <img src="IMG/biceps.png" alt=""><p>Planos</p>
+                            <img src="IMG/biceps.png" alt=""><p>Administração de usuários</p>
                         </a>
                     <?php endif;?>
                 </div>
@@ -136,6 +148,19 @@ if(isset($user['mensalidade_id'])){
                     <a class="dia sexta user-view" href="LeaveAccount.php">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i><p>Sair da conta</p>
                     </a>
+                </div>
+                <div class="flex-row wrap">
+                    <?php if($user['tipo_de_user'] == 'trainer'):?>
+                        <a class="dia segunda user-view" href="CriarRotinaTreino.php">
+                            <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Criar Rotinas para clientes</p>
+                        </a>
+                    <?php endif;?>
+                    <?php if($user['rotina_treinamento'] != null):?>
+                        <a class="dia terca user-view" href="treinos.php">
+                            <img src="IMG/biceps.png" alt=""><p>ver rotina de treino</p>
+                        </a>
+                    <?php endif;?>
+
                 </div>
                 <div class="width-100po flex-row">
                 <?php if($user['info_treinamento'] != NULL):?>

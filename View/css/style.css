@@ -1035,7 +1035,7 @@ header .container p {
   justify-content: center;
   gap: 20px;
   margin-top: 40px;
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
 }
 
@@ -1070,7 +1070,7 @@ button.dia{
   background: #e60000;
 }
 
-.terca, .quinta, .sabado, .domingo {
+.terca, .terça, .quinta, .sabado, .sábado, .domingo {
   background: #111;
 }
 
