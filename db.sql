@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05/11/2025 às 11:46
+-- Tempo de geração: 12/11/2025 às 10:42
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -89,8 +89,11 @@ CREATE TABLE `mensalidades` (
 --
 
 INSERT INTO `mensalidades` (`id`, `user_id`, `data_vencimento`, `valor_cobrado`, `status_pagamento`, `data_pagamento`) VALUES
-(5, 0, '2025-11-01', 190.00, 'Pendente', '2025-08-10'),
-(6, 6, '2025-11-03', 129.90, 'Pendente', NULL);
+(5, 0, '2025-11-01', 190.00, 'Pago', '2025-08-10'),
+(6, 6, '2025-11-03', 129.90, 'Atrasado', NULL),
+(7, 7, '2025-11-12', 89.90, 'Pago', '2025-09-12'),
+(8, 6, '2025-12-12', 129.90, 'Pendente', NULL),
+(12, 7, '2025-12-12', 89.90, 'Pago', '2025-11-12');
 
 -- --------------------------------------------------------
 
@@ -137,9 +140,11 @@ CREATE TABLE `users` (
   `ficha_id` int(11) DEFAULT NULL COMMENT 'apenas clientes',
   `anotacoes_trainer` text DEFAULT NULL COMMENT 'apenas clientes',
   `info_treinamento` text DEFAULT NULL COMMENT 'apenas clientes',
+  `rotina_treinamento` text NOT NULL COMMENT 'apenas clientes',
   `trainer_id` int(11) DEFAULT NULL COMMENT 'apenas clientes',
   `mensalidade_id` int(11) DEFAULT NULL COMMENT 'apenas clientes',
   `plano_id` int(11) DEFAULT NULL COMMENT 'apenas clientes',
+  `renovar_plano` enum('Sim','Não') NOT NULL DEFAULT 'Sim' COMMENT 'Apenas Clientes',
   `salario` decimal(8,2) DEFAULT NULL COMMENT 'apenas trainers',
   `endereco` varchar(255) DEFAULT NULL COMMENT 'apenas trainers',
   `CREF` int(11) DEFAULT NULL COMMENT 'apenas trainers'
@@ -149,12 +154,13 @@ CREATE TABLE `users` (
 -- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `password`, `created_at`, `tipo_de_user`, `nome_arquivo_fotoperfil`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `info_treinamento`, `trainer_id`, `mensalidade_id`, `plano_id`, `salario`, `endereco`, `CREF`) VALUES
-(0, 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-29 11:14:05', 'admin', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
-(1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'trainer', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
-(3, '', 'jonatas@docente.br', NULL, '', '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
-(4, '', '2@GMAIL.COM', NULL, '', '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', NULL, 0.00, 0.00, 0, '', NULL, 0, NULL, NULL, 0.00, '', 0),
-(6, 'Thiago Oliveira', 'Thiago@gmail.com', '18991021012', '44444444444', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', '6.png', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', NULL, 6, 3, NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `password`, `created_at`, `tipo_de_user`, `nome_arquivo_fotoperfil`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `info_treinamento`, `rotina_treinamento`, `trainer_id`, `mensalidade_id`, `plano_id`, `renovar_plano`, `salario`, `endereco`, `CREF`) VALUES
+(0, 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-29 11:14:05', 'admin', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
+(1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'trainer', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
+(3, '', 'jonatas@docente.br', NULL, '', '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
+(4, '', '2@GMAIL.COM', NULL, '', '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
+(6, 'Thiago Oliveira', 'Thiago@gmail.com', '18991021012', '44444444444', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', '6.png', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', '{\"Segunda\":[{\"id\":\"1\",\"nome\":\"Supino inclinado com barra\",\"thumb\":\"IMG/exercicios/thumb/supino_inclinado_com_barra.png\",\"series\":4,\"repeticoes\":12}],\"Terça\":[],\"Quarta\":[],\"Quinta\":[],\"Sexta\":[],\"Sábado\":[],\"Domingo\":[]}', 7, 5, 3, 'Sim', NULL, NULL, NULL),
+(7, 'Thigas Gabriel', 'Thiago@email.com', '18991021017', '10298302134', '$2y$10$gmwsZMY0DQul3b8d/nzbmua8YSiopwYroRSSWEoISUk5tlTVTrbJm', '2025-11-10 20:07:02', 'trainer', '7.png', NULL, NULL, NULL, NULL, NULL, '', NULL, 12, 2, 'Sim', NULL, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -203,7 +209,7 @@ ALTER TABLE `exercicios`
 -- AUTO_INCREMENT de tabela `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de tabela `planos`
@@ -215,7 +221,7 @@ ALTER TABLE `planos`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restrições para tabelas despejadas
