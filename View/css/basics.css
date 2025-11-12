@@ -7,6 +7,10 @@
     flex-direction: column;
     gap:inherit;
 }
+.margin-center{
+    margin: 0 auto;
+    width: fit-content;
+}
 .wrap{
     flex-wrap: wrap;
 }

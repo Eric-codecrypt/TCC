@@ -7,21 +7,56 @@
   }
 
   include_once '../Controller/UserController.php';
+  include_once '../Controller/MensalidadeController.php';
   include_once '../Config.php';
+
+  
+    $MenController = new MensalidadeController($pdo);
+
+    $MenController->updateAllMensalidades();
+
+  if(isset($_POST['payid'])){
+    $MenController->payUnAdmin($_POST['payid']);
+    
+    header("Location: Pagamento.php");
+  }
+  
+  if(!isset($_SESSION['user_id'])){
+    header("Location: Landing.php");
+  }
   if(isset($_SESSION['user_id']) && $_SESSION['user_id']){
     $Controller = new UserController($pdo);
     $user_id = $_SESSION['user_id'];
 
+    if(isset($_POST['renovar_plano'])){
+        $Controller->updateRenovarPlano($_SESSION['user_id'], $_POST['renovar_plano']);
+
+        // header("Location: Pagamento.php");
+    }
+
+
     // Buscar dados do usuário
     $user = $Controller->findById($user_id);
     $nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotoperfil'], __DIR__);
-  }?>
+    
+    if($user['plano_id'] == null){
+        header("Location: Landing.php");
+    }else{
+        $stmt = $pdo->query("SELECT * FROM mensalidades WHERE user_id = $user[id]");
+        $mensalidades = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+}
+  
+  
+  ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sliding Button com Conteúdo</title>
+    <title>Mensalidades - Move On Fitness</title>
     <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/basics.css">
     <link rel="stylesheet" type="text/css" href="font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 
@@ -40,7 +75,6 @@
             background: #fff;
             border: 2px solid #600;
             border-radius: 50px;
-            overflow: hidden;
             width: 400px;
             position: relative;
             cursor: pointer;
@@ -65,7 +99,7 @@
         .slider {
             position: absolute;
             top: 0;
-            left: 0;
+            left: -0.3%;
             width: 50%;
             height: 100%;
             background: #600;
@@ -209,7 +243,12 @@
         .textimgsb {
             text-align: left;
         }
-
+        .imgsb{
+            appearance: none;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
 
         @keyframes fadeIn {
             from {
@@ -229,6 +268,15 @@
 
     <?php include __DIR__ . "/header.php"; ?> <br><br><br>
 
+    <form action="" method="POST" class="flex-row gap10 margin-center">
+        <p>Renovar Plano Automáticamente</p>
+        <?php if($user['renovar_plano'] == "Sim"):?>
+            <input type="checkbox" name="renovar_plano" checked onchange="pay('Não','renovar_plano')">
+        <?php else:?>
+            <input type="checkbox" name="renovar_plano" onchange="pay('Sim','renovar_plano')">
+        <?php endif;?>
+    </form>
+
     <div class="togcontaig">
         <!-- Toggle -->
         <div class="toggle-container" id="toggle">
@@ -246,7 +294,7 @@
         <!-- Conteúdo a pagar -->
         <div id="open-content" class="content active-content">
             <!-- HTML do pagamento fechado -->
-            <div class="content-thing" id="closedopen1">
+            <!-- <div class="content-thing" id="closedopen1">
                 <div class="flexcon">
                     <div class="image">
                         <img src="IMG/warning.png" alt="" class="imagecnfg">
@@ -267,9 +315,9 @@
                     <i class="fa-solid fa-caret-down"></i>
                     <p>Realizar pagamento</p>
                 </button>
-            </div>
+            </div> -->
             <!-- HTML do pagamento aberto -->
-            <div class="content-thing full" id="fullopen1" style="display:none">
+            <!-- <div class="content-thing full" id="fullopen1" style="display:none">
                 <div class="contentfull">
                     <button class="dropbtn" onclick="toggleDetails('open1')">
                         <i class="fa-solid fa-caret-up" style="font-size:2em; height:0;"></i>
@@ -289,7 +337,7 @@
                         <div class="sobreflex">
 
                             <div class="topic">
-                                <p>Data do vencimento</p>
+                                <p>Data do vencimento do plano</p>
                                 <p>Horário</p>
                             </div>
 
@@ -333,12 +381,110 @@
                 </div><br>
 
 
-            </div>
+            </div> -->
+
+            <?php 
+            $naopagos = 0;
+            foreach($mensalidades as $mensalidade):?>
+            <?php if($mensalidade['status_pagamento'] != 'Pago'): $naopagos++;?>
+                <div class="content-thing" id="closedopen<?=$mensalidade['id']?>">
+                    <div class="flexcon">
+                        <div class="image">
+                            <img src="IMG/warning.png" alt="" class="imagecnfg">
+                        </div>
+                        <div class="infor">
+                            <h3>Mensalidade em aberto</h3><br>
+                            <p>Vencimento do plano: <?php $date = new DateTime($mensalidade['data_vencimento']); echo $date->format('d/m/Y');?></p>
+                            <p>Código: 12312</p>
+                        </div>
+                        <div class="prec">
+                            <p>R$<?=number_format($mensalidade['valor_cobrado'], 2, ',', '.')?></p>
+                        </div>
+                    </div><br>
+
+                    <hr class="line"><br>
+
+                    <button class="dropbtn" onclick="toggleDetails('open<?=$mensalidade['id']?>')">
+                        <i class="fa-solid fa-caret-down"></i>
+                        <p>Realizar pagamento</p>
+                    </button>
+                </div>
+                
+                <div class="content-thing full" id="fullopen<?=$mensalidade['id']?>" style="display:none">
+                    <div class="contentfull">
+                        <button class="dropbtn" onclick="toggleDetails('open<?=$mensalidade['id']?>')">
+                            <i class="fa-solid fa-caret-up" style="font-size:2em; height:0;"></i>
+                        </button>
+                        <div class="image">
+                            <img src="IMG/warning.png" alt="" class="imagecnfg2">
+                        </div>
+                        <div class="infor2">
+                            <h3>Valor a pagar</h3>
+                        </div>
+                        <div class="prec2">
+                            <p>R$<?=number_format($mensalidade['valor_cobrado'], 2, ',', '.')?></p>
+                        </div><br>
+
+                        <div class="sobrepg">
+                            <h4>Sobre o pagamento</h4><br>
+                            <div class="sobreflex">
+
+                                <div class="topic">
+                                    <p>Data do vencimento do plano</p>
+                                    <p>Horário</p>
+                                </div>
+
+                                <div class="topicansw">
+                                    <p><?php $date = new DateTime($mensalidade['data_vencimento']); echo $date->format('d/m/Y');?></p>
+                                    <p>23:59h</p>
+                                </div>
+
+                            </div>
+                        </div><br>
+
+                        <hr class="line"><br>
+
+                        <div class="sobrepg">
+                            <h4>Quem Recebera</h4><br>
+                            <div class="sobreflex">
+
+                                <div class="topic">
+                                    <p>Nome</p>
+
+                                </div>
+
+                                <div class="topicansw">
+                                    <p>Move on Fitness cia</p>
+
+                                </div>
+
+                            </div>
+                        </div><br>
+                        <hr class="line"><br>
+
+                        <div class="sobrepgimg">
+                            <div class="textimgsb">
+                                <h4>QR code (só Clicar para pagar)</h4><br>
+                            </div>
+                            <button class="imgsb" onclick='pay(<?=$mensalidade["id"]?>)'>
+                                <img src="IMG/qrcode.png" alt="">
+                            </button>
+                        </div>
+
+                    </div><br>
+
+
+                </div>
+            <?php endif;?>
+            <?php endforeach;?>
+            <?php if($naopagos == 0):?>
+                <h1>Não tem Nada Aqui.</h1>    
+            <?php endif;?>
         </div>
         <!-- Conteúdo Pagos -->
         <div id="paid-content" class="content">
             <!-- HTML do pagamento fehchado -->
-            <div id="closedpaid1" style="none" class="content-thing">
+            <!-- <div id="closedpaid1" style="none" class="content-thing">
                 <div class="flexcon">
                     <div class="image">
                         <img src="IMG/check.png" alt="" class="imagecnfg">
@@ -359,9 +505,9 @@
                     <i class="fa-solid fa-caret-down"></i>
                     <p>Visualizar detalhes</p>
                 </button>
-            </div>
+            </div> -->
             <!-- HTML do pagamento aberto -->
-            <div id="fullpaid1" style="display:none;" class="content-thing full">
+            <!-- <div id="fullpaid1" style="display:none;" class="content-thing full">
                 <button class="dropbtn" onclick="toggleDetails('paid1')">
                     <i class="fa-solid fa-caret-up" style="font-size:2em; height:0;"></i>
                 </button>
@@ -434,10 +580,121 @@
 
                 <hr class="line"><br>
 
-            </div>
+            </div> -->
+            
+            <?php 
+            $pagos = 0;
+            foreach($mensalidades as $mensalidade):?>
+            <?php if($mensalidade['status_pagamento'] == 'Pago'): $pagos++;?>
+                <div id="closedpaid<?=$mensalidade['id']?>" style="none" class="content-thing">
+                    <div class="flexcon">
+                        <div class="image">
+                            <img src="IMG/check.png" alt="" class="imagecnfg">
+                        </div>
+                        <div class="infor">
+                            <h3>Mensalidade paga</h3><br>
+                            <p>Pagamento: <?php $date = new DateTime($mensalidade['data_pagamento']); echo $date->format('d/m/Y');?></p>
+                            <p>Código: 2222</p>
+                        </div>
+                        <div class="prec">
+                            <p>R$<?=number_format($mensalidade['valor_cobrado'], 2, ',', '.')?></p>
+                        </div>
+                    </div><br>
+
+                    <hr class="line"><br>
+
+                    <button class="dropbtn" onclick="toggleDetails('paid<?=$mensalidade['id']?>')">
+                        <i class="fa-solid fa-caret-down"></i>
+                        <p>Visualizar detalhes</p>
+                    </button>
+                </div>
+
+                <div id="fullpaid<?=$mensalidade['id']?>" style="display:none;" class="content-thing full">
+                    <button class="dropbtn" onclick="toggleDetails('paid<?=$mensalidade['id']?>')">
+                        <i class="fa-solid fa-caret-up" style="font-size:2em; height:0;"></i>
+                    </button>
+                    <div class="image">
+                        <img src="IMG/check.png" alt="" class="imagecnfg">
+                    </div>
+                    <div class="infor2">
+                        <h3>Valor pago</h3>
+                    </div>
+                    <div class="prec2">
+                        <p>R$<?=number_format($mensalidade['valor_cobrado'], 2, ',', '.')?></p>
+                    </div>
+                    <br>
+
+
+                    <div class="sobrepg">
+                        <h4>Sobre o pagamento</h4><br>
+                        <div class="sobreflex">
+
+                            <div class="topic">
+                                <p>Data do vencimento do plano</p>
+                                <p>Data do pagamento</p>
+                            </div>
+
+                            <div class="topicansw">
+                                <p><?php $date = new DateTime($mensalidade['data_vencimento']); echo $date->format('d/m/Y');?></p>
+                                <p><?php $date = new DateTime($mensalidade['data_pagamento']); echo $date->format('d/m/Y');?></p>
+                            </div>
+
+                        </div>
+                    </div><br>
+
+                    <hr class="line"><br>
+
+                    <div class="sobrepg">
+                        <h4>Quem Recebera</h4><br>
+                        <div class="sobreflex">
+
+                            <div class="topic">
+                                <p>Nome</p>
+
+                            </div>
+
+                            <div class="topicansw">
+                                <p>Move on Fitness cia</p>
+
+                            </div>
+
+                        </div>
+                    </div><br>
+
+                    <hr class="line"><br>
+
+                    <div class="sobrepg">
+                        <h4>Quem Pagou</h4><br>
+                        <div class="sobreflex">
+
+                            <div class="topic">
+                                <p>Nome</p>
+
+                            </div>
+
+                            <div class="topicansw">
+                                <p><?=$user['nome_completo']?></p>
+
+                            </div>
+
+                        </div>
+                    </div><br>
+
+                    <hr class="line"><br>
+
+                </div>
+            
+            <?php endif;?>
+            <?php endforeach;?>
+            <?php if($pagos == 0):?>
+                <h1>Não tem Nada Aqui.</h1>    
+            <?php endif;?>
         </div>
     </div>
 
+    <form action="#" method="POST" id="hiddenpayform">
+        <input type="hidden" name="payid" value="0" id="hiddenpayvalue">
+    </form>
     <br><br><br><br>
 
     <?php include __DIR__ . "/footer.php"; ?>
@@ -456,14 +713,14 @@
 
         toggle.addEventListener("click", () => {
             if (active === "open") {
-                slider.style.left = "50%";
+                slider.style.left = "50.3%";
                 open.classList.remove("active");
                 paid.classList.add("active");
                 openContent.classList.remove("active-content");
                 paidContent.classList.add("active-content");
                 active = "paid";
             } else {
-                slider.style.left = "0";
+                slider.style.left = "-0.3%";
                 paid.classList.remove("active");
                 open.classList.add("active");
                 paidContent.classList.remove("active-content");
@@ -483,6 +740,17 @@
                 closed.style.display = "none"
                 full.style.display = ""
             }
+        }
+        function pay(id, name = null) {
+            var input = document.getElementById('hiddenpayvalue');
+            var form = document.getElementById('hiddenpayform');
+
+            if(name != null){
+                input.name = name;
+            }
+
+            input.value = id;
+            form.submit();
         }
     </script>
 </body>

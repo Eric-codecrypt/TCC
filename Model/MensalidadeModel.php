@@ -27,14 +27,32 @@ class MensalidadeModel {
                     m.data_pagamento
                   FROM ' . $this->table . ' m
                   JOIN users u ON m.user_id = u.id
-                  ORDER BY m.data_vencimento DESC';
+                  ORDER BY m.id DESC, m.data_vencimento DESC';
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getAllMensalidadeporId($id) {
+        // A consulta SQL une as tabelas para pegar o nome do usuário
+        $query = 'SELECT 
+                    m.id,
+                    m.user_id,
+                    u.nome_completo,
+                    m.data_vencimento,
+                    m.valor_cobrado,
+                    m.status_pagamento,
+                    m.data_pagamento
+                  FROM ' . $this->table . ' m
+                  JOIN users u ON m.user_id = u.id
+                  WHERE m.id = '.$id;
 
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
     // Método para buscar apenas as mensalidades atrasadas
     public function getOverdueMensalidade() {
         // CURDATE() é uma função do SQL que retorna a data atual

@@ -27,6 +27,23 @@ $nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotope
 
 $cellddd = str_contains($user['celular'], '9')+1;
 $cell = substr($user['celular'],0,$cellddd) . "-" . substr($user['celular'],$cellddd,100);
+
+$plano_id = $user['plano_id'];
+if(isset($user['plano_id'])){
+    $stmt = $pdo->query("SELECT * FROM planos WHERE id = $plano_id");
+    $plano = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+$mensalidade_id = $user['mensalidade_id'];
+if(isset($user['mensalidade_id'])){
+    $stmt = $pdo->query("SELECT * FROM mensalidades WHERE id = $mensalidade_id");
+    $mensalidade = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $status_plano = 'Ativo';
+    if($mensalidade['status_pagamento'] == 'Pendente' && $mensalidade['status_pagamento'] == 'Atrasado'){
+        $status_plano = 'Inativo';
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -86,6 +103,14 @@ $cell = substr($user['celular'],0,$cellddd) . "-" . substr($user['celular'],$cel
                                 </div>
                             <?php endif;?>
                         </div>
+                        <div class="flex-row justify-between gap30 info-text-small">
+                            <?php if($plano_id != null OR $plano_id != ''):?>
+                                <div>
+                                    <p>Plano:</p>
+                                    <h3><?=$plano['nome_plano']?> (<?=$status_plano?>)</h3>
+                                </div>
+                            <?php endif;?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,9 +119,15 @@ $cell = substr($user['celular'],0,$cellddd) . "-" . substr($user['celular'],$cel
                     <a class="dia segunda user-view" href="EditUser.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Atualizar conta</p>
                     </a>
-                    <a class="dia terca user-view" href="plans.php">
-                        <img src="IMG/biceps.png" alt=""><p>Planos</p>
-                    </a>
+                    <?php if($plano_id != null OR $plano_id != ''):?>
+                        <a class="dia terca user-view" href="Pagamento.php">
+                            <img src="IMG/biceps.png" alt=""><p>Pagamento e Configurações do Plano</p>
+                        </a>
+                    <?php else:?>
+                        <a class="dia terca user-view" href="plans.php">
+                            <img src="IMG/biceps.png" alt=""><p>Planos</p>
+                        </a>
+                    <?php endif;?>
                 </div>
                 <div class="flex-row wrap">
                     <a class="dia quinta user-view" href="DeleteAccount.php">

@@ -1,10 +1,13 @@
 <?php
 // Inclui o Model correspondente
 require_once __DIR__.'/../Model/MensalidadeModel.php';
+require_once __DIR__.'/UserController.php';
 
 class MensalidadeController {
     // Propriedade para armazenar a instância do Model
+    
     private $MensalidadeModel;
+    private $UserController;
 
     /**
      * O construtor recebe a conexão PDO já pronta (Injeção de Dependência)
@@ -12,6 +15,7 @@ class MensalidadeController {
      */
     public function __construct($pdo) {
         $this->MensalidadeModel = new MensalidadeModel($pdo);
+        $this->UserController = new UserController($pdo);
     }
 
     /**
@@ -21,7 +25,9 @@ class MensalidadeController {
     public function listAll() {
         return $this->MensalidadeModel->getAllMensalidade();
     }
-
+    public function listbyID($id) {
+        return $this->MensalidadeModel->getAllMensalidadeporId($id);
+    }
     /**
      * Ação para listar as mensalidades atrasadas.
      * Repassa a chamada para o Model.
@@ -46,7 +52,9 @@ class MensalidadeController {
             exit();
         }
     }
-
+    public function payUnAdmin($MensalidadeId) {
+        $this->MensalidadeModel->markAsPaid($MensalidadeId);
+    }
     public function newMensalidade($id_user, $valor_cobrado){
         // Data atual
         $data_vencimento = new DateTime();
@@ -67,6 +75,16 @@ class MensalidadeController {
         $this->MensalidadeModel->updateDate($id, $data_vencimento->format("Y-m-d"));
     }
 
+    public function createNewAndAssignOldUser($id_mensalidade){
+        $old = $this->listbyID($id_mensalidade);
+        $userMensalidade = $this->UserController->findById($old['user_id']);
+        if($userMensalidade['mensalidade_id'] == $old['id'] && $userMensalidade["renovar_plano"] == "Sim"){
+            $this->newMensalidade($old['user_id'],$old['valor_cobrado']);
+            $newid = $this->listAll()[0]['id'];
+            $this->UserController->updateMensalidadeInfo($old['user_id'],$newid);
+        }
+    }
+
     public function updateAllMensalidades(){
         $all = $this->listAll();
         $data_agora = new DateTime();
@@ -85,10 +103,11 @@ class MensalidadeController {
                 // Não foi pago nunca 
                 if($data_pagamento == null){
                     $this->MensalidadeModel->markAsLate($mensalidade['id']);
+
                 }else{ // já foi pago uma vez antes
                     
                     if($mensalidade['status_pagamento'] == 'Pago'){
-                        $this->updateMensalidadeDate($mensalidade['id']);
+                        $this->createNewAndAssignOldUser($mensalidade['id']);
                     }
                 }
                 

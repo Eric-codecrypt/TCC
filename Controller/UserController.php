@@ -33,6 +33,13 @@ class UserController {
     public function updatePlanoInfo($id,$plan_id, $mensalidade_id){
         return $this->UserModel->updatePlanoInfo($id,$plan_id, $mensalidade_id); // Reutilizar método do modelo
     }
+    public function updateMensalidadeInfo($id, $mensalidade_id){
+        return $this->UserModel->updateMensalidadeInfo($id, $mensalidade_id); // Reutilizar método do modelo
+    }
+    public function updateRenovarPlano($id, $renovar){
+        var_dump($renovar);
+        return $this->UserModel->updateRenovarPlano($id, $renovar); // Reutilizar método do modelo
+    }
 
     public function delete($id) {
         return $this->UserModel->delete($id); // Reutilizar método do modelo
