@@ -22,6 +22,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Dashboard</title>
+    <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon">
 </head>
 <body>
 <h1>Painel de Controle</h1>

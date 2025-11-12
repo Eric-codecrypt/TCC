@@ -59,6 +59,7 @@ $user = $Controller->findById($user_id); // Buscando dados do usuário atual par
     <link rel="stylesheet" type="text/css" href="font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <title>Atualizar Conta</title>
+    <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon">
 
     <style>
         * {
