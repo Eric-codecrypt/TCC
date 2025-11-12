@@ -50,9 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
     }
 
+    
+    
+        
+
     header("Location: AdminUsuarios.php");
     exit;
 }
+$stmt = $pdo->query("SELECT * FROM planos");
+        $planos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -98,6 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                     <th>Email</th>
                     <th>Celular</th>
                     <th>CPF</th>
+                    <th>Plano</th>
                     <th>Tipo</th>
                     <th>Trainer</th>
                     <th>Criado em</th>
@@ -118,6 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                         <td><?=htmlspecialchars($u['email'])?></td>
                         <td><?=htmlspecialchars($u['celular'])?></td>
                         <td><?=htmlspecialchars($u['CPF'])?></td>
+                        <td><?php if(isset($u['plano_id'])){echo $planos[$u['plano_id']-1]['nome_plano'];};?></td>
                         <td>
                             <span class="user-role-<?=$u['tipo_de_user']?>"><?=htmlspecialchars($u['tipo_de_user'])?></span>
                         </td>

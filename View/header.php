@@ -21,14 +21,6 @@ if(!isset($_SESSION['user_id']) && isset($_COOKIE['user_id'])){
                     <li>
                         <p>|</p>
                     </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Dúvidas</a></li>
-                    <li>
-                        <p>|</p>
-                    </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Treinos</a></li>
-                    <li>
-                        <p>|</p>
-                    </li>
                     <li class="nav-item"> <a href="Pagamento.php" class="nav-link">Pagamento</a></li>
 
                 </ul>
@@ -63,8 +55,6 @@ if(!isset($_SESSION['user_id']) && isset($_COOKIE['user_id'])){
             <ul>
                 <li class="nav-item"><a href="landing.php" class="nav-link">HOME</a></li>
                 <li class="nav-item"><a href="plans.php" class="nav-link">Planos</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Dúvidas</a></li>
-                <li class="nav-item"><a href="" class="nav-link">Treinos</a></li>
                 <li class="nav-item"><a href="Pagamento.php" class="nav-link">Pagamento</a></li>
             </ul>
             

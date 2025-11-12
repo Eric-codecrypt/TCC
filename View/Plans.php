@@ -24,6 +24,18 @@ $imgs =[
     "diamond.png"
 ];
 
+if(isset($_POST['simsimdeleta'])){
+    $control = new UserController($pdo);
+    $user = $control->findById($_SESSION['user_id']);
+
+    if(isset($user['mensalidade_id'])){
+        $mensalidadeController = new MensalidadeController($pdo);
+        $mensalidadeController->cancelarPlano($user['mensalidade_id']);
+    }
+    
+    header('Location: UserView.php');
+}
+
 if(isset($_POST['plan_id'])){
     $sql = "SELECT * FROM planos WHERE id = ?";
     $stmt = $pdo->prepare($sql);
@@ -58,13 +70,14 @@ if(isset($_POST['plan_id'])){
     <title>Academia MoveOn - Planos e Pagamento</title>
     <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/basics.css">
         <link rel="stylesheet" type="text/css" href="font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 </head>
 <body>
 
     <?php include __DIR__."/header.php";?>    
-
+<?php if(isset($user['plano_id'])):?>
 <div class="container">
     <section id="plans-sect">
         <h2>Nossos Planos</h2>
@@ -86,7 +99,7 @@ if(isset($_POST['plan_id'])){
                             Adesão de R$ <?=number_format((float)$pl['valor_adesao'], 2, ',', '.')?>
                         </p>
                     </div>
-                <?php endforeach; ?>
+                <?php endforeach;?>
             <?php else: ?>
                 <div class="plan-card">
                     <h3>Nenhum plano disponível</h3>
@@ -101,12 +114,17 @@ if(isset($_POST['plan_id'])){
     <!-- essa section é escondida quando seleciona um plano -->
     <section id="warning-sect" class="hidden">
         <div class="success-message">
-            <h2>Você tem certeza?</h2>
-            <p>Tem certeza que quer assinar este plano? <br>
-            se você clicar em sim, voce pode paga-lo a partir da sua página de usuário (você pode cancelar o plano depois)</p>
+            <?php if(isset($_SESSION['user_id'])):?>
+                <h2>Você tem certeza?</h2>
+                <p>Tem certeza que quer assinar este plano? <br>
+                se você clicar em sim, voce pode paga-lo a partir da sua página de usuário (você pode cancelar o plano depois)</p>
 
-            <button class="btn" onclick="confirmAssinar()">Assinar plano</button>
-            <button class="btn" onclick="cancelAssinar()">Não assinar</button>
+                <button class="btn" onclick="confirmAssinar()">Assinar plano</button>
+                <button class="btn" onclick="cancelAssinar()">Não assinar</button>
+            <?php else:?>
+                <h2>Você não pode fazer isto.</h2>
+                <p>tens que fazer login para poder se assinar ao um plano.</p>
+            <?php endif;?>
         </div>
     </section>
     <!-- essa section é escondida como um "modal", ao clicar em "pagar agora" ele vai aparecer -->
@@ -123,7 +141,18 @@ if(isset($_POST['plan_id'])){
         <input type="hidden" name="plan_id" value="0" id="inputhiddenplan">
     </form>
 </div>
-
+<?php else:?>
+    <form action="" method="post">
+        <input type="hidden" name="simsimdeleta">
+        <br>
+        <p class="textalign-center">Para se inscrever em outros planos você tem que cancelar o seu plano de agora (Sem Reembolsos!)</p>
+        <br>
+        <div class="flex-row width-100po">
+            <button type="submit" style="margin:auto; background-color:#B20000; border-radius: 1em; color:white; padding:10px; font-size:2em; border:none; cursor:pointer;">Cancelar Plano</button>
+        </div>
+        <br>
+    </form>
+<?php endif;?>
     <?php include __DIR__."/footer.php";?>
 
 <script>

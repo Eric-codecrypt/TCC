@@ -20,27 +20,26 @@
     
     header("Location: Pagamento.php");
   }
-  
   if(!isset($_SESSION['user_id'])){
     header("Location: Landing.php");
   }
   if(isset($_SESSION['user_id']) && $_SESSION['user_id']){
     $Controller = new UserController($pdo);
-    $user_id = $_SESSION['user_id'];
-
+    
     if(isset($_POST['renovar_plano'])){
         $Controller->updateRenovarPlano($_SESSION['user_id'], $_POST['renovar_plano']);
 
-        // header("Location: Pagamento.php");
+        header("Location: Pagamento.php");
     }
 
 
     // Buscar dados do usuário
-    $user = $Controller->findById($user_id);
-    $nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotoperfil'], __DIR__);
+    $user = $Controller->findById($_SESSION["user_id"]);
     
+    $nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotoperfil'], __DIR__);
+
     if($user['plano_id'] == null){
-        header("Location: Landing.php");
+        // header("Location: Landing.php");
     }else{
         $stmt = $pdo->query("SELECT * FROM mensalidades WHERE user_id = $user[id]");
         $mensalidades = $stmt->fetchAll(PDO::FETCH_ASSOC);
