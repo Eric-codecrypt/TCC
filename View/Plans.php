@@ -5,6 +5,10 @@ include_once __DIR__ . '\..\Config.php';
 include_once __DIR__ . '\..\Controller\MensalidadeController.php';
 include_once __DIR__ . '\..\Controller\UserController.php';
 
+if(!isset($_SESSION['user_id'])){
+    header("Location: LoginAccount.php");
+}
+
 $planos = [];
 try {
     if ($pdo) {
@@ -77,7 +81,7 @@ if(isset($_POST['plan_id'])){
 <body>
 
     <?php include __DIR__."/header.php";?>    
-<?php if(isset($user['plano_id'])):?>
+<?php if(!isset($user['plano_id'])):?>
 <div class="container">
     <section id="plans-sect">
         <h2>Nossos Planos</h2>

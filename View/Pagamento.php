@@ -21,7 +21,7 @@
     header("Location: Pagamento.php");
   }
   if(!isset($_SESSION['user_id'])){
-    header("Location: Landing.php");
+    header("Location: LoginAccount.php");
   }
   if(isset($_SESSION['user_id']) && $_SESSION['user_id']){
     $Controller = new UserController($pdo);

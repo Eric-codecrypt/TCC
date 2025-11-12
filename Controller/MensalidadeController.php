@@ -8,6 +8,7 @@ class MensalidadeController {
     
     private $MensalidadeModel;
     private $UserController;
+    private $pdo;
 
     /**
      * O construtor recebe a conexão PDO já pronta (Injeção de Dependência)
@@ -16,6 +17,7 @@ class MensalidadeController {
     public function __construct($pdo) {
         $this->MensalidadeModel = new MensalidadeModel($pdo);
         $this->UserController = new UserController($pdo);
+        $this->pdo = $pdo;
     }
 
     /**
