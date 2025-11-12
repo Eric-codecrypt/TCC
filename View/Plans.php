@@ -115,11 +115,11 @@ foreach ($planos as $pl) {
 
             <div class="nav-list">
                 <ul>
-                    <li class="nav-item"> <a href="" class="nav-link">HOME</a></li>
+                    <li class="nav-item"> <a href="Landing.php" class="nav-link">HOME</a></li>
                     <li>
                         <p>|</p>
                     </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Planos</a></li>
+                    <li class="nav-item"> <a href="Plans.php" class="nav-link">Planos</a></li>
                     <li>
                         <p>|</p>
                     </li>
