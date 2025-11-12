@@ -128,11 +128,6 @@ foreach ($planos as $pl) {
                         <p>|</p>
                     </li>
                     <li class="nav-item"> <a href="" class="nav-link">Treinos</a></li>
-                    <li>
-                        <p>|</p>
-                    </li>
-                    <li class="nav-item"> <a href="" class="nav-link">Pagamento</a></li>
-
                 </ul>
             </div>
 
