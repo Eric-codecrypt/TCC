@@ -108,7 +108,7 @@ foreach ($planos as $pl) {
     <header>
         <nav class="nav-bar">
             <div class="logo">
-                <a href=""> 
+                <a href="Landing.php"> 
                     <?php include __DIR__."/IMG/Move-On-Logo-square.svg";?>
                 </a>    
             </div>
@@ -198,31 +198,37 @@ foreach ($planos as $pl) {
             <h3 id="selected-plan-title">Plano Selecionado: <span id="plan-name"></span></h3>
             <p id="plan-price" class="price"></p>
 
-            <form id="payment-form">
-                <div class="form-group">
-                    <label for="card-number">Número do Cartão</label>
-                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
-                </div>
+<form id="payment-form">
+    <div class="form-group">
+        <label for="card-number">Número do Cartão</label>
+        <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+    </div>
 
-                <div class="form-group">
-                    <label for="card-name">Nome no Cartão</label>
-                    <input type="text" id="card-name" placeholder="João Silva" required>
-                </div>
+    <div class="form-group">
+        <label for="card-name">Nome no Cartão</label>
+        <input type="text" id="card-name" placeholder="João Silva" required>
+    </div>
 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="card-expiry">Validade</label>
-                        <input type="text" id="card-expiry" placeholder="MM/AA" required>
-                    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <label for="card-expiry">Validade</label>
+            <input type="text" id="card-expiry" placeholder="MM/AA" required>
+        </div>
 
-                    <div class="form-group">
-                        <label for="card-cvv">CVV</label>
-                        <input type="text" id="card-cvv" placeholder="123" required>
-                    </div>
-                </div>
+        <div class="form-group">
+            <label for="card-cvv">CVV</label>
+            <input type="text" id="card-cvv" placeholder="123" required>
+        </div>
+    </div>
 
-                <button type="submit" class="btn">Pagar Agora</button>
-            </form>
+    <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+        <button type="submit" class="btn">Pagar Agora</button>
+        <a href="Plans.php">
+            <button type="button" class="btn">Voltar</button>
+        </a>
+    </div>
+</form>
+
         </div>
     </section>
     <!-- essa section é escondida como um "modal", ao clicar em "pagar agora" ele vai aparecer -->
