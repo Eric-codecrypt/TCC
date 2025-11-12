@@ -1,9 +1,9 @@
 <?php
 session_start();
 // Conexão com o banco de dados
-include __DIR__ . '\..\Config.php';
-include __DIR__ . '\..\Controller\MensalidadeController.php';
-include __DIR__ . '\..\Controller\UserController.php';
+include_once __DIR__ . '\..\Config.php';
+include_once __DIR__ . '\..\Controller\MensalidadeController.php';
+include_once __DIR__ . '\..\Controller\UserController.php';
 
 $planos = [];
 try {
@@ -34,8 +34,8 @@ if(isset($_POST['plan_id'])){
 
     $id_mensalidade = $mensalidadeController->newMensalidade($_SESSION['user_id'], $plano['valor_mensal']);
 
-    $userController = new UserController($pdo);
-    $userController->updatePlanoInfo($_SESSION['user_id'],$plano['id'],$id_mensalidade);
+    $control = new UserController($pdo);
+    $control->updatePlanoInfo($_SESSION['user_id'],$plano['id'],$id_mensalidade);
 
     header('Location: userview.php');
 }

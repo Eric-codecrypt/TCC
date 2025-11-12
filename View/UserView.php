@@ -39,7 +39,7 @@ if(isset($user['mensalidade_id'])){
     $mensalidade = $stmt->fetch(PDO::FETCH_ASSOC);
 
     $status_plano = 'Ativo';
-    if($mensalidade['status_pagamento'] == 'Pendente' && $mensalidade['status_pagamento'] == 'Atrasado'){
+    if($mensalidade['status_pagamento'] == 'Pendente' OR $mensalidade['status_pagamento'] == 'Atrasado'){
         $status_plano = 'Inativo';
     }
 }
@@ -136,7 +136,7 @@ if(isset($user['mensalidade_id'])){
                         <?php endif;?>
                     <?php endif;?>
                     <?php if($user['tipo_de_user'] == 'admin'):?>
-                        <a class="dia terca user-view" href="Pagamento.php">
+                        <a class="dia terca user-view" href="AdminUsuarios.php">
                             <img src="IMG/biceps.png" alt=""><p>Administração de usuários</p>
                         </a>
                     <?php endif;?>

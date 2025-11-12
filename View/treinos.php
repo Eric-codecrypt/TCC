@@ -127,7 +127,7 @@ $diasSemana = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo']
     <div class="modal-content">
       <span class="close">&times;</span>
       <h2 id="modal-title"></h2>
-      <img id="modal-img" src="" alt="">
+      <h4 id="modal-title-small"></h4>
       <p id="modal-desc"></p>
       <p id="modal-serie" class="serie"></p>
     </div>
@@ -141,7 +141,7 @@ $diasSemana = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo']
 
     const modal = document.getElementById("modal");
     const modalTitle = document.getElementById("modal-title");
-    const modalImg = document.getElementById("modal-img");
+    const modalTitletwo = document.getElementById("modal-title-small");
     const modalDesc = document.getElementById("modal-desc");
     const modalSerie = document.getElementById("modal-serie");
     const closeBtn = document.querySelector(".close");
@@ -149,6 +149,7 @@ $diasSemana = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo']
     document.querySelectorAll(".dia").forEach(diaEl => {
       diaEl.addEventListener("click", () => {
         const dia = diaEl.getAttribute("data-dia");
+        
         const exercicios = rotina[dia] || [];
 
         if (exercicios.length === 0) {
@@ -175,7 +176,7 @@ $diasSemana = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo']
         });
 
         modalTitle.textContent = dia;
-        modalImg.src = exercicios[0].thumb;
+        modalTitletwo.textContent = dia;
         modalDesc.innerHTML = htmlDesc;
         modalSerie.textContent = "";
         modal.style.display = "flex";

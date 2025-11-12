@@ -87,10 +87,6 @@ $exercicios = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach ($dias as $dia): ?>
                     <div class="dia-rotina" data-dia="<?=$dia?>">
                         <h2><?=$dia?></h2>
-                        <div class="flex-row justify-center">
-                            <label>Dia:</label>
-                            <input type="text" class="tipo-dia" placeholder="Ex: Braço, Perna, Descanso..." style="width:200px; appearance:none; border:none; border-bottom:1px solid black;"/>
-                        </div>
                         <div class="exercicios-do-dia"></div>
                     </div>
                 <?php endforeach; ?>
@@ -230,6 +226,7 @@ form.addEventListener("submit", e => {
         return;
     }
     inputJson.value = JSON.stringify(rotina);
+    console.log(JSON.stringify(inputJson.value));
     form.submit();
 });
 </script>

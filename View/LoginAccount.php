@@ -256,7 +256,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                     <div style="position: relative;">
                         <input type="email" id="email" name="email" style="width:100%"
-                            value="<?php echo htmlspecialchars($email); ?>" placeholder="Email ou nome de usuário"
+                            value="<?php echo htmlspecialchars($email); ?>" placeholder="Email"
                             required>
 
                         <i class="fa-regular fa-user" style=" font-size:20px;  color: #c5c5c5ff; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
