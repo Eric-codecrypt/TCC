@@ -95,9 +95,11 @@ $stmt = $pdo->query("SELECT * FROM planos");
     <div class="admin-container">
         <h1>Gerenciar Usuários</h1>
         <p style="text-align:center;">Apenas administradores podem alterar ou excluir usuários.</p>
-
+        <div class="flex-column align-center">
+            <input type="text" id="pesquisar" placeholder="Pesquise alguém!" class="width-80po maxwidth90" onchange="searchuser()">
+        </div>
         <table>
-            <thead>
+            <thead> 
                 <tr>
                     <th>Foto</th>
                     <th>Nome</th>
@@ -111,7 +113,7 @@ $stmt = $pdo->query("SELECT * FROM planos");
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="allusers">
                 <?php foreach ($usuarios as $u): ?>
                     <tr>
                         <td>
@@ -179,5 +181,25 @@ $stmt = $pdo->query("SELECT * FROM planos");
     </div>
 
     <?php include __DIR__ . "/footer.php"; ?>
+
+    <script>
+    function searchuser(){
+            allusers = document.getElementById('allusers').children;
+            value = document.getElementById('pesquisar').value;
+
+            console.log(allusers);
+
+            allusers = Array.from(allusers)
+
+            allusers.forEach(element => {
+                nome_inteiro = element.children[1].innerHTML
+                if(!nome_inteiro.toLowerCase().includes(value.toLowerCase())){
+                    element.style = 'display:none';
+                }else{
+                    element.style = '';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
