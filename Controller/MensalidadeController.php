@@ -89,10 +89,11 @@ class MensalidadeController {
 
     public function cancelarPlano($mensalidade_id){
         $mensalidade = $this->MensalidadeModel->getAllMensalidadeporId($mensalidade_id);
-        $mensalidade['user_id'];
+        $id_user = $mensalidade['user_id'];
         
-        $this->UserController->updatePlanoInfo($mensalidade['user_id'], NULL, NULL);
-        $sql = "DELETE FROM mensalidade WHERE user_id = $mensalidade_id";
+        $this->UserController->updatePlanoInfo($id_user, NULL, NULL);
+        $sql = "DELETE FROM mensalidades WHERE id = $mensalidade_id";
+        var_dump($mensalidade);
         $this->pdo->prepare($sql)->execute();
 
     }

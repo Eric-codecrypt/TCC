@@ -34,6 +34,7 @@ if(isset($_POST['simsimdeleta'])){
 
     if(isset($user['mensalidade_id'])){
         $mensalidadeController = new MensalidadeController($pdo);
+        
         $mensalidadeController->cancelarPlano($user['mensalidade_id']);
     }
     

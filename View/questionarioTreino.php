@@ -7,6 +7,20 @@ if(!isset($_SESSION['user_id'])){
     header("Location: landing.php");
 }
 
+if (session_status() === PHP_SESSION_NONE){
+    session_start();
+  }
+
+  include_once '../Controller/UserController.php';
+  include_once '../Config.php';
+  if(isset($_SESSION['user_id']) && $_SESSION['user_id']){    
+    $Controller = new UserController($pdo);
+    $user_id = $_SESSION['user_id'];
+
+    // Buscar dados do usuário
+    $user = $Controller->findById($user_id);
+    $nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotoperfil'], __DIR__);
+  }
 
 if(!empty($_POST)){
     $cell = $_POST['cell'] ?? '';
@@ -70,6 +84,8 @@ if(!empty($_POST)){
 
     $Controller = new UserController($pdo);
     $Controller->updatePersonalInfo($_SESSION['user_id'],$cpf,$cell,$paragrafo);
+
+    header("Location: UserView.php");
 }
 
 ?>
@@ -78,7 +94,7 @@ if(!empty($_POST)){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academia MoveOn - Planos e Pagamento</title>
+    <title>Academia MoveOn - Questionário de Treino</title>
     <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" type="text/css" href="font-awesome/css/all.min.css" />

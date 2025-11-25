@@ -155,9 +155,9 @@ if(isset($user['mensalidade_id'])){
                             <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Criar Rotinas para clientes</p>
                         </a>
                     <?php endif;?>
-                    <?php if($user['rotina_treinamento'] != null):?>
+                    <?php if($user['rotina_treinamento'] != null && $status_plano == "Ativo"):?>
                         <a class="dia terca user-view" href="treinos.php">
-                            <img src="IMG/biceps.png" alt=""><p>ver rotina de treino</p>
+                            <img src="IMG/biceps.png" alt=""><p>Ver rotina de treino</p>
                         </a>
                     <?php endif;?>
 
@@ -170,6 +170,18 @@ if(isset($user['mensalidade_id'])){
                             <?=$user['info_treinamento'];?>
                         </p>
                     </div>
+                <?php elseif($user['tipo_de_user'] == 'cliente' && $user['mensalidade_id'] != NULL && $status_plano == "Ativo"):?>
+                    <section id="warning-sect" style="z-index:10">
+                        <div class="success-message">
+                                            <h2>Preencha esse questionário</h2>
+                                <p style="text-align: justify;">Olá! Seja bem vindo(a) a Move On Fitness, esperamos que você goste de nossos serviços.
+                                para continuar, você terá que preencher um formulário simples que envolve seus objetivos com os exercícios, 
+                                depois disso, um trainer será designado a você e fará uma rotina de treinos personalizada para você.</p>
+
+
+                                <a href="questionarioTreino.php" style="color:white; text-decoration: none;"><button class="btn">Responder Formulário</button></a>
+                        </div>
+                    </section>
                 <?php endif;?>
                 </div>
             </div>
