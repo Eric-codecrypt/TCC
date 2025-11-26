@@ -121,4 +121,33 @@ class UserModel
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$nome_arquivo_fotoperfil,$id_user]);
     }
+
+    // Cria um usuário a partir de dados do Google ou retorna o existente
+    public function createOrGetFromGoogle($name, $email)
+    {
+        // 1) Tenta localizar pelo e-mail
+        $sql = "SELECT * FROM users WHERE email = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            return $user;
+        }
+
+        // 2) Não existe: cria com nome e email; gera senha aleatória (hash)
+        $generatedPassword = bin2hex(random_bytes(16));
+        $hashed = password_hash($generatedPassword, PASSWORD_DEFAULT);
+
+        // Nome fallback: parte antes do @ se name vier vazio
+        $nome = $name ?: (strpos($email, '@') !== false ? substr($email, 0, strpos($email, '@')) : $email);
+
+        $sql = "INSERT INTO users (nome_completo, email, password) VALUES (?, ?, ?)";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$nome, $email, $hashed]);
+
+        // 3) Retorna o usuário recém-criado
+        $id = $this->pdo->lastInsertId();
+        return $this->findById($id);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../Config.php';
+// Captura o PDO retornado por Config.php
+$pdo = require __DIR__ . '/../Config.php';
 require_once __DIR__ . '/../Controller/UserController.php';
 
 $Controller = new UserController($pdo);
@@ -123,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         .fb-login-btn {
             background-color: #e6e2e2;
             width: 300px;
-            border: 2px 2px solid white;
+            border: 2px solid white;
             border-radius: 30px;
             padding: 10px;
             color: #fff;
@@ -139,6 +140,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         .fb-login-btn:hover {
             background-color: #334d84;
+        }
+
+        /* Botão de Login com Google */
+        .google-login-btn {
+            background-color: #ffffff;
+            color: #3c4043;
+            border: 1px solid #dadce0;
+            padding: 10px 16px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .google-login-btn:hover {
+            background-color: #f7f8f8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
 
         .signup-text {
@@ -284,7 +308,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <p>Lembrar minha senha</p>
                         </div>
                         <img style="width: 100%;" src="img/or.png" alt="">
-                        <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
+                        <div class="goog2">
+                            <a href="GoogleLogin.php" class="google-login-btn" title="Entrar com Google">
+                                <img src="img/goog.png" class="goog" alt="Google logo" />
+                                <span>Entrar com Google</span>
+                            </a>
+                        </div>
                     </div>
                     <button type="submit" class="login-btn">Login</button>
                 </form>

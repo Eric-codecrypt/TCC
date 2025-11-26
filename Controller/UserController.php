@@ -61,4 +61,9 @@ class UserController {
     public function updateFotoPerfil($id_user,$nome_arquivo_fotoperfil){
         return $this->UserModel->updateFotoPerfil($id_user,$nome_arquivo_fotoperfil);
     }
+
+    // Criação/obtenção de usuário vindo do Google OAuth
+    public function createOrGetFromGoogle($name, $email) {
+        return $this->UserModel->createOrGetFromGoogle($name, $email);
+    }
 }
