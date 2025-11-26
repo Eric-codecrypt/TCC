@@ -9,9 +9,18 @@ if (empty($googleClientId) || empty($googleClientSecret) || empty($googleRedirec
     exit;
 }
 
+// Ação opcional do fluxo (ex.: reautenticação para exclusão da conta)
+$action = isset($_GET['action']) ? trim($_GET['action']) : '';
+if ($action) {
+    $_SESSION['oauth_action'] = $action;
+}
+
 // Gera e armazena o parâmetro state para proteção CSRF
 $state = bin2hex(random_bytes(16));
 $_SESSION['oauth2state'] = $state;
+
+// Prompt diferente para reautenticação: pedir escolha de conta e consentimento
+$prompt = ($action === 'reauth_delete') ? 'select_account consent' : 'select_account';
 
 $params = [
     'client_id' => $googleClientId,
@@ -20,7 +29,7 @@ $params = [
     'scope' => 'openid email profile',
     'state' => $state,
     'access_type' => 'offline',
-    'prompt' => 'select_account',
+    'prompt' => $prompt,
 ];
 
 $authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' . http_build_query($params);

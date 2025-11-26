@@ -1,8 +1,9 @@
 <?php
-include_once __DIR__ . '/../Controller/UserController.php';
-include_once __DIR__ . '/../config.php';
-
 session_start();
+
+// Inicializa PDO corretamente e carrega controller
+$pdo = require __DIR__ . '/../Config.php';
+require_once __DIR__ . '/../Controller/UserController.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: LoginAccount.php");
@@ -13,17 +14,17 @@ $Controller = new UserController($pdo);
 $user_id = $_SESSION['user_id'];
 $message = "";
 
+// Exclusão via senha local (para quem não usa a opção de reautenticação Google)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
 
-    // Buscar dados do usuário no banco
-    $user = $Controller->findById($user_id); // Esse método precisa existir no seu UserController
+    $user = $Controller->findById($user_id);
 
-    if ($user && password_verify($password, $user['password'])) {
+    if ($user && !empty($user['password']) && password_verify($password, $user['password'])) {
         $deleted = $Controller->delete($user_id);
         if ($deleted) {
             session_destroy();
-            header("Location: index.php?msg=account_deleted");
+            header("Location: ../index.php?msg=account_deleted");
             exit;
         } else {
             $message = "Erro ao excluir a conta. Tente novamente.";
@@ -32,6 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Senha incorreta. Conta não excluída.";
     }
 }
+
+// Mensagem de erro vinda por GET (ex.: erro na reautenticação com Google)
+if (isset($_GET['error']) && $_GET['error'] !== '') {
+    $message = $_GET['error'];
+}
+
+// Mapeia para a variável usada no HTML
+$error_message = $message;
 ?>
 
 <!DOCTYPE html>
@@ -131,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .fb-account-btn {
             background-color: #e6e2e2;
             width: 300px;
-            border: 2px 2px solid white;
+            border: 2px solid white;
             border-radius: 30px;
             padding: 10px;
             color: #fff;
@@ -279,7 +288,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <button type="submit" class="account-btn">Excluir</button>
                 </form>
-                <p class="signup-text">Voltar para o <a href="CreateAccount.php">perfil</a></p>
+                <div style="display:flex;justify-content:center;margin-top:10px;">
+                    <a href="GoogleLogin.php?action=reauth_delete" class="fb-account-btn" title="Confirmar com Google">
+                        <i class="fa-brands fa-google" style="color:#db4437; margin-right:8px;"></i>
+                        Confirmar com Google
+                    </a>
+                </div>
+                <p class="signup-text">Voltar para o <a href="UserView.php">perfil</a></p>
             </div>
         </div>
     </div>
