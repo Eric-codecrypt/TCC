@@ -101,7 +101,7 @@ $stmt = $pdo->query("SELECT * FROM planos");
         <table>
             <thead> 
                 <tr>
-                    <th>Foto</th>
+                    <th>Página do User</th>
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Celular</th>
@@ -118,8 +118,8 @@ $stmt = $pdo->query("SELECT * FROM planos");
                     <?php if(($user['tipo_de_user'] == 'admin') OR (
                     $user['id'] && $u['trainer_id'] == $user['id']
                     )):?>
-                    <tr style="cursor: pointer;" onclick="window.location.href='<?php if($user['tipo_de_user'] == 'trainer'){echo'UserView.php?viewastrainer='.$u['id'];}else{echo'UserView.php?viewadmin='.$u['id'];}?>'">
-                        <td>
+                    <tr>
+                        <td style="cursor: pointer;" onclick="window.location.href='<?php if($user['tipo_de_user'] == 'trainer'){echo'UserView.php?viewastrainer='.$u['id'];}else{echo'UserView.php?viewadmin='.$u['id'];}?>'">
                             <?php if (!empty($u['nome_arquivo_fotoperfil']) && file_exists(__DIR__.'/IMG/pfps/'.$u['nome_arquivo_fotoperfil'])): ?>
                                 <img src="IMG/pfps/<?=$u['nome_arquivo_fotoperfil']?>" class="foto" alt="foto">
                             <?php else: ?>

@@ -219,7 +219,7 @@ $nome_arquivo_fotoperfiluser = $Controller->getFotoPerfil($user_view['nome_arqui
                             <?=$user_view['info_treinamento'];?>
                         </p>
                     </div>
-                <?php elseif($user_view['tipo_de_user'] == 'cliente' && $user_view['mensalidade_id'] != NULL && $status_plano == "Ativo"):?>
+                <?php elseif(($user_view['tipo_de_user'] == 'cliente' && $user_view['mensalidade_id'] != NULL && $status_plano == "Ativo") && $user_id == $user_viewid):?>
                     <section id="warning-sect" style="z-index:10">
                         <div class="success-message">
                                             <h2>Preencha esse questionário</h2>
