@@ -45,7 +45,11 @@ class UserModel
         $sql = "SELECT * FROM users WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($result == false){
+            echo "<script>window.alert('Parece que sua conta foi deletada, entre em contato conosco para saber o motivo.'); window.location.href = 'LeaveAccount.php'</script>";
+        }
+        return $result;
     }
 
     public function update($id, $nome_completo, $email, $hashedPassword = null)
@@ -142,7 +146,7 @@ class UserModel
         // Nome fallback: parte antes do @ se name vier vazio
         $nome = $name ?: (strpos($email, '@') !== false ? substr($email, 0, strpos($email, '@')) : $email);
 
-        $sql = "INSERT INTO users (nome_completo, email, password) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO users (nome_completo, email, password, google) VALUES (?, ?, ?, 'Sim')";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$nome, $email, $hashed]);
 

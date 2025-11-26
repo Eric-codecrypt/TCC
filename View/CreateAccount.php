@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
             if ($registered) {
-                header("Location: LoginAccount.php?success=1"); // Redireciona após sucesso
+                // header("Location: LoginAccount.php?success=1"); // Redireciona após sucesso
                 exit;
             } else {
                 array_push($errors, "Erro ao registrar o usuário. O e-mail ou usuário pode já estar cadastrados.");
@@ -229,6 +229,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             justify-content: center;
         }
+        /* Botão de Login com Google */
+        .google-login-btn {
+            background-color: #ffffff;
+            color: #3c4043;
+            border: 1px solid #dadce0;
+            padding: 10px 16px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .google-login-btn:hover {
+            background-color: #f7f8f8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
     </style>
     <div class="main half">
         <div class="login-container">
@@ -264,7 +287,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endforeach;?>
                     <?php endif;?>
                     <img src="img/or.png" alt="">
-                    <div class="goog2"><img src="img/goog.png" class="goog" alt=""></div>
+                    <br>
+                    <div class="goog2">
+                            <a href="GoogleLogin.php" class="google-login-btn" title="Entrar com Google">
+                                <img src="img/goog.png" class="goog" alt="Google logo" />
+                                <span>Fazer conta com Google</span>
+                            </a>
+                        </div>
+                        <br>
                     <button type="submit" class="login-btn">Cadastrar</button>
                 </form>
                 <p class="signup-text"><a href="LoginAccount.php">Voltar para o login </a></p>

@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 $Controller = new UserController($pdo);
 $user_id = $_SESSION['user_id'];
 $message = "";
+    $user = $Controller->findById($user_id);
 
 // Exclusão via senha local (para quem não usa a opção de reautenticação Google)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -52,7 +53,6 @@ $error_message = $message;
     <title>Excluir Conta</title>
     <link rel="shortcut icon" href="IMG/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/carousel.css">
     <link rel="stylesheet" type="text/css" href="font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
     <style>
@@ -253,6 +253,30 @@ $error_message = $message;
         .password-container {
             position: relative;
         }
+
+        /* Botão de Login com Google */
+        .google-login-btn {
+            background-color: #ffffff;
+            color: #3c4043;
+            border: 1px solid #dadce0;
+            padding: 10px 16px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .google-login-btn:hover {
+            background-color: #f7f8f8;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        }
+
     </style>
 </head>
 
@@ -261,6 +285,8 @@ $error_message = $message;
     <div class="containexcl"><br><br><br>
         <div class="login-box">
                 <h1>Excluir conta</h1>
+            
+                <?php if($user['google'] == 'Não'):?>    
                 <h2 style="font-weight:200">Para excluir sua conta, confirme sua senha. Esta ação é irreversível.</h2>
              
                 <?php if (!empty($error_message)): ?>
@@ -288,13 +314,14 @@ $error_message = $message;
 
                     <button type="submit" class="account-btn">Excluir</button>
                 </form>
-                <div style="display:flex;justify-content:center;margin-top:10px;">
-                    <a href="GoogleLogin.php?action=reauth_delete" class="fb-account-btn" title="Confirmar com Google">
-                        <i class="fa-brands fa-google" style="color:#db4437; margin-right:8px;"></i>
-                        Confirmar com Google
-                    </a>
-                </div>
-                <p class="signup-text">Voltar para o <a href="UserView.php">perfil</a></p>
+                <?php else:?>
+                <h2 style="font-weight:200">Para excluir sua conta, autentifique com sua conta do Google. Esta ação é irreversível.</h2>
+                <a href="GoogleLogin.php?action=reauth_delete" class="google-login-btn" title="Confirmar com Google">
+                    <img src="img/goog.png" class="goog" alt="Google logo" />
+                    <span>Confirmar com Google</span>
+                </a>
+                <?php endif;?>
+                <p class="signup-text"><a href="UserView.php">Voltar para o perfil</a></p>
             </div>
         </div>
     </div>
