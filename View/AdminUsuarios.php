@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 // 🔒 Busca usuário logado
 $Controller = new UserController($pdo);
 $user = $Controller->findById($_SESSION['user_id']);
-if (!$user || $user['tipo_de_user'] !== 'admin') {
+if (!$user OR !($user['tipo_de_user'] == 'admin' OR $user['tipo_de_user'] == 'trainer')) {
     echo "<h2 style='text-align:center;margin-top:50px;'>Acesso negado. Somente administradores podem acessar esta página.</h2>";
     exit;
 }
@@ -107,15 +107,18 @@ $stmt = $pdo->query("SELECT * FROM planos");
                     <th>Celular</th>
                     <th>CPF</th>
                     <th>Plano</th>
-                    <th>Tipo</th>
-                    <th>Trainer</th>
+                    <?php if($user['tipo_de_user'] == 'admin'):?><th>Tipo</th><?php endif;?>
+                    <?php if($user['tipo_de_user'] == 'admin'):?><th>Trainer</th><?php endif;?>
                     <th>Criado em</th>
-                    <th>Ações</th>
+                    <?php if($user['tipo_de_user'] == 'admin'):?><th>Ações</th><?php endif;?>
                 </tr>
             </thead>
             <tbody id="allusers">
                 <?php foreach ($usuarios as $u): ?>
-                    <tr>
+                    <?php if(($user['tipo_de_user'] == 'admin') OR (
+                    $user['id'] && $u['trainer_id'] == $user['id']
+                    )):?>
+                    <tr style="cursor: pointer;" onclick="window.location.href='<?php if($user['tipo_de_user'] == 'trainer'){echo'UserView.php?viewastrainer='.$u['id'];}else{echo'UserView.php?viewadmin='.$u['id'];}?>'">
                         <td>
                             <?php if (!empty($u['nome_arquivo_fotoperfil']) && file_exists(__DIR__.'/IMG/pfps/'.$u['nome_arquivo_fotoperfil'])): ?>
                                 <img src="IMG/pfps/<?=$u['nome_arquivo_fotoperfil']?>" class="foto" alt="foto">
@@ -128,6 +131,7 @@ $stmt = $pdo->query("SELECT * FROM planos");
                         <td><?=htmlspecialchars($u['celular'])?></td>
                         <td><?=htmlspecialchars($u['CPF'])?></td>
                         <td><?php if(isset($u['plano_id'])){echo $planos[$u['plano_id']-1]['nome_plano'];};?></td>
+                        <?php if($user['tipo_de_user'] == 'admin'):?>
                         <td>
                             <span class="user-role-<?=$u['tipo_de_user']?>"><?=htmlspecialchars($u['tipo_de_user'])?></span>
                         </td>
@@ -149,32 +153,36 @@ $stmt = $pdo->query("SELECT * FROM planos");
                                 —
                             <?php endif; ?>
                         </td>
+                        <?php endif;?>
                         <td><?=date('d/m/Y H:i', strtotime($u['created_at']))?></td>
-                        <td>
-                            <?php if ($u['tipo_de_user'] !== 'admin'): ?>
-                                <form method="POST" style="display:inline;">
-                                    <input type="hidden" name="id" value="<?=$u['id']?>">
-                                    <input type="hidden" name="action" value="alterar_tipo">
-                                    <select name="novo_tipo">
-                                        <option value="cliente" <?=$u['tipo_de_user']=='cliente'?'selected':''?>>Cliente</option>
-                                        <option value="trainer" <?=$u['tipo_de_user']=='trainer'?'selected':''?>>Trainer</option>
-                                    </select>
-                                    <button type="submit" class="btn btn-edit" title="Alterar tipo">
-                                        <h2 class="fa fa-sync">📝</h2>
-                                    </button>
-                                </form>
-                                <form method="POST" style="display:inline;">
-                                    <input type="hidden" name="id" value="<?=$u['id']?>">
-                                    <input type="hidden" name="action" value="excluir">
-                                    <button type="submit" class="btn btn-del" onclick="return confirm('Tem certeza que deseja excluir este usuário?')" title="Excluir">
-                                        <h2 class="fa fa-trash">🗑</h2>
-                                    </button>
-                                </form>
-                            <?php else: ?>
-                                <span style="color:#555;">—</span>
-                            <?php endif; ?>
-                        </td>
+                        <?php if($user['tipo_de_user'] == 'admin'):?>
+                            <td>
+                                <?php if ($u['tipo_de_user'] !== 'admin'): ?>
+                                    <form method="POST" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?=$u['id']?>">
+                                        <input type="hidden" name="action" value="alterar_tipo">
+                                        <select name="novo_tipo">
+                                            <option value="cliente" <?=$u['tipo_de_user']=='cliente'?'selected':''?>>Cliente</option>
+                                            <option value="trainer" <?=$u['tipo_de_user']=='trainer'?'selected':''?>>Trainer</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-edit" title="Alterar tipo">
+                                            <h2 class="fa fa-sync">📝</h2>
+                                        </button>
+                                    </form>
+                                    <form method="POST" style="display:inline;">
+                                        <input type="hidden" name="id" value="<?=$u['id']?>">
+                                        <input type="hidden" name="action" value="excluir">
+                                        <button type="submit" class="btn btn-del" onclick="return confirm('Tem certeza que deseja excluir este usuário?')" title="Excluir">
+                                            <h2 class="fa fa-trash">🗑</h2>
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <span style="color:#555;">—</span>
+                                <?php endif; ?>
+                            </td>
+                        <?php endif?>
                     </tr>
+                    <?php endif?>
                 <?php endforeach; ?>
             </tbody>
         </table>

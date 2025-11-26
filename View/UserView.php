@@ -14,27 +14,72 @@ $user_id = $_SESSION['user_id'];
 
 // Buscar dados do usuário
 $user = $Controller->findById($user_id);
+$nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotoperfil'], __DIR__);
 
 if (!$user) {
     echo "Usuário não encontrado.";
     exit;
 }
 
-$nome_completo = $user['nome_completo'];
+// http://localhost/tcc/View/UserView.php?viewtrainer
+// http://localhost/tcc/View/UserView.php?viewastrainer=1
+// http://localhost/tcc/View/UserView.php?viewadmin=1
+
+$user_viewid = $_SESSION['user_id'];
+
+if(!empty($_GET)){
+    if(isset($_GET['viewtrainer'])){
+        if($user['trainer_id'] != NULL && $user['tipo_de_user'] == 'cliente'){
+            $user_viewid = $user['trainer_id'];
+        }else{
+            header('Location: UserView.php');
+        }
+    }
+
+    if(isset($_GET['viewastrainer'])){
+        $user_view = $Controller->findById($_GET['viewastrainer']);
+
+        if($user_view['trainer_id'] == $user['id'] && $user['tipo_de_user'] == 'trainer'){
+            $user_viewid = $_GET['viewastrainer'];
+        }else{
+            header('Location: UserView.php');
+        }
+    }
+
+    if(isset($_GET['viewadmin'])){
+        if($user['tipo_de_user'] == 'admin'){
+            $user_viewid = $_GET['viewadmin'];
+        }else{
+            header('Location: UserView.php');
+        }
+    }
+
+    if($user_viewid == $user_id){
+    header('Location: UserView.php');
+}
+}
+
+
+$user_view = $Controller->findById($user_viewid);
+
+if($user_view == false){
+    header('Location: UserView.php');
+}
+
+$nome_completo = $user_view['nome_completo'];
 $primeiro_nome = strtok($nome_completo, " ");
 
-$nome_arquivo_fotoperfil = $Controller->getFotoPerfil($user['nome_arquivo_fotoperfil'], __DIR__);
 
-$cellddd = str_contains($user['celular'], '9')+1;
-$cell = substr($user['celular'],0,$cellddd) . "-" . substr($user['celular'],$cellddd,100);
+$cellddd = str_contains($user_view['celular'], '9')+1;
+$cell = substr($user_view['celular'],0,$cellddd) . "-" . substr($user_view['celular'],$cellddd,100);
 
-$plano_id = $user['plano_id'];
-if(isset($user['plano_id'])){
+$plano_id = $user_view['plano_id'];
+if(isset($user_view['plano_id'])){
     $stmt = $pdo->query("SELECT * FROM planos WHERE id = $plano_id");
     $plano = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-$mensalidade_id = $user['mensalidade_id'];
-if(isset($user['mensalidade_id'])){
+$mensalidade_id = $user_view['mensalidade_id'];
+if(isset($user_view['mensalidade_id'])){
     $stmt = $pdo->query("SELECT * FROM mensalidades WHERE id = $mensalidade_id");
     $mensalidade = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -43,6 +88,9 @@ if(isset($user['mensalidade_id'])){
         $status_plano = 'Inativo';
     }
 }
+
+$nome_arquivo_fotoperfiluser = $Controller->getFotoPerfil($user_view['nome_arquivo_fotoperfil'], __DIR__);
+
 
 ?>
 <!DOCTYPE html>
@@ -63,18 +111,9 @@ if(isset($user['mensalidade_id'])){
     <?php include __DIR__ . "/header.php"; ?>
         <section class="user-sect flex-column gap30">
             <div class="flex-row gap10 flex-row flex-wrap-at-760 justify-center">
-                <!-- <form class="pfp user-view" method="POST" action="../user-actions/process_edit_pfp.php" enctype="multipart/form-data">
-                        <?php if (isset($user)): ?>
-                            <img src="IMG/pfps/<?= $nome_arquivo_fotoperfil ?>">
-                        <?php endif; ?>
-                        <label for="foto_perfil">
-                            <img src="IMG/mudarFotoPerfil.png" alt="">
-                        </label>
-                        <input type="file" name="foto_perfil" id="foto_perfil" onchange="this.form.submit()">
-                </form> -->
                 <div class="pfp user-view" >
-                        <?php if (isset($user)): ?>
-                            <img src="IMG/pfps/<?= $nome_arquivo_fotoperfil ?>">
+                        <?php if (isset($user_view)): ?>
+                            <img src="IMG/pfps/<?= $nome_arquivo_fotoperfiluser ?>">
                         <?php endif; ?>
                 </div>
                 <div class="grow-100">
@@ -84,19 +123,19 @@ if(isset($user['mensalidade_id'])){
                             <h3><?=$nome_completo?></h3>
                         </div>
                         <div class="flex-row justify-between gap30 info-text-small wrap">
-                            <?php if($user['CPF'] != null OR $user['CPF'] != ''):?>
+                            <?php if(($user_view['CPF'] != null OR $user_view['CPF'] != '') &&( $user_view['id'] == $user['id'] OR $user['tipo_de_user'] == 'admin')):?>
                                 <div>
                                     <p>CPF:</p>
-                                    <h3><?=$user['CPF']?></h3>
+                                    <h3><?=$user_view['CPF']?></h3>
                                 </div>
                             <?php endif;?>
                             <div>
                                 <p>Email:</p>
-                                <h3><?=$user['email']?></h3>
+                                <h3><?=$user_view['email']?></h3>
                             </div>
                         </div>
                         <div class="flex-row justify-between gap30 info-text-small">
-                            <?php if($user['celular'] != null OR $user['celular'] != ''):?>
+                            <?php if($user_view['celular'] != null OR $user_view['celular'] != ''):?>
                                 <div>
                                     <p>Celular:</p>
                                     <h3><?=$cell?></h3>
@@ -104,15 +143,15 @@ if(isset($user['mensalidade_id'])){
                             <?php endif;?>
                         </div>
                         <div class="flex-row justify-between gap30 info-text-small">
-                            <?php if($user['tipo_de_user'] == 'cliente' && ($plano_id != null OR $plano_id != '')):?>
+                            <?php if($user_view['tipo_de_user'] == 'cliente' && ($plano_id != null OR $plano_id != '')):?>
                                 <div>
                                     <p>Plano:</p>
                                     <h3><?=$plano['nome_plano']?> (<?=$status_plano?>)</h3>
                                 </div>
-                            <?php elseif($user['tipo_de_user'] == 'admin' OR $user['tipo_de_user'] == 'trainer'):?>
+                            <?php elseif($user['tipo_de_user'] != 'cliente'):?>
                                 <div>
                                     <p>Nível de Acesso:</p>
-                                    <h3><?=$user['tipo_de_user']?></h3>
+                                    <h3><?=$user_view['tipo_de_user']?></h3>
                                 </div>
                             <?php endif;?>
                         </div>
@@ -120,11 +159,12 @@ if(isset($user['mensalidade_id'])){
                 </div>
             </div>
             <div class="flex-column">
+                <?php if($user['id'] == $user_view['id']):?>
                 <div class="flex-row wrap">
                     <a class="dia segunda user-view" href="EditUser.php">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Atualizar conta</p>
                     </a>
-                    <?php if($user['tipo_de_user'] == 'cliente'):?>
+                    <?php if($user_view['tipo_de_user'] == 'cliente'):?>
                         <?php if($plano_id != null OR $plano_id != ''):?>
                             <a class="dia terca user-view" href="Pagamento.php">
                                 <img src="IMG/biceps.png" alt=""><p>Pagamento e Configurações do Plano</p>
@@ -135,7 +175,7 @@ if(isset($user['mensalidade_id'])){
                             </a>
                         <?php endif;?>
                     <?php endif;?>
-                    <?php if($user['tipo_de_user'] == 'admin'):?>
+                    <?php if($user_view['tipo_de_user'] == 'admin'):?>
                         <a class="dia terca user-view" href="AdminUsuarios.php">
                             <img src="IMG/biceps.png" alt=""><p>Administração de usuários</p>
                         </a>
@@ -150,27 +190,36 @@ if(isset($user['mensalidade_id'])){
                     </a>
                 </div>
                 <div class="flex-row wrap">
-                    <?php if($user['tipo_de_user'] == 'trainer'):?>
+                    <?php if($user_view['tipo_de_user'] == 'trainer'):?>
                         <a class="dia segunda user-view" href="CriarRotinaTreino.php">
                             <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Criar Rotinas para clientes</p>
                         </a>
                     <?php endif;?>
-                    <?php if($user['rotina_treinamento'] != null && $status_plano == "Ativo"):?>
+                    <?php if($user_view['rotina_treinamento'] != null && $status_plano == "Ativo"):?>
                         <a class="dia terca user-view" href="treinos.php">
                             <img src="IMG/biceps.png" alt=""><p>Ver rotina de treino</p>
                         </a>
                     <?php endif;?>
 
                 </div>
+                <div class="flex-row wrap">
+                <?php if($user_view['trainer_id'] != null && $status_plano == "Ativo"):?>
+                        <a class="dia segunda user-view" href="UserView.php?viewtrainer">
+                            <i class="fa-solid fa-circle-user"></i><p>Ver perfil do seu personal trainer</p>
+                        </a>
+                    <?php endif;?>
+                <?php endif;?>
+                </div>
+
                 <div class="width-100po flex-row">
-                <?php if($user['info_treinamento'] != NULL):?>
+                <?php if($user_view['info_treinamento'] != NULL):?>
                     <div class="dia sabado nohover grow-100 flex-column height-unset padding30 align-start">
                         <h1 class="width-100po">Informações do Formulário</h1>
                         <p class="textalign-left weight-low">
-                            <?=$user['info_treinamento'];?>
+                            <?=$user_view['info_treinamento'];?>
                         </p>
                     </div>
-                <?php elseif($user['tipo_de_user'] == 'cliente' && $user['mensalidade_id'] != NULL && $status_plano == "Ativo"):?>
+                <?php elseif($user_view['tipo_de_user'] == 'cliente' && $user_view['mensalidade_id'] != NULL && $status_plano == "Ativo"):?>
                     <section id="warning-sect" style="z-index:10">
                         <div class="success-message">
                                             <h2>Preencha esse questionário</h2>
