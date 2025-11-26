@@ -102,5 +102,5 @@ $_SESSION['user_id'] = $user['id'];
 $_SESSION['username'] = $user['username'] ?? ($name ?: $email);
 $_SESSION['role'] = $user['tipo_de_user'] ?? 'cliente';
 
-header('Location: Dashboard.php');
+header('Location: Landing.php');
 exit;
