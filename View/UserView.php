@@ -189,6 +189,7 @@ $nome_arquivo_fotoperfiluser = $Controller->getFotoPerfil($user_view['nome_arqui
                         <i class="fa-solid fa-arrow-right-from-bracket"></i><p>Sair da conta</p>
                     </a>
                 </div>
+                <?php if(($user_view['tipo_de_user'] == 'trainer') OR($user_view['rotina_treinamento'] != null && $status_plano == "Ativo")):?>
                 <div class="flex-row wrap">
                     <?php if($user_view['tipo_de_user'] == 'trainer'):?>
                         <a class="dia segunda user-view" href="CriarRotinaTreino.php">
@@ -202,12 +203,22 @@ $nome_arquivo_fotoperfiluser = $Controller->getFotoPerfil($user_view['nome_arqui
                     <?php endif;?>
 
                 </div>
+                <?php endif;?>
                 <div class="flex-row wrap">
                 <?php if($user_view['trainer_id'] != null && $status_plano == "Ativo"):?>
                         <a class="dia segunda user-view" href="UserView.php?viewtrainer">
                             <i class="fa-solid fa-circle-user"></i><p>Ver perfil do seu personal trainer</p>
                         </a>
                     <?php endif;?>
+                <?php endif;?>
+                <?php if($user_view['tipo_de_user'] == 'trainer'):?>
+                    <a class="dia terca user-view" href="Aulas.php">
+                        <i class="fa-solid fa-circle-user"></i><p>Agendar Aulas para clientes</p>
+                    </a>
+                <?php elseif($user_view['tipo_de_user'] == 'cliente' && $user_view['trainer_id'] != NULL ):?>
+                    <a class="dia terca user-view" href="Aulas.php">
+                        <img src="IMG/biceps.png" alt=""><p>Ver Aulas Agendadas por seu Trainer</p>
+                    </a>
                 <?php endif;?>
                 </div>
 

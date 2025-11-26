@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26/11/2025 às 18:29
+-- Tempo de geração: 26/11/2025 às 19:44
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `tcc`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `aulas`
+--
+
+CREATE TABLE `aulas` (
+  `id` int(11) NOT NULL,
+  `id_trainer` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `horario_comeco` varchar(10) NOT NULL,
+  `horario_termino` varchar(10) NOT NULL,
+  `descricao` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -175,6 +190,12 @@ INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `password
 --
 
 --
+-- Índices de tabela `aulas`
+--
+ALTER TABLE `aulas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `exercicios`
 --
 ALTER TABLE `exercicios`
@@ -206,6 +227,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT para tabelas despejadas
 --
+
+--
+-- AUTO_INCREMENT de tabela `aulas`
+--
+ALTER TABLE `aulas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `exercicios`
