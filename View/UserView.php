@@ -192,7 +192,7 @@ $nome_arquivo_fotoperfiluser = $Controller->getFotoPerfil($user_view['nome_arqui
                 <div class="flex-row wrap">
                     <?php if($user_view['tipo_de_user'] == 'trainer'):?>
                         <a class="dia segunda user-view" href="CriarRotinaTreino.php">
-                            <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Criar Rotinas para clientes</p>
+                            <i class="fa-solid fa-circle-user"></i><p>Criar Rotinas para clientes</p>
                         </a>
                     <?php endif;?>
                     <?php if($user_view['rotina_treinamento'] != null && $status_plano == "Ativo"):?>

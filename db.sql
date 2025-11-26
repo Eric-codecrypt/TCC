@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12/11/2025 às 10:42
+-- Tempo de geração: 26/11/2025 às 18:29
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -89,11 +89,14 @@ CREATE TABLE `mensalidades` (
 --
 
 INSERT INTO `mensalidades` (`id`, `user_id`, `data_vencimento`, `valor_cobrado`, `status_pagamento`, `data_pagamento`) VALUES
-(5, 0, '2025-11-01', 190.00, 'Pago', '2025-08-10'),
-(6, 6, '2025-11-03', 129.90, 'Atrasado', NULL),
-(7, 7, '2025-11-12', 89.90, 'Pago', '2025-09-12'),
-(8, 6, '2025-12-12', 129.90, 'Pendente', NULL),
-(12, 7, '2025-12-12', 89.90, 'Pago', '2025-11-12');
+(15, 7, '2025-12-12', 129.90, 'Pago', '2025-11-12'),
+(16, 8, '2025-12-12', 59.90, 'Pendente', NULL),
+(17, 6, '2025-12-12', 59.90, 'Pendente', NULL),
+(18, 6, '2025-12-12', 89.90, 'Pendente', NULL),
+(19, 6, '2025-12-12', 59.90, 'Pendente', NULL),
+(20, 9, '2025-12-12', 89.90, 'Pendente', NULL),
+(21, 9, '2025-12-12', 89.90, 'Pendente', NULL),
+(22, 10, '2025-12-12', 129.90, 'Pago', '2025-11-12');
 
 -- --------------------------------------------------------
 
@@ -133,6 +136,7 @@ CREATE TABLE `users` (
   `CPF` varchar(11) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `google` enum('Sim','Não') NOT NULL DEFAULT 'Não',
   `tipo_de_user` enum('trainer','cliente','admin') CHARACTER SET utf8 COLLATE utf8_unicode_520_nopad_ci DEFAULT 'cliente',
   `nome_arquivo_fotoperfil` varchar(255) DEFAULT NULL,
   `body_fat` decimal(4,2) DEFAULT NULL COMMENT 'apenas clientes',
@@ -154,13 +158,17 @@ CREATE TABLE `users` (
 -- Despejando dados para a tabela `users`
 --
 
-INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `password`, `created_at`, `tipo_de_user`, `nome_arquivo_fotoperfil`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `info_treinamento`, `rotina_treinamento`, `trainer_id`, `mensalidade_id`, `plano_id`, `renovar_plano`, `salario`, `endereco`, `CREF`) VALUES
-(0, 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-29 11:14:05', 'admin', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
-(1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'trainer', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
-(3, '', 'jonatas@docente.br', NULL, '', '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'admin', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
-(4, '', '2@GMAIL.COM', NULL, '', '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', '', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
-(6, 'Thiago Oliveira', 'Thiago@gmail.com', '18991021012', '44444444444', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'cliente', '6.png', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', '{\"Segunda\":[{\"id\":\"1\",\"nome\":\"Supino inclinado com barra\",\"thumb\":\"IMG/exercicios/thumb/supino_inclinado_com_barra.png\",\"series\":4,\"repeticoes\":12}],\"Terça\":[],\"Quarta\":[],\"Quinta\":[],\"Sexta\":[],\"Sábado\":[],\"Domingo\":[]}', 7, 5, 3, 'Sim', NULL, NULL, NULL),
-(7, 'Thigas Gabriel', 'Thiago@email.com', '18991021017', '10298302134', '$2y$10$gmwsZMY0DQul3b8d/nzbmua8YSiopwYroRSSWEoISUk5tlTVTrbJm', '2025-11-10 20:07:02', 'trainer', '7.png', NULL, NULL, NULL, NULL, NULL, '', NULL, 12, 2, 'Sim', NULL, NULL, NULL);
+INSERT INTO `users` (`id`, `nome_completo`, `email`, `celular`, `CPF`, `password`, `created_at`, `google`, `tipo_de_user`, `nome_arquivo_fotoperfil`, `body_fat`, `peso`, `ficha_id`, `anotacoes_trainer`, `info_treinamento`, `rotina_treinamento`, `trainer_id`, `mensalidade_id`, `plano_id`, `renovar_plano`, `salario`, `endereco`, `CREF`) VALUES
+(0, 'Admin da Silva', 'Silva@Admin.com', '12312312312312312312', '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-29 11:14:05', 'Não', 'admin', '0.png', 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
+(1, 'Trainer da Silva', 'Silva@Trainer.com', NULL, '', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-08-15 17:22:33', 'Não', 'trainer', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
+(3, '', 'jonatas@docente.br', NULL, '', '$2y$10$vj7b20L2UvHyROuqheh13u0uRfA72nGRT7K8KTa9/QFqpag6nEFTm', '2025-08-20 14:21:29', 'Não', 'admin', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
+(4, '', '2@GMAIL.COM', NULL, '', '$2y$10$og5VgnGy2jMsKW33mTSoJeiIlvFJgugW.4OtRtFQ6qcpdu021.3jO', '2025-08-27 16:54:26', 'Não', '', NULL, 0.00, 0.00, 0, '', NULL, '', 0, NULL, NULL, 'Sim', 0.00, '', 0),
+(6, 'Thiago Oliveira', 'Thiago@gmail.com', '18991021012', '44444444444', '$2y$10$Ik.ABbHfaMRkfOwDaIeQSOpdWjg68p5Vv7XCqR04.8nTnG7ZdEhP6', '2025-09-10 11:30:50', 'Não', 'cliente', '6.png', NULL, NULL, NULL, NULL, 'Idade: 19 anos<br>Altura: 1.95 m<br>Peso: 95 kg<br>Objetivos: Emagrecimento, Definição muscular<br>Disponibilidade: 6x por semana<br>Nunca treinou antes<br>Não possui lesão ou limitação física<br>Não usa medicamentos atualmente<br>', '{\"Segunda\":[{\"id\":\"1\",\"nome\":\"Supino inclinado com barra\",\"thumb\":\"IMG/exercicios/thumb/supino_inclinado_com_barra.png\",\"series\":1,\"repeticoes\":1}],\"Terça\":[],\"Quarta\":[],\"Quinta\":[],\"Sexta\":[],\"Sábado\":[],\"Domingo\":[]}', 7, 19, 1, 'Sim', NULL, NULL, NULL),
+(7, 'Thigas Gabriel', 'Thiago@email.com', '18991021017', '10298302134', '$2y$10$gmwsZMY0DQul3b8d/nzbmua8YSiopwYroRSSWEoISUk5tlTVTrbJm', '2025-11-10 20:07:02', 'Não', 'trainer', '7.png', NULL, NULL, NULL, NULL, NULL, '', NULL, 15, 3, 'Sim', NULL, NULL, NULL),
+(8, 'eric', 'eric@gmail.com', '', '', '$2y$10$89tO8cD4Ou91Nk/hAAB6W.2eeNu9TjMw4vm52fSYgBMI.KI/Q2Wa.', '2025-11-12 10:16:53', 'Não', 'cliente', '8.png', NULL, NULL, NULL, NULL, NULL, '{\"Segunda\":[{\"id\":\"1\",\"nome\":\"Supino inclinado com barra\",\"thumb\":\"IMG/exercicios/thumb/supino_inclinado_com_barra.png\",\"series\":2,\"repeticoes\":2}],\"Terça\":[],\"Quarta\":[],\"Quinta\":[],\"Sexta\":[],\"Sábado\":[],\"Domingo\":[]}', 7, 16, 1, 'Sim', NULL, NULL, NULL),
+(9, 'Jon', 'Jon@Jon.Jon', NULL, NULL, '$2y$10$LYW0HBZxQg35kz/hmd8Bo.5HdcwZRxfDZbmDBsOFYa5pO3UUaaPRa', '2025-11-12 12:47:20', 'Não', 'cliente', NULL, NULL, NULL, NULL, NULL, NULL, '', NULL, 21, 2, 'Sim', NULL, NULL, NULL),
+(10, 'Jonatas', 'Jon@jon.jon.jon', NULL, NULL, '$2y$10$/ShY7/XLD0RFF8tBPeVDPeqe0eSHGoRd0fYKynV4W3.8i9Tk.vis.', '2025-11-12 13:15:13', 'Não', 'cliente', NULL, NULL, NULL, NULL, NULL, NULL, '{\"Segunda\":[{\"id\":\"7\",\"nome\":\"Tríceps testa\",\"thumb\":\"IMG/exercicios/thumb/triceps_testa.png\",\"series\":4,\"repeticoes\":12}],\"Terça\":[],\"Quarta\":[],\"Quinta\":[],\"Sexta\":[],\"Sábado\":[],\"Domingo\":[]}', 7, 22, 3, 'Sim', NULL, NULL, NULL),
+(17, 'T1NT4', 'thiagogabriel.osil@gmail.com', NULL, NULL, '$2y$10$if8YXNnVX/aSeg6lo.ivNO7PkJ04MoMv0mMIYM.6gxpEjlP9Cf3P2', '2025-11-26 16:28:11', 'Sim', 'cliente', '17.jpg', NULL, NULL, NULL, NULL, NULL, '', NULL, NULL, NULL, 'Sim', NULL, NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -209,7 +217,7 @@ ALTER TABLE `exercicios`
 -- AUTO_INCREMENT de tabela `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de tabela `planos`
@@ -221,7 +229,7 @@ ALTER TABLE `planos`
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restrições para tabelas despejadas
@@ -231,14 +239,14 @@ ALTER TABLE `users`
 -- Restrições para tabelas `mensalidades`
 --
 ALTER TABLE `mensalidades`
-  ADD CONSTRAINT `mensalidades_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `mensalidades_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Restrições para tabelas `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `mensalidade_id` FOREIGN KEY (`mensalidade_id`) REFERENCES `mensalidades` (`id`),
-  ADD CONSTRAINT `plano_id` FOREIGN KEY (`plano_id`) REFERENCES `planos` (`id`);
+  ADD CONSTRAINT `mensalidade_id` FOREIGN KEY (`mensalidade_id`) REFERENCES `mensalidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `plano_id` FOREIGN KEY (`plano_id`) REFERENCES `planos` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
