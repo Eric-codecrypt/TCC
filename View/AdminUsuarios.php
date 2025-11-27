@@ -93,7 +93,11 @@ $stmt = $pdo->query("SELECT * FROM planos");
     <?php include __DIR__ . "/header.php"; ?>
 
     <div class="admin-container">
-        <h1>Gerenciar Usuários</h1>
+        <?php if($user['tipo_de_user'] == 'admin'):?>
+            <h1>Gerenciar Usuários</h1>
+        <?php else:?>
+            <h1>Ver Alunos</h1>
+        <?php endif;?>
         <p style="text-align:center;">Apenas administradores podem alterar ou excluir usuários.</p>
         <div class="flex-column align-center">
             <input type="text" id="pesquisar" placeholder="Pesquise alguém!" class="width-80po maxwidth90" onchange="searchuser()">

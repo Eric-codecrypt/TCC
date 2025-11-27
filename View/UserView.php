@@ -177,7 +177,11 @@ $nome_arquivo_fotoperfiluser = $Controller->getFotoPerfil($user_view['nome_arqui
                     <?php endif;?>
                     <?php if($user_view['tipo_de_user'] == 'admin'):?>
                         <a class="dia terca user-view" href="AdminUsuarios.php">
-                            <img src="IMG/biceps.png" alt=""><p>Administração de usuários</p>
+                            <i class="fa-solid fa-circle-user"></i><p>Administração de usuários</p>
+                        </a>
+                    <?php elseif($user_view['tipo_de_user'] == 'trainer'):?>
+                        <a class="dia terca user-view" href="AdminUsuarios.php">
+                            <i class="fa-solid fa-circle-user"></i><p>Ver Alunos</p>
                         </a>
                     <?php endif;?>
                 </div>

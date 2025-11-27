@@ -87,7 +87,7 @@ $cell = substr($user['celular'],0,$cellddd) . "-" . substr($user['celular'],$cel
                     <button class="dia segunda user-view" type="submit">
                         <i class="fa-solid fa-arrow-up-from-bracket"></i><p>Confirmar atualizações</p>
                     </button>
-                    <a class="dia terca user-view" href="plans.php">
+                    <a class="dia terca user-view" href="UserView.php">
                         <i class="fa-solid fa-arrow-right-from-bracket"></i><p>Voltar para a página de usuário</p>
                     </a>
             </div>
